@@ -1,0 +1,51 @@
+﻿@model Exchange.Core.Entities.ProductType
+@{
+    ViewBag.Title = "Product Type Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>New Product Type</strong>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Code)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Code)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Description)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="right">
+    <button id="btnSave" class="btn btn-large btn-success" type="submit">
+        Save</button>
+    <button id="btnCancel" class="btn btn-large btn-success" type="button">
+        Cancel</button>
+</div>
+}
+@Html.Hidden("Item", Url.Action("Item"))
+@Html.Hidden("New", Url.Action("New"))

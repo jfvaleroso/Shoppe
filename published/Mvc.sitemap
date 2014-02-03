@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="DASHBOARD" controller="Home" action="Index" >
+    <mvcSiteMapNode title="DASHBOARD" controller="Dashboard" action="Index"/>
+    <mvcSiteMapNode title="BUY" controller="Buy" action="Index"/>
+    <mvcSiteMapNode title="EXCHANGE UPDATE" controller="Exchange" action="Index"/>
+    <!--<mvcSiteMapNode title="HISTORY" controller="History" action="Index"/>-->
+    <mvcSiteMapNode title="CUSTOMERS" controller="Customer" action="Index"/>
+   
+    <mvcSiteMapNode title="REPORTS" controller="Admin/Home" action="Index">
+      <mvcSiteMapNode title="SALES REPORTS" controller="Sales" area="Report" action="Index"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="ADMIN" controller="Setting" area="Admin" action="Index">
+      <mvcSiteMapNode title="MAIN SETTINGS" controller="Setting" area="Admin" action="Index"/>
+      <mvcSiteMapNode title="MANAGE BRANCHES" controller="Store" area="Admin" action="Index"/>
+      <mvcSiteMapNode title="MANAGE EMPLOYEE" controller="Employee" area="Admin" action="Index"/>
+      <mvcSiteMapNode title="MANAGE PRODUCT TYPE" controller="ProductType" area="Admin" action="Index"/>
+      <mvcSiteMapNode title="MANAGE PRODUCTS" controller="Product" area="Admin" action="Index"/>
+      <mvcSiteMapNode title="LOGS" controller="ActivityLogs" area="Admin" action="Index"/>
+    </mvcSiteMapNode>
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

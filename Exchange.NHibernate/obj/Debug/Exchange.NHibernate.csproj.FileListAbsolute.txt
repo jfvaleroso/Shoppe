@@ -1,0 +1,13 @@
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\Exchange.NHibernate.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\Exchange.NHibernate.pdb
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\FluentNHibernate.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\Iesi.Collections.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\NHibernate.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\FluentNHibernate.xml
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\Iesi.Collections.xml
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\NHibernate.xml
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\obj\Debug\Exchange.NHibernate.csprojResolveAssemblyReference.cache
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\obj\Debug\Exchange.NHibernate.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\obj\Debug\Exchange.NHibernate.pdb
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\Exchange.Core.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.NHibernate\bin\Debug\Exchange.Core.pdb

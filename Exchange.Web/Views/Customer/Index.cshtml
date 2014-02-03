@@ -1,0 +1,104 @@
+﻿@model Exchange.Core.Entities.Customer
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#DataTable').jtable({
+            title: '',
+            paging: true,
+            pageSize: 17,
+            sorting: false,
+            gotoPageArea: 'none',
+            pageSizeChangeArea: false,
+            columnSelectable: false,
+
+            actions: {
+                listAction: '@Url.Action("CustomerListWithPaging")'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false
+                },
+                View: {
+                    title: '',
+                    width: '.03%',
+                    display: function (data) {
+                        var $img = '<a href=@Url.Action("Item")/' + data.record.Id + '><i class="glyphicon glyphicon-align-justify"></i></a>';
+                        return $img;
+                    }
+                },
+                LastName: {
+                    title: 'Name',
+                    display: function (data) {
+                        var $name = data.record.LastName + ", " + data.record.FirstName + " " + data.record.MiddleName ;
+                        return $name;
+                    }
+
+                },
+                CellphoneNo: {
+                    title: 'CellphoneNo',
+                    display: function (data) {
+                        var $name = '<span class="small-light">' + data.record.CellphoneNo + '</span>';
+                        return $name;
+                    }
+                },
+                Transaction: {
+                    title: 'Transaction History',
+                    display: function (data) {
+                        var $img = '<a href=@Url.Action("Item")/' + data.record.Id + '>transaction details...</a>';
+                        return $img;
+                    }
+                },
+            },
+
+            toolbar: {
+                items: [
+
+                    ]
+            }
+
+        });
+
+     
+
+    });
+   
+</script>
+@using (Html.BeginForm())
+{ 
+   
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-btn"></span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search here..." autocomplete="off"
+                    name="searchString" id="searchString">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit" id="btnSearch">
+                        Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    
+ @Html.Partial("General/_Alphabet")
+    
+   
+}
+<div class="table-wrapper">
+
+
+   
+
+    <div id="DataTable" class="small">
+    </div>
+</div>

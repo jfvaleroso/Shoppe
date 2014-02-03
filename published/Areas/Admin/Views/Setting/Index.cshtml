@@ -1,0 +1,44 @@
+﻿@model Exchange.Web.Models.SettingModel
+@{
+    ViewBag.Title = "General Setting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Default Settings</h3>
+    </div>
+    <div class="panel-body">
+        <fieldset>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CompanyName)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Owner)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Owner)
+            </div>
+        </fieldset>
+    </div>
+</div>
+<p>
+    <button id="btnModify" class="btn btn-large btn-primary" type="submit">
+        Modify</button>
+</p>
+@section Scripts {
+    <script type="text/jscript">
+        $("#btnModify").click(function (event) {
+            event.preventDefault();
+            $('#modal').modal('show');
+//            $('#modal').bind('hidden', function () {
+//                window.location = '@Url.Action("Modify")';
+//            }).modal('hide');
+
+        });
+    </script>
+}

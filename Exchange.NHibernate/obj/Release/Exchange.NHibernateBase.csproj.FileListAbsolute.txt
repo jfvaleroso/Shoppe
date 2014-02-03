@@ -1,0 +1,1 @@
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.NHibernate\obj\Release\Exchange.NHibernateBase.csprojResolveAssemblyReference.cache

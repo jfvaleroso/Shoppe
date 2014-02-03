@@ -1,0 +1,28 @@
+﻿@model Exchange.Web.Models.ProductModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index3</title>
+</head>
+<body>
+    <div>
+    <ul>
+         @foreach (var item in Model.ProductList)
+         {
+             <li>
+                 @item.Code.ToString()
+               </li>  
+         }
+         </ul>
+
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿@model Exchange.Web.Models.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login1</title>
+    @Styles.Render("~/Content/main")
+    @Styles.Render("~/Content/bootstrap/css")
+</head>
+<body>
+    <!-- MENU START -->
+    <div class="menu_container">
+    </div>
+    <!-- MENU END -->
+    <div id="body">
+        <div class="container">
+            <table width="100%" class="signup_table" style="margin-top:50px">
+                <tr>
+                    <td style="width: 50%">
+                        <div id="about">
+                            <img src="@Url.Content("~/Content/images/sms-text.jpg")" width="499px" />
+                            <div style="padding-left: 30px; color: #fff">
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width: 50%">
+                        <div class="signup_form">
+                            @using (Html.BeginForm(null, null, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin" }))
+                            {
+                          
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <h2 class="form-signin-heading">
+                                    Sign in</h2>
+                                <p class="notice">
+                                    This is a secured system.
+                                </p>
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "input-block-level", @placeholder = "username" })
+                                @Html.ValidationMessageFor(m => m.UserName)
+                                @Html.TextBoxFor(m => m.Password, new { @class = "input-block-level", @type = "password", @placeholder = "password" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                                <br />
+                                
+                               
+                                <button class="btn-submit" type="submit">
+                                    Sign in</button>
+                        
+                            }
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="border-top: 1px solid #ccc; width: 100%; margin-top: 50px; text-align: right">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

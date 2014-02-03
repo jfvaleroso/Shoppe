@@ -1,0 +1,115 @@
+﻿@model Exchange.Core.Entities.ProductType
+@{
+    ViewBag.Title = "Product Type Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#ProductTypeTable').jtable({
+            title: '',
+            paging: true,
+            pageSize: 15,
+            sorting: false,
+            gotoPageArea: 'none',
+            pageSizeChangeArea: false,
+            actions: {
+                listAction: '@Url.Action("ProductTypeListWithPaging")'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false
+                },
+                View: {
+                    title: '',
+                    width: '1.3%',
+                    display: function (data) {
+                        var $img = '<a href=@Url.Action("Manage")/' + data.record.Id + '><span class="glyphicon glyphicon-th-list"></span></a>';
+                        return $img;
+                    }
+                },
+                Code: {
+                    title: 'Code'
+
+                },
+                Name: {
+                    title: 'Name'
+
+                },
+                Description: {
+                    title: 'Description'
+                },
+                Active: {
+                    title: 'Active',
+                    width: '1.3%',
+                    display: function (data) {
+                        var $img;
+                        if (data.record.Active) {
+                            $img = '<img class="center" src="@Url.Content("~/Content/images/active.png")" />';
+                        }
+                        else {
+                            $img = '<img class="center" src="@Url.Content("~/Content/images/inactive.png")" />';
+                        }
+                        return $img;
+                    }
+                }
+            },
+
+            toolbar: {
+                items: [
+
+                    ]
+            }
+
+        });
+        //load table
+        $('#modal').modal('show').delay(100000);
+        $('#modal').bind('hidden', function () {
+            $('#ProductTypeTable').jtable('load');
+        }).modal('hide');
+        //with filtering
+
+        //Re-load records when user click 'load records' button.
+        $('#btnSearch').click(function (e) {
+            e.preventDefault();
+            var searhString = $('#searchString').val();
+            $('#ProductTypeTable').jtable('load', {
+                searchString: searhString
+            });
+        });
+
+        //Load all records when page is first shown
+        $('#btnSearch').click();
+
+    });
+   
+</script>
+@using (Html.BeginForm())
+{ 
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" id="btnNew">
+                        <strong>Create new</strong></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control"  placeholder="Search here..." autocomplete="off" name="searchString" id="searchString">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit" id="btnSearch">
+                        Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+<div class="table-wrapper">
+    <div id="ProductTypeTable">
+    </div>
+</div>
+
+@Html.Hidden("New", Url.Action("New"))

@@ -1,0 +1,78 @@
+﻿@model Exchange.Core.Entities.ProductType
+@{
+    ViewBag.Title = "Product Type Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>Product Type</strong></h3>
+
+            </div>
+            <div class="panel-body small">
+                Instructions here...
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-7">
+      
+        @Html.Partial("ModalTemplates/_Status")
+
+        <div id="transaction">
+            @using (Html.BeginForm())
+            {
+                       @Html.Partial("ModalTemplates/_Alert")
+
+                <div class="form-group">
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Code)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                        <p id="status" class="small">Verify if Code exists.</p>
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        <p class="small">Please indicate the product type name.</p>
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Description)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        <p class="small">Please indicate the product type description.</p>
+                    </div>
+                </div>
+
+
+                <div class="right">
+                    <button id="btnSave" class="btn btn-large btn-success" type="button">
+                        Save
+                    </button>
+                    <button id="btnCancel" class="btn btn-large btn-success" type="button">
+                        Cancel
+                    </button>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+
+@Html.Hidden("Item", Url.Action("Item"))
+@Html.Hidden("New", Url.Action("New"))
+@Html.Hidden("CheckAvailability", Url.Action("CheckAvailability"))  

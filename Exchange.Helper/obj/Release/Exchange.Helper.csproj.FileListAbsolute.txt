@@ -1,0 +1,5 @@
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\bin\Release\Exchange.Helper.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\bin\Release\Exchange.Helper.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\obj\Release\Exchange.Helper.csprojResolveAssemblyReference.cache
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\obj\Release\Exchange.Helper.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\obj\Release\Exchange.Helper.pdb

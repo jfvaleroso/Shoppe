@@ -1,0 +1,13 @@
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Helper\bin\Debug\Exchange.Helper.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Helper\bin\Debug\Exchange.Helper.pdb
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Helper\obj\Debug\Exchange.Helper.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Helper\obj\Debug\Exchange.Helper.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\bin\Debug\Exchange.Helper.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\bin\Debug\Exchange.Helper.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\obj\Debug\Exchange.Helper.csprojResolveAssemblyReference.cache
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\obj\Debug\Exchange.Helper.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Helper\obj\Debug\Exchange.Helper.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Helper\bin\Debug\Exchange.Helper.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Helper\bin\Debug\Exchange.Helper.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Helper\obj\Debug\Exchange.Helper.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Helper\obj\Debug\Exchange.Helper.pdb

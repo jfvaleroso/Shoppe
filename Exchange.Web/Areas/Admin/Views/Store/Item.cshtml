@@ -1,0 +1,86 @@
+﻿@model Exchange.Core.Entities.Store
+@{
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Store</h3>
+    </div>
+    <div class="panel-body">
+        <fieldset>
+            <legend>Store</legend>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Code)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Code)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Name)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Name)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Address)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Address)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.TelephoneNo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.TelephoneNo)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.PermitNo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.PermitNo)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.TINNo)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.TINNo)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Active)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Active)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CreatedBy)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DateCreated)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.ModifiedBy)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.ModifiedBy)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.DateModified)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DateModified)
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="right">
+    <input type="button" value="Back to the List" class="btn btn-large btn-success"  onclick="location.href='@Url.Action("Index")'" />
+</div>

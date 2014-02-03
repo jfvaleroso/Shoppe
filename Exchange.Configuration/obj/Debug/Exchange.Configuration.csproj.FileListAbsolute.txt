@@ -1,0 +1,13 @@
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Configuration\bin\Debug\Exchange.Configuration.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Configuration\bin\Debug\Exchange.Configuration.pdb
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Configuration\bin\Debug\Exchange.Configuration.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Configuration\bin\Debug\Exchange.Configuration.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.csprojResolveAssemblyReference.cache
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Configuration\bin\Debug\Exchange.Configuration.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Configuration\bin\Debug\Exchange.Configuration.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.pdb

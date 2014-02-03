@@ -1,0 +1,66 @@
+﻿@model Exchange.Core.Entities.ProductType
+@{
+    ViewBag.Title = "Product Type Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>Modify Product</strong>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Code)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Code)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Name)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Description)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Active)
+                        </div>
+                        <div class="editor-field">
+                            @Html.CheckBoxFor(model => model.Active, new { @class = "checkbox" })
+                            @Html.ValidationMessageFor(model => model.Active)
+                        </div>
+                        @Html.HiddenFor(model => model.Id)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      
+    @Html.DisplayFor(model => model.CreatedBy)
+    
+    <div class="right">
+        <button id="btnSaveChanges" class="btn btn-large btn-success" type="submit">
+            Save Changes</button>
+        <button id="btnConfirmation" class="btn btn-large btn-success" type="submit">
+            Delete</button>
+        <button id="btnCancel" class="btn btn-large btn-success" type="button">
+            Cancel</button>
+    </div>      
+}
+@Html.Hidden("Home", Url.Action("Index"))
+@Html.Hidden("Manage", Url.Action("Manage"))
+@Html.Hidden("Item", Url.Action("Item"))
+@Html.Hidden("Delete", Url.Action("Delete", new { id = Model.Id }))

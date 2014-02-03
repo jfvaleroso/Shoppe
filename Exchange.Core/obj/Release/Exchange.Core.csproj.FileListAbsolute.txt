@@ -1,0 +1,5 @@
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Core\bin\Release\Exchange.Core.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Core\bin\Release\Exchange.Core.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Core\obj\Release\Exchange.Core.csprojResolveAssemblyReference.cache
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Core\obj\Release\Exchange.Core.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Core\obj\Release\Exchange.Core.pdb

@@ -1,0 +1,8 @@
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Test\bin\Debug\Exchange.Test.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Test\bin\Debug\Exchange.Test.pdb
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Test\obj\Debug\Exchange.Test.dll
+c:\users\jfvaleroso.smart\documents\visual studio 2010\Projects\OnlinePOS\Exchange.Test\obj\Debug\Exchange.Test.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Test\bin\Debug\Exchange.Test.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Test\bin\Debug\Exchange.Test.pdb
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Test\obj\Debug\Exchange.Test.dll
+C:\Users\JFValeroso\Documents\Visual Studio 2010\Projects\OnlinePOS\Exchange.Test\obj\Debug\Exchange.Test.pdb

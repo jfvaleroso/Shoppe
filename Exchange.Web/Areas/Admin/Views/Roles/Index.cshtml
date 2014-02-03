@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Exchange.Core.Entities.Users>
+@{
+    ViewBag.Title = "Role Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#DataTable').jtable({
+            title: '',
+            paging: true,
+            pageSize: 15,
+            sorting: false,
+            gotoPageArea: 'none',
+            pageSizeChangeArea: false,
+            actions: {
+                listAction: '@Url.Action("DataListWithPaging")'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false
+                },
+                View: {
+                    title: '',
+                    width: '1.3%',
+                    display: function (data) {
+                        var $img = '<a data-toggle="tooltip" title="Click to manage."  href=@Url.Action("Manage")/' + data.record.SecuredId + '><span class="glyphicon glyphicon-th-list"></span></a>';
+                        return $img;
+                    }
+                },
+                RoleName: {
+                    title: 'Role'
+
+                },
+                Description: {
+                    title: 'Description'
+
+                },
+                Delete: {
+                    title: '',
+                    width: '1.1%',
+                    display: function (data) {
+                        if (data.record.IsSuperAdmin == "YES") {
+                            var $img = $('<a data-toggle="tooltip" title="remove this item" class="glyphicon glyphicon-trash pointer" ' + '></a>');
+                            $img.on('click', function (event) {
+                                event.preventDefault();
+                                $('#modalConfirmation #item').empty().append(data.record.RoleName);
+                                $('#modalConfirmation').modal('show');
+                                $('#Id').val(data.record.Id);
+                                $('#Item').val(data.record.Name);
+                                return false;
+                            });
+                            return $img;
+                        }
+                        else {
+                            var $lock = '<a data-toggle="tooltip" title="has been locked out." ><span class="glyphicon glyphicon-lock"> </span></a>';
+                            return $lock;
+
+                            
+                        }
+                    }
+                }
+
+
+            },
+
+            toolbar: {
+                items: [
+
+                ]
+            }
+
+        });
+
+    });
+
+</script>
+@using (Html.BeginForm())
+{
+      @Html.Partial("ModalTemplates/_Confirmation")
+        @Html.Partial("ModalTemplates/_Status")
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" id="btnNew">
+                        <span class="glyphicon glyphicon-plus"></span>  Create new
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search here..." autocomplete="off" name="searchString" id="searchString">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit" id="btnSearch">
+                        Search
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="table-wrapper">
+    <div id="DataTable" class="small">
+    </div>
+</div>
+
+
+@Html.Hidden("Id")
+@Html.Hidden("Item")
+@Html.Hidden("New", Url.Action("New"))
+@Html.Hidden("Manage", Url.Action("Manage"))
+@Html.Hidden("Delete", Url.Action("Delete"))

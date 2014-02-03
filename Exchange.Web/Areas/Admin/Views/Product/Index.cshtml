@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Exchange.Core.Entities.Product>
+@{
+    ViewBag.Title = "Product Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $('#DataTable').jtable({
+            title: '',
+            paging: true,
+            pageSize: 15,
+            sorting: false,
+            gotoPageArea: 'none',
+            pageSizeChangeArea: false,
+            columnSelectable:false,
+            actions: {
+                listAction: '@Url.Action("ProductListWithPaging")'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false
+                },
+                View: {
+                    title: '',
+                    width: '1.3%',
+                    display: function (data) {
+                        var $img = '<a data-toggle="tooltip" title="Click to manage." href=@Url.Action("Manage")/' + data.record.SecuredId + '><span class="glyphicon glyphicon-th-list"></span></a>';
+                        return $img;
+                    }
+                },
+                ProductType: {
+                    title: 'Type'
+
+                },
+                Name: {
+                    title: 'Name'
+
+                },
+                Description: {
+                    title: 'Description'
+                },
+                Cost: {
+                    title: 'Current Cost Per Gram',
+                    display: function (data) {
+                        var $cost = '<strong>' + data.record.Cost + '</strong>';
+                        return $cost;
+                    }
+                },
+                History: {
+                    title: 'Cost History',
+                    width: '5%',
+                    display: function (data) {
+                        var $img = '<a data-toggle="tooltip" title="Click to view previous costs." href=@Url.Action("History")/' + data.record.SecuredId + '><span class="glyphicon glyphicon-folder-open"></span></a>';
+                        return $img;
+                    }
+                },
+                Active: {
+                    title: 'Active',
+                    width: '1.3%',
+                    display: function (data) {
+                        var $img;
+                        if (data.record.Active) {
+                            $img = '<img class="center" src="@Url.Content("~/Content/images/active.png")" />';
+                        }
+                        else {
+                            $img = '<img class="center" src="@Url.Content("~/Content/images/inactive.png")" />';
+                        }
+                        return $img;
+                    }
+                },
+                Delete: {
+                    title: '',
+                    width: '1.1%',
+                    display: function (data) {
+                        var $img = $('<a data-toggle="tooltip" title="remove this item" class="glyphicon glyphicon-trash pointer" ' + '></a>');
+                        $img.on('click', function (event) {
+                            event.preventDefault();
+                            $('#modalConfirmation #item').empty().append(data.record.Name);
+                            $('#modalConfirmation').modal('show');
+                            $('#Id').val(data.record.Id);
+                            $('#Item').val(data.record.Name);
+                            return false;
+                        });
+                        return $img;
+                    }
+                }
+            },
+
+            toolbar: {
+                items: [
+
+                    ]
+            }
+
+        });
+      
+
+    });
+   
+</script>
+@using (Html.BeginForm())
+{ 
+        @Html.Partial("ModalTemplates/_Confirmation")
+        @Html.Partial("ModalTemplates/_Status")
+    
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" id="btnNew">
+                        <span class="glyphicon glyphicon-plus"></span>  Create new
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control"  placeholder="Search here..." autocomplete="off" name="searchString" id="searchString">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit" id="btnSearch">
+                        Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+<div class="table-wrapper">
+    <div id="DataTable" class="small">
+    </div>
+</div>
+
+@Html.Hidden("Id")
+@Html.Hidden("Item")
+@Html.Hidden("New", Url.Action("New"))
+@Html.Hidden("Manage", Url.Action("Manage"))
+@Html.Hidden("Delete", Url.Action("Delete"))
+
+
+
+
+ 

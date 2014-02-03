@@ -1,0 +1,87 @@
+﻿@model Exchange.Core.Entities.Store
+@{
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<legend>Store Maintenance</legend>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#">Manage</a></li>
+</ul>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Store</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Code)
+                </div>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Code)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Name)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Name)
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Address)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Address)
+                    @Html.ValidationMessageFor(model => model.Address)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.TelephoneNo)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.TelephoneNo)
+                    @Html.ValidationMessageFor(model => model.TelephoneNo)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.PermitNo)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.PermitNo)
+                    @Html.ValidationMessageFor(model => model.PermitNo)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.TINNo)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.TINNo)
+                    @Html.ValidationMessageFor(model => model.TINNo)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Active)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Active)
+                    @Html.ValidationMessageFor(model => model.Active)
+                </div>
+                @Html.HiddenFor(model => model.Id)
+            </fieldset>
+        </div>
+    </div>
+      
+    @Html.DisplayFor(model => model.CreatedBy)
+    
+    <div class="right">
+        <button id="btnSaveChanges" class="btn btn-large btn-success" type="submit">
+            Save Changes</button>
+        <button id="btnDelete" class="btn btn-large btn-success" type="submit">
+            Delete</button>
+        <button id="btnCancel" class="btn btn-large btn-success" type="button">
+            Cancel</button>
+    </div>      
+}
+@Html.Hidden("Home", Url.Action("Index"))
+@Html.Hidden("Manage", Url.Action("Manage"))
+@Html.Hidden("Item", Url.Action("Item"))
+@Html.Hidden("Delete", Url.Action("Delete", new { id= Model.Id}))

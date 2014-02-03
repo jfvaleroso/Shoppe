@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Exchange.Core.Entities.Product>
+@{
+    ViewBag.Title = "Product Maintenance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $('#ProductTable').jtable({
+            title: '',
+            paging: true,
+            pageSize: 15,
+            sorting: false,
+            gotoPageArea: 'none',
+            pageSizeChangeArea: false,
+            columnSelectable:false,
+            actions: {
+                listAction: '@Url.Action("ProductListWithPaging")'
+            },
+            fields: {
+                Id: {
+                    key: true,
+                    list: false
+                },
+                View: {
+                    title: '',
+                    width: '1.3%',
+                    display: function (data) {
+                        var $img = '<a href=@Url.Action("Manage")/' + data.record.SecuredId + '><span class="glyphicon glyphicon-th-list"></span></a>';
+                        return $img;
+                    }
+                },
+                ProductType: {
+                    title: 'Type'
+
+                },
+                Name: {
+                    title: 'Name'
+
+                },
+                Description: {
+                    title: 'Description'
+                },
+                Cost: {
+                    title: 'Cost'
+                },
+                Active: {
+                    title: 'Active',
+                    width: '1.3%',
+                    display: function (data) {
+                        var $img;
+                        if (data.record.Active) {
+                            $img = '<img class="center" src="@Url.Content("~/Content/images/active.png")" />';
+                        }
+                        else {
+                            $img = '<img class="center" src="@Url.Content("~/Content/images/inactive.png")" />';
+                        }
+                        return $img;
+                    }
+                }
+            },
+
+            toolbar: {
+                items: [
+
+                    ]
+            }
+
+        });
+        //load table
+        $('#modal').modal('show').delay(100000);
+        $('#modal').bind('hidden', function () {
+            $('#ProductTable').jtable('load');
+        }).modal('hide');
+        //with filtering
+
+        //Re-load records when user click 'load records' button.
+        $('#btnSearch').click(function (e) {
+            e.preventDefault();
+            var searhString = $('#searchString').val();
+            $('#ProductTable').jtable('load', {
+                searchString: searhString
+            });
+        });
+
+        //Load all records when page is first shown
+        $('#btnSearch').click();
+
+    });
+   
+</script>
+@using (Html.BeginForm())
+{ 
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" id="btnNew">
+                        <strong>Create new</strong></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control"  placeholder="Search here..." autocomplete="off" name="searchString" id="searchString">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit" id="btnSearch">
+                        Search</button>
+                </span>
+            </div>
+        </div>
+    </div>
+}
+<div class="table-wrapper">
+    <div id="ProductTable">
+    </div>
+</div>
+
+@Html.Hidden("New", Url.Action("New"))
+
+
+
+
+ 
