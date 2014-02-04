@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Helper", "Exchange
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Provider", "Exchange.Provider\Exchange.Provider.csproj", "{943242F2-D0FB-488A-B11C-792C8EB4C351}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "deployshoppe", "..\..\..\Visual Studio 2012\Projects\deployshoppe\deployshoppe.sqlproj", "{BD86C016-BF99-4490-95FF-5C600D99F567}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,12 +51,6 @@ Global
 		{943242F2-D0FB-488A-B11C-792C8EB4C351}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{943242F2-D0FB-488A-B11C-792C8EB4C351}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{943242F2-D0FB-488A-B11C-792C8EB4C351}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD86C016-BF99-4490-95FF-5C600D99F567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD86C016-BF99-4490-95FF-5C600D99F567}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD86C016-BF99-4490-95FF-5C600D99F567}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{BD86C016-BF99-4490-95FF-5C600D99F567}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD86C016-BF99-4490-95FF-5C600D99F567}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD86C016-BF99-4490-95FF-5C600D99F567}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

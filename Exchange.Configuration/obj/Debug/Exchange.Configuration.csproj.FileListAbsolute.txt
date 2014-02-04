@@ -11,3 +11,7 @@ C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Con
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Configuration\bin\Debug\Exchange.Configuration.pdb
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.dll
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Configuration\obj\Debug\Exchange.Configuration.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\bin\Debug\Exchange.Configuration.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\bin\Debug\Exchange.Configuration.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\obj\Debug\Exchange.Configuration.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\obj\Debug\Exchange.Configuration.pdb

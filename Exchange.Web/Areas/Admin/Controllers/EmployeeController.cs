@@ -10,6 +10,7 @@ using Exchange.Helper.Transaction;
 using System.Web.Security;
 using Exchange.Provider.Profile;
 using Exchange.Helper.Common;
+using Exchange.Web.Helper;
 
 namespace Exchange.Web.Areas.Admin.Controllers
 {
@@ -19,11 +20,15 @@ namespace Exchange.Web.Areas.Admin.Controllers
         private readonly IStoreService storeService;
         private readonly IUserService userService;
         private readonly IProfileService profileService;
-        public EmployeeController(IUserService userService, IStoreService storeService, IProfileService profileService)
+        private readonly IRoleService roleService;
+        private readonly Service service;
+        public EmployeeController(IUserService userService, IStoreService storeService, IProfileService profileService,IRoleService roleService)
         {
             this.userService = userService;
             this.storeService = storeService;
             this.profileService = profileService;
+            this.roleService= roleService;
+            this.service = new Service(storeService, roleService);
         }
         #endregion
         #region Index
@@ -58,6 +63,8 @@ namespace Exchange.Web.Areas.Admin.Controllers
         public ActionResult Register()
         {
             RegisterModel model = new RegisterModel();
+            model.StoreList = this.service.GetStoreList(0);
+            model.RoleList = this.service.GetRoleList(0);
             return View(model);
         }
         [HttpPost]
@@ -72,34 +79,21 @@ namespace Exchange.Web.Areas.Admin.Controllers
                 {
                     // List<Users> users = userService.GetAll().ToList();
                     string password = Base.GenearateKey(8);
-                    MembershipCreateStatus status = MembershipCreateStatus.UserRejected;
-                    Membership.CreateUser(model.UserName, password, model.UserName + "@gmail.com", "what is", "yes", true, null, out status);
-                    MembershipUser user = Membership.GetUser(model.UserName, false);
-                    user.Email = "test@gmail.com";
-                    Membership.UpdateUser(user);
-                    //create Profile
+                    MembershipCreateStatus status;
+                    model.UserName = Base.GenerateUsername(model.FirstName, model.MiddleName, model.LastName);
+                    Membership.CreateUser(model.UserName, password, model.Email, "na", "na", true, null, out status);
+                    
+                        //MembershipUser user = Membership.GetUser(model.UserName, false);
+                        //user.Email = "test@gmail.com";
+                        //Membership.UpdateUser(user);
+                        //create Profile
                     CreateProfile(model);
-                   
+                    //Add user to Role
+                    System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
 
                   
+                  
 
-
-                    //bool check = System.Web.Security.Roles.RoleExists("MVP");
-
-                    //string[] usernames = new string[] { model.UserName };
-                    //string[] roles = new string[] { "MVP" };
-
-                   // System.Web.Security.Roles.AddUsersToRoles(usernames, roles);
-                    //add user to role
-                    //System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
-
-                    //Store store = new Store();
-                    //store.Address = "Makati City";
-                    //store.Active = true;
-                    //store.Code = "MC2012";
-                    //store.Name = "Greenbelt";
-                    //store.DateCreated = DateTime.Now;
-                    //store.PermitNo = "1223423";
 
                     //Users employee = this.userService.GetUserByUsernameApplicationName(user.UserName, "Exchange");
                     //store.AddEmployee(employee);
@@ -107,10 +101,10 @@ namespace Exchange.Web.Areas.Admin.Controllers
                     //  this.storeService.SaveOrUpdate(store);
                     return Json(new { result = "", message = MessageCode.saved, code = StatusCode.saved, content = "" });
                 }
-                catch
+                catch(Exception ex)
                 {
 
-                    return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid });
+                    return Json(new { result = StatusCode.failed, message = ex.Message, code = StatusCode.invalid });
                 }
             }
             return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid });
@@ -120,8 +114,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
 
         }
         #endregion
-
-#region Profile Private Method
+        #region Profile Private Method
         private void CreateProfile(RegisterModel model)
         {
             UserProfileBase profile = UserProfileBase.GetUserProfile(model.UserName);
@@ -138,9 +131,48 @@ namespace Exchange.Web.Areas.Admin.Controllers
             }       
         }
 	#endregion
-       
+        #region Helpers
+         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        {
+            // See http://go.microsoft.com/fwlink/?LinkID=177550 for
+            // a full list of status codes.
+            switch (createStatus)
+            {
+                case MembershipCreateStatus.DuplicateUserName:
+                    return "User name already exists. Please enter a different user name.";
 
-       
+                case MembershipCreateStatus.DuplicateEmail:
+                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+
+                case MembershipCreateStatus.InvalidPassword:
+                    return "The password provided is invalid. Please enter a valid password value.";
+
+                case MembershipCreateStatus.InvalidEmail:
+                    return "The e-mail address provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidAnswer:
+                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidQuestion:
+                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidUserName:
+                    return "The user name provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.ProviderError:
+                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+                case MembershipCreateStatus.UserRejected:
+                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+                default:
+                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+            }
+        }
+        #endregion
+
+
+
 
     }
 }

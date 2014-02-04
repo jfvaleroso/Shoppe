@@ -12,32 +12,15 @@ namespace Exchange.Core.Services.Implementation
 {
     public class CustomerService: ICustomerService
     {
+
+        #region Constructor
         private readonly ICustomerRepository customerRepository;
         public CustomerService(ICustomerRepository customerRepository)
         {
             this.customerRepository = customerRepository;
         }
-
-        public Customer GetDataById(long id)
-        {
-           return this.customerRepository.Get(id);
-        }
-
-        public Customer GetByExpression(Customer entity)
-        {
-            return this.customerRepository.GetByExpression(x => x.LastName.Equals(entity.LastName));
-        }
-
-        public List<Customer> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
-        {
-            return this.customerRepository.GetDataWithPaging(pageNumber, pageSize, out total);
-        }
-
-        public List<Customer> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
-        {
-            return this.customerRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
-        }
-
+        #endregion
+        #region CRUD
         public void Save(Customer entity)
         {
             this.customerRepository.Save(entity);
@@ -45,7 +28,7 @@ namespace Exchange.Core.Services.Implementation
 
         public long Create(Customer entity)
         {
-           return this.customerRepository.Create(entity);
+            return this.customerRepository.Create(entity);
         }
 
         public void SaveChanges(Customer entity)
@@ -69,7 +52,36 @@ namespace Exchange.Core.Services.Implementation
             {
                 return false;
             }
-          
+
         }
+        #endregion
+        #region Search and Filter
+        public Customer GetDataById(long id)
+        {
+            return this.customerRepository.Get(id);
+        }
+
+        public Customer GetByExpression(Customer entity)
+        {
+            return this.customerRepository.GetByExpression(x => x.LastName.Equals(entity.LastName));
+        }
+        public List<Customer> GetAllData()
+        {
+            return this.customerRepository.GetAll().ToList();
+        }
+        public List<Customer> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
+        {
+            return this.customerRepository.GetDataWithPaging(pageNumber, pageSize, out total);
+        }
+
+        public List<Customer> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
+        {
+            return this.customerRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+        }
+        #endregion
+
+       
+
+       
     }
 }

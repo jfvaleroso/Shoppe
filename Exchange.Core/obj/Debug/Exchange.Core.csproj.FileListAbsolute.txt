@@ -11,3 +11,7 @@ C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Cor
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Core\bin\Debug\Exchange.Core.pdb
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Core\obj\Debug\Exchange.Core.dll
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Core\obj\Debug\Exchange.Core.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\bin\Debug\Exchange.Core.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\bin\Debug\Exchange.Core.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.pdb

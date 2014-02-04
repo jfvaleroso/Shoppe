@@ -25,7 +25,10 @@ namespace Exchange.Core.Services.Implementation
         {
           return  this.activityLogsRepository.GetByExpression(x => x.Type.Equals(entity.Type));
         }
-
+        public List<ActivityLogs> GetAllData()
+        {
+            return this.activityLogsRepository.GetAll().ToList();
+        }
         public List<ActivityLogs> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {
             return this.activityLogsRepository.GetDataWithPaging(pageNumber, pageSize, out total);

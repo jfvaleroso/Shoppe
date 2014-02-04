@@ -124,7 +124,15 @@
                     </div>
 
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.Address)
+                        @Html.LabelFor(model => model.Email)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        <p class="small">Please indicate the email address.</p>
+                    </div>
+
+                    <div class="editor-label">
+                       <label>Residential Address</label>
                     </div>
                     <div class="editor-field">
                         @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
@@ -133,21 +141,21 @@
 
 
                     <div class="page-header-title"><strong>Role Assignment</strong></div>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.RoleName)
-                    </div>
+                    @*<div class="editor-label">
+                      <label>Role Name</label>
+                    </div>*@
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.RoleName, new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.RoleName, Model.RoleList, string.Empty, new { @class = "combobox combobox-medium" })
                         <p class="small">Please indicate the rolename.</p>
                     </div>
 
 
                     <div class="page-header-title"><strong>Branch/Store Assignment</strong></div>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.StoreName)
-                    </div>
+                    @*<div class="editor-label">
+                        <label>Store Name</label>
+                    </div>*@
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.StoreName, new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.StoreId, Model.StoreList, string.Empty, new { @class = "combobox combobox-medium" })
                         <p class="small">Please indicate the store name.</p>
                     </div>
 
@@ -174,8 +182,8 @@
 
 
 @Html.Hidden("Item", Url.Action("Item"))
-@Html.Hidden("New", Url.Action("New"))
-@Html.Hidden("CheckAvailability", Url.Action("CheckAvailability"))
+@Html.Hidden("New", Url.Action("Register"))
+
 
 <script type="text/javascript">
     $(function () {

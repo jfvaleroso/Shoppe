@@ -6,8 +6,8 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IProductTypeService : IService<ProductType, int>, IValidateService<ProductType>
+    public interface IProductTypeService : IService<ProductType, int>, IValidateService<ProductType>, IFilterService<ProductType>
     {
-        List<ProductType> GetDataListByStatus(bool active);
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using Exchange.Core.Entities;
+﻿using Exchange.Configuration;
+using Exchange.Core.Entities;
 using Exchange.Core.Services.IServices;
 using Exchange.Helper.Common;
 using Exchange.Helper.Transaction;
@@ -67,7 +68,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
                     bool ifExists = this.roleService.CheckDataIfExists(roles);
                     if (!ifExists)
                     {
-                        roles.ApplicationName = "Gold Exchange";
+                        roles.ApplicationName = ConfigManager.Exchange.ApplicationName;
                         this.roleService.SaveOrUpdate(roles);
                         return Json(new { result = Base.Encrypt(roles.Id.ToString()), message = MessageCode.saved, code = StatusCode.saved, content = roles.RoleName.ToString() });
 

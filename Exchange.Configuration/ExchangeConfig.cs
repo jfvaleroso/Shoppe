@@ -50,6 +50,19 @@ namespace Exchange.Configuration
             }
         }
 
+        [ConfigurationProperty("applicationName", DefaultValue = "", IsRequired = false)]
+        public string ApplicationName
+        {
+            get
+            {
+                return (string)base["applicationName"];
+            }
+            set
+            {
+                base["applicationName"] = value;
+            }
+        }
+
 
     }
 }

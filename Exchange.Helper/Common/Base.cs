@@ -60,6 +60,14 @@ namespace Exchange.Helper.Common
             { searchString = string.Format("{0}{1}{2}", "%", searchString, "%"); }
             return searchString.ToString();
         }
+        public static string GenerateUsername(string firstname, string lastname, string middlename)
+        {
+            if (!string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(lastname) && !string.IsNullOrEmpty(middlename))
+            {
+                return string.Format("{0}{1}{2}", firstname.Substring(0,1).ToString(), middlename.Substring(0,1).ToString(), lastname.Trim()); 
+            }
+            return string.Empty;
+        }
         #endregion
         #region Security
         public static string Encrypt(string input)

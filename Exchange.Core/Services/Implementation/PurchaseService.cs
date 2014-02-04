@@ -10,34 +10,14 @@ namespace Exchange.Core.Services.Implementation
 {
     public class PurchaseService: IPurchaseService
     {
+        #region Constructor
         private readonly IPurchaseRepository purchaseRepository;
         public PurchaseService(IPurchaseRepository purchaseRepository)
         {
             this.purchaseRepository = purchaseRepository;
         }
-
-
-
-        public Purchase GetDataById(long id)
-        {
-           return this.purchaseRepository.Get(id);
-        }
-
-        public Purchase GetByExpression(Purchase entity)
-        {
-            return this.purchaseRepository.GetByExpression(x => x.Cashier.Equals(entity.Cashier));
-        }
-
-        public List<Purchase> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
-        {
-            return this.purchaseRepository.GetDataWithPaging(pageNumber, pageSize, out total);
-        }
-
-        public List<Purchase> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
-        {
-            return this.purchaseRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
-        }
-
+        #endregion
+        #region CRUD
         public void Save(Purchase entity)
         {
             this.purchaseRepository.Save(entity);
@@ -71,5 +51,35 @@ namespace Exchange.Core.Services.Implementation
                 return false;
             }
         }
+        #endregion
+        #region Search and Filter
+        public Purchase GetDataById(long id)
+        {
+            return this.purchaseRepository.Get(id);
+        }
+
+        public Purchase GetByExpression(Purchase entity)
+        {
+            return this.purchaseRepository.GetByExpression(x => x.Cashier.Equals(entity.Cashier));
+        }
+        public List<Purchase> GetAllData()
+        {
+            return this.purchaseRepository.GetAll().ToList();
+        }
+        public List<Purchase> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
+        {
+            return this.purchaseRepository.GetDataWithPaging(pageNumber, pageSize, out total);
+        }
+
+        public List<Purchase> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
+        {
+            return this.purchaseRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+        }
+        #endregion
+
+
+      
+
+       
     }
 }

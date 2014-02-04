@@ -66,6 +66,14 @@ namespace Exchange.Core.Services.Implementation
         {
             return this.storeRepository.GetByExpression(x => x.Name.Equals(entity.Name));
         }
+        public List<Store> GetDataListByStatus(bool active)
+        {
+            return this.storeRepository.Get(x => x.Active.Equals(active)).ToList();
+        }
+        public List<Store> GetAllData()
+        {
+            return this.storeRepository.GetAll().ToList();
+        }
         [UnitOfWork]
         public List<Store> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {
@@ -109,6 +117,8 @@ namespace Exchange.Core.Services.Implementation
             return false;
         }
         #endregion
+
+
       
     }
 }

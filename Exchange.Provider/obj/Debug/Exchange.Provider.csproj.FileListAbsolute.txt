@@ -47,3 +47,20 @@ C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Pro
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Provider\obj\Debug\Exchange.Provider.csprojResolveAssemblyReference.cache
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Provider\obj\Debug\Exchange.Provider.dll
 C:\Users\JFValeroso\Documents\Visual Studio 2013\Projects\OnlinePOS\Exchange.Provider\obj\Debug\Exchange.Provider.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Provider.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Provider.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Core.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.NHibernateBase.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\FluentNHibernate.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Iesi.Collections.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\NHibernate.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Helper.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Core.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.NHibernateBase.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\FluentNHibernate.xml
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Iesi.Collections.xml
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\NHibernate.xml
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Helper.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.csprojResolveAssemblyReference.cache
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.pdb

@@ -66,6 +66,10 @@ namespace Exchange.Core.Services.Implementation
         {
             return this.productRepository.GetByExpression(x => x.Name.Equals(entity.Name));
         }
+        public List<Product> GetAllData()
+        {
+            return this.productRepository.GetAll().ToList();
+        }
         [UnitOfWork]
         public List<Product> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {

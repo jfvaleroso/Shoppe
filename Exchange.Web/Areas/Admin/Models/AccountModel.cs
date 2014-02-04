@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exchange.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,13 +30,10 @@ namespace Exchange.Web.Areas.Admin.Models
         [Display(Name = "Gender")]
         public string Gender { get; set; }
 
-        //[Required]
-        [Display(Name = "RoleName")]
-        public string RoleName { get; set; }
-
-       //[Required]
-        [Display(Name = "StoreName")]
-        public string StoreName { get; set; }
+        [Required]
+        [Display(Name = "Email Address")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -57,6 +55,27 @@ namespace Exchange.Web.Areas.Admin.Models
        //[Required]
         [Display(Name = "Subscription")]
         public string Subscription { get; set; }
+
+
+
+
+
+
+        //[Required]
+        [Display(Name = "RoleName")]
+        public string RoleName { get; set; }
+        //[Required]
+        [Display(Name = "StoreName")]
+        public int StoreId { get; set; }
+        public IList<SelectListItem> RoleList { get; set; }
+        public IList<SelectListItem> StoreList { get; set; }
+
+        public RegisterModel()
+        {
+            this.RoleList = new List<SelectListItem>();
+            this.StoreList = new List<SelectListItem>();
+        }
+
 
     }
 }

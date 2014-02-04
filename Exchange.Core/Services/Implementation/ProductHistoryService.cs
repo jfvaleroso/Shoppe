@@ -10,11 +10,31 @@ namespace Exchange.Core.Services.Implementation
 {
     public class ProductHistoryService : IProductHistoryService
     {
+
+        #region Constructor
         private readonly IProductHistoryRepository productHistoryRepository;
         public ProductHistoryService(IProductHistoryRepository productHistoryRepository)
         {
             this.productHistoryRepository = productHistoryRepository;
         }
+        #endregion
+        #region Search and Filter
+        public List<ProductHistory> GetAllData()
+        {
+            return this.productHistoryRepository.GetAll().ToList();
+        }
+        public List<ProductHistory> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
+        {
+            return this.productHistoryRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+        }
+        #endregion
+        #region CRUD
+        public void Save(ProductHistory entity)
+        {
+            this.productHistoryRepository.SaveOrUpdate(entity);
+        }
+        #endregion
+        #region No Implementaion
         public ProductHistory GetDataById(long id)
         {
             throw new NotImplementedException();
@@ -24,22 +44,10 @@ namespace Exchange.Core.Services.Implementation
         {
             throw new NotImplementedException();
         }
-
         public List<ProductHistory> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {
             throw new NotImplementedException();
         }
-
-        public List<ProductHistory> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
-        {
-            return this.productHistoryRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
-        }
-
-        public void Save(ProductHistory entity)
-        {
-            this.productHistoryRepository.SaveOrUpdate(entity);
-        }
-
         public long Create(ProductHistory entity)
         {
             throw new NotImplementedException();
@@ -59,5 +67,9 @@ namespace Exchange.Core.Services.Implementation
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+
+      
     }
 }

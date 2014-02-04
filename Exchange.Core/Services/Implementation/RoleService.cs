@@ -10,24 +10,15 @@ namespace Exchange.Core.Services.Implementation
 {
     public class RoleService : IRoleService
     {
-
+        #region Constructor
         private readonly IRoleRepository roleRepository;
         public RoleService(IRoleRepository roleRepository)
         {
             this.roleRepository = roleRepository;
         }
 
-
-        public List<Roles> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
-        {
-            return this.roleRepository.GetDataWithPaging(pageNumber, pageSize, out total);
-        }
-
-        public List<Roles> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
-        {
-            return this.roleRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
-        }
-
+        #endregion
+        #region CRUD
         public void Save(Roles entity)
         {
             this.roleRepository.Save(entity);
@@ -36,7 +27,6 @@ namespace Exchange.Core.Services.Implementation
         {
             return (int)this.roleRepository.Create(entity);
         }
-
         public void SaveChanges(Roles entity)
         {
             this.roleRepository.SaveChanges(entity);
@@ -45,7 +35,6 @@ namespace Exchange.Core.Services.Implementation
         {
             this.roleRepository.SaveOrUpdate(entity);
         }
-
         public bool Delete(int id)
         {
             try
@@ -60,7 +49,20 @@ namespace Exchange.Core.Services.Implementation
             }
 
         }
-
+        #endregion
+        #region Search and Filters
+        public List<Roles> GetAllData()
+        {
+            return this.roleRepository.GetAll().ToList();
+        }
+        public List<Roles> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
+        {
+            return this.roleRepository.GetDataWithPaging(pageNumber, pageSize, out total);
+        }
+        public List<Roles> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
+        {
+            return this.roleRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+        }
         public Roles GetDataById(int id)
         {
             return this.roleRepository.Get(id);
@@ -69,6 +71,7 @@ namespace Exchange.Core.Services.Implementation
         {
             return this.roleRepository.GetByExpression(x => x.RoleName.Equals(entity.RoleName));
         }
+        #endregion   
         #region Validator
         public bool CheckDataIfExists(Roles entity)
         {

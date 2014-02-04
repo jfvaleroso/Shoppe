@@ -8,7 +8,7 @@ using Exchange.Core.Repositories;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IStoreService : IService<Store, int>, IValidateService<Store>
+    public interface IStoreService : IService<Store, int>, IValidateService<Store>, IFilterService<Store>
     {
       
     }
