@@ -180,5 +180,56 @@ margin: 5px 0;
 
 
 
+/*invoice*/
+ .remove, .pointer {
+        cursor: pointer;
+    }
+
+    .no-cursor {
+        cursor: none;
+    }
+
+    td.showDragHandle {
+        background-image: url(https://go.xero.com/common/images/modules/icons-3c8ffc6c.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        cursor: move;
+        height: 15px;
+        width: 11px;
+        background-position: -322px -57px;
+    }
+
+    #invoice tr td input[type="text"], #invoice-summary tr td input[type="text"] {
+        border: 2px;
+        background-color: transparent;
+        outline: 0;
+    }
+
+    #invoice, #invoice-summary {
+        border-bottom: 2px solid #999;
+        border-top: 2px solid #999;
+    }
+
+    #invoice-summary {
+        width: 215px;
+    }
+
+   #invoice-summary input {
+            width: 100%;
+   }
+
+    #main-invoice div.grand_total input {
+        font-weight: bold;
+        font-size: 3em;
+    }
+
+    #invoice tr td.delete a {
+        color: red;
+        text-decoration: none;
+        outline: 0;
+    }
+    /*Invoiceakd*/
+
+
 
 

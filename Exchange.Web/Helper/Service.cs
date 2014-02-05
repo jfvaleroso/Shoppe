@@ -12,11 +12,16 @@ namespace Exchange.Web.Helper
     public class Service
     {
         private readonly IProductTypeService productTypeService;
+        private readonly IProductService productService;
         private readonly IStoreService storeService;
         private readonly IRoleService roleService;
         public Service(IProductTypeService productTypeService)
         {
             this.productTypeService = productTypeService;
+        }
+        public Service(IProductService productService)
+        {
+            this.productService = productService;
         }
         public Service(IStoreService storeService, IRoleService roleService)
         {
@@ -38,6 +43,27 @@ namespace Exchange.Web.Helper
                         SelectListItem sourceItem = new SelectListItem();
                         sourceItem.Value = item.Id.ToString();
                         sourceItem.Text = item.Name.ToString();
+                        sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
+                        source.Add(sourceItem);
+                    }
+                }
+            }
+            return source;
+        }
+        public List<SelectListItem> GetProductList(int selectedValue)
+        {
+
+            List<SelectListItem> source = new List<SelectListItem>();
+            var items = this.productService.GetDataListByStatus(true);
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                    if (!string.IsNullOrEmpty(item.Code) && !string.IsNullOrEmpty(item.Name))
+                    {
+                        SelectListItem sourceItem = new SelectListItem();
+                        sourceItem.Value = item.Id.ToString();
+                        sourceItem.Text = string.Format("{0} - {1}", item.ProductType.Name,item.Name);
                         sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
                         source.Add(sourceItem);
                     }

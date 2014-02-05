@@ -58,6 +58,10 @@ namespace Exchange.Core.Services.Implementation
         }
         #endregion
         #region Seach and Filter
+        public List<Product> GetDataListByStatus(bool active)
+        {
+            return this.productRepository.Get(x => x.Active.Equals(active)).ToList();
+        }
         public Product GetDataById(int id)
         {
             return this.productRepository.Get(id);

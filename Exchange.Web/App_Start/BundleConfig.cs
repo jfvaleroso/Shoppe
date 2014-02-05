@@ -44,7 +44,7 @@ namespace Exchange.Web
 
             bundles.Add(new ScriptBundle("~/bundles/global").Include("~/Scripts/global/jquery.blockUI.js"));
             bundles.Add(new ScriptBundle("~/bundles/global/main")
-                .Include("~/Scripts/global/shoppe.js"));
+                .Include("~/Scripts/global/shoppe.js").Include("~/Scripts/global/invoice.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                        "~/Scripts/jquery/jquery.min.js"));
@@ -64,10 +64,11 @@ namespace Exchange.Web
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include(
                         "~/Scripts/unobtrusive/jquery.unobtrusive-ajax.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jquery.validate").Include(
-                          "~/Scripts/jquery.validate/jquery.validate.js").Include(
-                          "~/Scripts/jquery.validate/jquery.validate.unobtrusive.js"
-                          ));
+            bundles.Add(new ScriptBundle("~/bundles/jquery.validate")
+                .Include("~/Scripts/jquery.validate/jquery.validate.js")
+                .Include("~/Scripts/jquery.validate/jquery.validate.unobtrusive.js")
+                .Include("~/Scripts/jquery.validate/jquery.numeric.js")               
+                );
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr/modernizr-*"));
