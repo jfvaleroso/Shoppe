@@ -67,20 +67,12 @@
             //update latest cost
             invoice.updateSummary(amount, vat, subtotal);
         },
-        cloneItem: function () {
-           
-            //var clone = $('#invoice tr.invoice-item:last').clone(true, true);
-            //clone.find('input').val('');
-            //clone.insertAfter('#invoice tr:last');
-
-
-            $("#invoice").children("select").select2("destroy").end().append(
-                $("#invoice tr")
-                .clone());
-            //var clone = $('#invoice tr.invoice-item:last').clone(true, true);
-            //clone.find('input').val('');
-            //clone.insertAfter('#invoice tr:last');
-            $("#invoice").children("select").select2();
+        cloneItem: function () {       
+            $('#invoice tr.invoice-item:last td.product select').select2("destroy");
+            var clone = $('#invoice tr.invoice-item:last').clone(true, true);
+            clone.find('input').val('');
+            clone.insertAfter('#invoice tr.invoice-item:last');
+            $('#invoice select').select2();
         }
 
        
@@ -145,10 +137,33 @@ $(function () {
     //test
     $('.combobox').on("select2-selecting", function (e) {
         //e.object.id
-        $(this).closest('tr').find('td.quantity input').val(12);
-        $(this).closest('tr').find('td.rate input').val(23);
+        //alert(e.val);
+        var r, q;
+        $.ajax({
+            url: 'api/invoice/GetProductById/',
+            type: "get",
+            data: { id: e.val },
+            complete: function (data) {
+            },
+            error: function (data) {
+                alert('error');
+            },
+            success: function (data) {
+                r = data.Rate;
+                q = 1;
+            }
+        });
+        $(this).closest('tr').find('td.quantity input').val(q);
+        $(this).closest('tr').find('td.rate input').val(r);
         invoice.calculate(this);
-
+    });
+    //remove
+    $('.combobox').on("select2-removed", function (e) {
+        //e.object.id
+        //alert(e.val);
+        $(this).closest('tr').find('td.quantity input').val(0);
+        $(this).closest('tr').find('td.rate input').val(0);
+        invoice.calculate(this);
     });
 
    

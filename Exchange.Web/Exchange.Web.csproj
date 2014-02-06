@@ -222,9 +222,12 @@
     <Compile Include="Controllers\ExchangeController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="ApiControllers\InvoiceController.cs" />
     <Compile Include="Controllers\Test.cs" />
     <Compile Include="Dependency\ControllerInstaller.cs" />
     <Compile Include="Dependency\WindsorControllerFactory.cs" />
+    <Compile Include="ApiDependency\WindsorDependencyResolver.cs" />
+    <Compile Include="ApiDependency\WindsorDependencyScope.cs" />
     <Compile Include="Filters\CrytoProviderAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -234,6 +237,7 @@
     <Compile Include="Helper\Provider.cs" />
     <Compile Include="Helper\Service.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Api\ProductModel.cs" />
     <Compile Include="Models\BuyModel.cs" />
     <Compile Include="Models\JsonResponse.cs" />
     <Compile Include="Models\JsonResponseItem.cs" />

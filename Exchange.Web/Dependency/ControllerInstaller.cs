@@ -7,6 +7,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using System.Web.Mvc;
 using System.Reflection;
+using System.Web.Http;
 //using InfoSMS.adre.directory;
 
 namespace Exchange.Web.Dependency
@@ -19,7 +20,9 @@ namespace Exchange.Web.Dependency
 
                 //All MVC controllers
                 Classes.FromThisAssembly().BasedOn<IController>().LifestyleTransient(),
-                Classes.FromAssemblyNamed("Elmah.Mvc").BasedOn<IController>().LifestyleTransient()
+                Classes.FromAssemblyNamed("Elmah.Mvc").BasedOn<IController>().LifestyleTransient(),
+                //test jeff api controrller register
+                AllTypes.FromThisAssembly().BasedOn<ApiController>().LifestyleScoped()
               
               
 

@@ -15,6 +15,7 @@ using Exchange.Core.Repositories;
 using Exchange.Core.Services.IServices;
 
 using Exchange.Core.Services.Implementation;
+using Exchange.Web.ApiDependency;
 
 namespace Exchange.Web
 {
@@ -59,9 +60,12 @@ namespace Exchange.Web
             //Exchange.Web.Helper.Provider.profileProvider = new NHProfileProvider(_windsorContainer.Resolve<IUserService>(), _windsorContainer.Resolve<IProfileService>());
             //Exchange.Web.Helper.Provider.userProfileBase = new UserProfileBase(_windsorContainer.Resolve<IUserService>(), _windsorContainer.Resolve<IProfileService>());
 
-            
-
-            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(_windsorContainer.Kernel));
+             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(_windsorContainer.Kernel));
+            //register web api dependency resolver
+             GlobalConfiguration.Configuration.DependencyResolver = new WindsorDependencyResolver(_windsorContainer.Kernel);
+           
         }
+
+       
     }
 }

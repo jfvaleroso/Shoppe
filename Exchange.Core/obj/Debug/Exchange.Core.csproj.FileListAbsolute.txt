@@ -15,3 +15,4 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\bin\Debug\Exchange.Core.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\bin\Debug\Exchange.Core.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.csprojResolveAssemblyReference.cache
