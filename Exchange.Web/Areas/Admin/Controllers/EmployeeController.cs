@@ -14,6 +14,7 @@ using Exchange.Web.Helper;
 
 namespace Exchange.Web.Areas.Admin.Controllers
 {
+  
     public class EmployeeController : Controller
     {
         #region Constructor
@@ -126,7 +127,8 @@ namespace Exchange.Web.Areas.Admin.Controllers
                 profile.Gender = model.Gender;
                 profile.Language = model.Language;
                 profile.Position = model.Position;
-                profile.Subscription = model.Subscription;
+                profile.Subscription = !string.IsNullOrEmpty(model.Subscription) ? model.Subscription : string.Empty;
+                profile.Language = !string.IsNullOrEmpty(model.Language) ? model.Language : string.Empty;
                 profile.Save();
             }       
         }
