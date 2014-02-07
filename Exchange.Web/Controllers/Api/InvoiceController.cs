@@ -9,7 +9,7 @@ using System.Web.Http;
 using Exchange.Web.Models.Api;
 using System.Web.Mvc;
 
-namespace Exchange.Web.ApiControllers
+namespace Exchange.Web.Controllers.Api
 {
     public class InvoiceController : ApiController
     {
