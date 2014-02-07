@@ -10,9 +10,10 @@ using Exchange.Helper.Transaction;
 using Exchange.Provider.Profile;
 using Exchange.Helper.Common;
 using Exchange.Web.Helper;
-using Exchange.Web.Filters;
+
 using System.Web.Security;
 using Exchange.Configuration;
+using Exchange.Web.Filters;
 
 namespace Exchange.Web.Areas.Admin.Controllers
 {
@@ -72,6 +73,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
             model.RoleList = this.service.GetRoleList(0);
             return View(model);
         }
+        [Audit]
         [HttpPost]
         public JsonResult Register(RegisterModel model)
         {

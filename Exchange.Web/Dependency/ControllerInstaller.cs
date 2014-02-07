@@ -22,7 +22,9 @@ namespace Exchange.Web.Dependency
                 Classes.FromThisAssembly().BasedOn<IController>().LifestyleTransient(),
                 Classes.FromAssemblyNamed("Elmah.Mvc").BasedOn<IController>().LifestyleTransient(),
                 //test jeff api controrller register
-                AllTypes.FromThisAssembly().BasedOn<ApiController>().LifestyleScoped()
+                AllTypes.FromThisAssembly().BasedOn<ApiController>().LifestyleScoped(),
+                //all action filter
+                AllTypes.FromThisAssembly().BasedOn<ActionFilterAttribute>().LifestyleScoped()
               
               
 

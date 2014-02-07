@@ -228,6 +228,7 @@
     <Compile Include="Dependency\WindsorControllerFactory.cs" />
     <Compile Include="ApiDependency\WindsorDependencyResolver.cs" />
     <Compile Include="ApiDependency\WindsorDependencyScope.cs" />
+    <Compile Include="Filters\AuditAttribute.cs" />
     <Compile Include="Filters\CrytoProviderAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -238,6 +239,7 @@
     <Compile Include="Helper\Service.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Api\ProductModel.cs" />
+    <Compile Include="Models\AuditModel.cs" />
     <Compile Include="Models\BuyModel.cs" />
     <Compile Include="Models\JsonResponse.cs" />
     <Compile Include="Models\JsonResponseItem.cs" />
