@@ -63,7 +63,7 @@ namespace Exchange.Core.Entities
         public virtual void AddStore(Store store)
         {
             store.UsersInStore.Add(this);
-            Stores.Add(store);
+           // Stores.Add(store);
         }
         public virtual void RemoveStore(Store store)
         {

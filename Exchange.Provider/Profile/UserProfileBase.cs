@@ -40,6 +40,13 @@ namespace Exchange.Provider.Profile
             set { base["FirstName"] = value; }
         }
         [SettingsAllowAnonymous(false)]
+        public string MiddleName
+        {
+            get { return base["MiddleName"] as string; }
+
+            set { base["MiddleName"] = value; }
+        }
+        [SettingsAllowAnonymous(false)]
         public string LastName
         {
             get { return base["LastName"] as string; }

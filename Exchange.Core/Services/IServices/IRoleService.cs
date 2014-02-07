@@ -9,5 +9,6 @@ namespace Exchange.Core.Services.IServices
 {
     public interface IRoleService : IService<Roles, int>, IValidateService<Roles>
     {
+        Roles GetDataByName(string roleName);
     }
 }

@@ -7,10 +7,11 @@ using Exchange.Core.Services.IServices;
 using Exchange.Core.Entities;
 using Exchange.Web.Areas.Admin.Models;
 using Exchange.Helper.Transaction;
-using System.Web.Security;
 using Exchange.Provider.Profile;
 using Exchange.Helper.Common;
 using Exchange.Web.Helper;
+using Exchange.Web.Filters;
+using System.Web.Security;
 
 namespace Exchange.Web.Areas.Admin.Controllers
 {
@@ -23,7 +24,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
         private readonly IProfileService profileService;
         private readonly IRoleService roleService;
         private readonly Service service;
-        public EmployeeController(IUserService userService, IStoreService storeService, IProfileService profileService,IRoleService roleService)
+        public EmployeeController(IUserService userService, IStoreService storeService, IProfileService profileService, IRoleService roleService)
         {
             this.userService = userService;
             this.storeService = storeService;
@@ -48,7 +49,9 @@ namespace Exchange.Web.Areas.Admin.Controllers
                 {
                     Name = string.Format("{0}, {1}",x.LastName,x.FirstName),
                     Position = x.Position,
-                    Address =x.Address
+                    Address =x.Address,
+                    Id=  x.Users_Id.ToString(),
+                    SecuredId= Base.Encrypt(x.Users_Id.ToString())
                 });
                 return Json(new { Result = "OK", Records = collection, TotalRecordCount = total }, JsonRequestBehavior.AllowGet);
             }
@@ -84,17 +87,16 @@ namespace Exchange.Web.Areas.Admin.Controllers
                     model.UserName = Base.GenerateUsername(model.FirstName, model.MiddleName, model.LastName);
                     Membership.CreateUser(model.UserName, password, model.Email, "na", "na", true, null, out status);
                     
-                        //MembershipUser user = Membership.GetUser(model.UserName, false);
+                    MembershipUser user = Membership.GetUser(model.UserName, false);
                         //user.Email = "test@gmail.com";
                         //Membership.UpdateUser(user);
                         //create Profile
                     CreateProfile(model);
                     //Add user to Role
-                    System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
-
-                  
-                  
-
+                    if (!System.Web.Security.Roles.IsUserInRole(model.UserName,model.RoleName))
+                    { 
+                       System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
+                    }
 
                     //Users employee = this.userService.GetUserByUsernameApplicationName(user.UserName, "Exchange");
                     //store.AddEmployee(employee);
@@ -114,6 +116,34 @@ namespace Exchange.Web.Areas.Admin.Controllers
           
 
         }
+
+    
+        #endregion
+        #region Manage
+        [CrytoProvider]
+        public ActionResult Manage(int Id)
+        {
+            RegisterModel model = new RegisterModel();
+            Profiles profile = this.profileService.GetProfileByUserId(Id);
+            Users user = this.userService.GetUserById(Id);
+            string[] roles = Access.GetUserRoles(user.Username);
+            Exchange.Core.Entities.Roles role= this.roleService.GetDataByName(roles[0].ToString());
+            if (profile != null)
+            {
+                model.Address = profile.Address;
+                model.BirthDate = profile.BirthDate.ToString();
+                model.Email = user.Email;
+                model.FirstName = profile.FirstName;
+                model.Gender = profile.Gender;
+                model.LastName = profile.LastName;
+                model.MiddleName = profile.MiddleName;
+                model.Position = profile.Position;
+                model.StoreList =this.service.GetStoreList(0);
+                model.RoleList = this.service.GetRoleList(role.Id);        
+            }
+          
+            return View(model);
+        }
         #endregion
         #region Profile Private Method
         private void CreateProfile(RegisterModel model)
@@ -122,6 +152,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
             if (profile != null)
             {
                 profile.FirstName = model.FirstName;
+                profile.MiddleName = model.MiddleName;
                 profile.LastName = model.LastName;
                 profile.Address = model.Address;
                 profile.Gender = model.Gender;
@@ -171,6 +202,31 @@ namespace Exchange.Web.Areas.Admin.Controllers
                     return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
+        #endregion
+
+        #region Test
+         public ActionResult Test()
+         {
+             bool userIsInStore = false;
+             Users user = this.userService.GetUserById(1);
+             Store store = this.storeService.GetDataById(1);
+             List<Store> stores = user.Stores.ToList();
+             foreach (var item in stores)
+             {
+                 if (item.Equals(store))
+                 {
+                     userIsInStore = true;
+                 }
+             }
+             if (!userIsInStore)
+             { 
+                user.AddStore(store);
+                this.userService.SaveChanges(user);
+             }
+           
+             return View();
+            
+         }
         #endregion
 
 

@@ -60,7 +60,7 @@ namespace Exchange.Helper.Common
             { searchString = string.Format("{0}{1}{2}", "%", searchString, "%"); }
             return searchString.ToString();
         }
-        public static string GenerateUsername(string firstname, string lastname, string middlename)
+        public static string GenerateUsername(string firstname, string middlename, string lastname)
         {
             if (!string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(lastname) && !string.IsNullOrEmpty(middlename))
             {

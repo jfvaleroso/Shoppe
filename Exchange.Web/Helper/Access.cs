@@ -13,5 +13,10 @@ namespace Exchange.Web.Helper
            bool superAdmin= Roles.IsUserInRole("Super Admin");
            return superAdmin;
         }
+
+        public static string[] GetUserRoles(string username)
+        {
+          return System.Web.Security.Roles.GetRolesForUser(username);
+        }
     }
 }

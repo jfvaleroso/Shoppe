@@ -13,6 +13,9 @@ namespace Exchange.Core.Services.IServices
         List<Users> GetUsersWithPagingAndSearch(string searchString, int pageIndex, int pageSize, out long total);
         Users GetUserById(int userId);
         Users GetUserByUsernameApplicationName(string username, string applicationName);
+        void SaveOrUpdate(Users entity); 
+        void SaveChanges(Users entity);
+
 
     }
 }

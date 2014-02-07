@@ -35,6 +35,7 @@ namespace Exchange.Core.Entities
         public virtual void AddEmployee(Users user)
         {
             UsersInStore.Add(user);
+
         }
 
 

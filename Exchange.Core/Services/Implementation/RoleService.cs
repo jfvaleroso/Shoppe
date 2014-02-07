@@ -67,9 +67,13 @@ namespace Exchange.Core.Services.Implementation
         {
             return this.roleRepository.Get(id);
         }
+        public Roles GetDataByName(string roleName)
+        {
+            return this.roleRepository.GetByExpression(x => x.RoleName.Equals(roleName));
+        }
         public Roles GetByExpression(Roles entity)
         {
-            return this.roleRepository.GetByExpression(x => x.RoleName.Equals(entity.RoleName));
+            return this.roleRepository.GetByExpression(x => x.UsersInRole.Equals(entity.RoleName));
         }
         #endregion   
         #region Validator

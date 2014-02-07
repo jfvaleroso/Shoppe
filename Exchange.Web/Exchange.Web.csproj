@@ -222,7 +222,7 @@
     <Compile Include="Controllers\ExchangeController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="ApiControllers\InvoiceController.cs" />
+    <Compile Include="Controllers\Api\InvoiceController.cs" />
     <Compile Include="Controllers\Test.cs" />
     <Compile Include="Dependency\ControllerInstaller.cs" />
     <Compile Include="Dependency\WindsorControllerFactory.cs" />
@@ -882,6 +882,7 @@
     <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\New.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Manage.cshtml" />
     <None Include="Scripts\jquery.validate\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate\jquery.numeric.js" />
     <Content Include="Scripts\jquery.validate\jquery.validate.js" />

@@ -18,6 +18,5 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.csprojResolveAssemblyReference.cache
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\bin\Debug\Exchange.Core.dll
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\bin\Debug\Exchange.Core.pdb
-D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.csprojResolveAssemblyReference.cache
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.dll
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Core\obj\Debug\Exchange.Core.pdb

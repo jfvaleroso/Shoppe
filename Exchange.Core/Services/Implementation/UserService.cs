@@ -42,5 +42,15 @@ namespace Exchange.Core.Services.Implementation
         {
             return this.userRepository.GetUserByUsernameApplicationName(username, applicationName);
         }
+
+
+        public void SaveOrUpdate(Entities.Users entity)
+        {
+            this.userRepository.SaveOrUpdate(entity);
+        }
+        public void SaveChanges(Entities.Users entity)
+        {
+            this.userRepository.SaveOrUpdate(entity);
+        }
     }
 }

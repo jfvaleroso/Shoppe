@@ -21,11 +21,11 @@
                     key: true,
                     list: false
                 },
-                View: {
+                 View: {
                     title: '',
                     width: '1.3%',
                     display: function (data) {
-                        var $img = '<a href=@Url.Action("Item")/' + data.record.Id + '><span class="glyphicon glyphicon-th-list"></span></a>';
+                        var $img = '<a data-toggle="tooltip" title="Click to manage." href=@Url.Action("Manage")/' + data.record.SecuredId + '><span class="glyphicon glyphicon-th-list"></span></a>';
                         return $img;
                     }
                 },
@@ -49,9 +49,9 @@
             }
 
         });
-       
+
     });
-   
+
 </script>
 @using (Html.BeginForm())
 { 
