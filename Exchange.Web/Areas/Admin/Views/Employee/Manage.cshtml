@@ -146,7 +146,7 @@
                     </div>*@
                     <div class="editor-field">
                         @Html.DropDownListFor(model => model.RoleName, Model.RoleList, string.Empty, new { @class = "combobox combobox-medium" })
-                        <p class="small">Please indicate the rolename.</p>
+                        <p class="small">Role name.</p>
                     </div>
 
 
@@ -156,11 +156,12 @@
                     </div>*@
                     <div class="editor-field">
                         @Html.DropDownListFor(model => model.StoreId, Model.StoreList, string.Empty, new { @class = "combobox combobox-medium" })
-                        <p class="small">Please indicate the store name.</p>
+                        <p class="small">Store name.</p>
                     </div>
 
 
                     @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserName)
                 </div>
 
 

@@ -183,7 +183,7 @@ namespace Exchange.Web.Controllers
                     store.PermitNo = "1223423";
 
                     Users employee = this.userService.GetUserByUsernameApplicationName(user.UserName, "Exchange");
-                    store.AddEmployee(employee);
+                    store.AddUser(employee);
 
                   //  this.storeService.SaveOrUpdate(store);
                     

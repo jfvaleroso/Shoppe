@@ -135,7 +135,7 @@ $(function () {
         return false;
     });
     //test
-    $('.combobox').on("select2-selecting", function (e) {
+    $('#main-invoice .combobox').on("select2-selecting", function (e) {
         //e.object.id
         //alert(e.val);
         var r, q;
@@ -158,7 +158,7 @@ $(function () {
         invoice.calculate(this);
     });
     //remove
-    $('.combobox').on("select2-removed", function (e) {
+    $('#main-invoice .combobox').on("select2-removed", function (e) {
         //e.object.id
         //alert(e.val);
         $(this).closest('tr').find('td.quantity input').val(0);

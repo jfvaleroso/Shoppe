@@ -12,6 +12,7 @@ using Exchange.Helper.Common;
 using Exchange.Web.Helper;
 using Exchange.Web.Filters;
 using System.Web.Security;
+using Exchange.Configuration;
 
 namespace Exchange.Web.Areas.Admin.Controllers
 {
@@ -98,10 +99,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
                        System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
                     }
 
-                    //Users employee = this.userService.GetUserByUsernameApplicationName(user.UserName, "Exchange");
-                    //store.AddEmployee(employee);
+                     Users employee = this.userService.GetUserByUsernameApplicationName(user.UserName, ConfigManager.Exchange.ApplicationName);
+                     Store store= this.storeService.GetDataById(model.StoreId);
 
-                    //  this.storeService.SaveOrUpdate(store);
+                     AddUserIsInStore(employee, store);
+
+
                     return Json(new { result = "", message = MessageCode.saved, code = StatusCode.saved, content = "" });
                 }
                 catch(Exception ex)
@@ -126,8 +129,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
             RegisterModel model = new RegisterModel();
             Profiles profile = this.profileService.GetProfileByUserId(Id);
             Users user = this.userService.GetUserById(Id);
+            //get roles
             string[] roles = Access.GetUserRoles(user.Username);
             Exchange.Core.Entities.Roles role= this.roleService.GetDataByName(roles[0].ToString());
+            //get store
+            int storeId = user.Stores.Count() > 0  ? user.Stores.FirstOrDefault().Id : 0;
+
             if (profile != null)
             {
                 model.Address = profile.Address;
@@ -138,11 +145,47 @@ namespace Exchange.Web.Areas.Admin.Controllers
                 model.LastName = profile.LastName;
                 model.MiddleName = profile.MiddleName;
                 model.Position = profile.Position;
-                model.StoreList =this.service.GetStoreList(0);
-                model.RoleList = this.service.GetRoleList(role.Id);        
+                model.StoreList =this.service.GetStoreList(storeId);
+                model.RoleList = this.service.GetRoleList(role.Id);
+                model.UserName = user.Username;
             }
           
             return View(model);
+        }
+        [HttpPost]
+        public JsonResult Manage(RegisterModel model)
+        {
+
+
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    Users employee = this.userService.GetUserByUsernameApplicationName(model.UserName, ConfigManager.Exchange.ApplicationName);             
+                    MembershipUser user = Membership.GetUser(model.UserName, false);
+                    Store store = this.storeService.GetDataById(model.StoreId);
+
+                    employee.Roles.Clear();
+                    employee.Stores.Clear();
+                    this.userService.SaveOrUpdate(employee);
+                    //add roles and store
+                    System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
+                    AddUserIsInStore(employee, store);
+
+                    return Json(new { result = "", message = MessageCode.saved, code = StatusCode.saved, content = "" });
+                }
+                catch (Exception ex)
+                {
+
+                    return Json(new { result = StatusCode.failed, message = ex.Message, code = StatusCode.invalid });
+                }
+            }
+            return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid });
+
+
+
+
         }
         #endregion
         #region Profile Private Method
@@ -205,28 +248,33 @@ namespace Exchange.Web.Areas.Admin.Controllers
         #endregion
 
         #region Test
-         public ActionResult Test()
+     
+
+         bool CheckIfUserIsInStore(Users user, Store store)
          {
              bool userIsInStore = false;
-             Users user = this.userService.GetUserById(1);
-             Store store = this.storeService.GetDataById(1);
              List<Store> stores = user.Stores.ToList();
              foreach (var item in stores)
              {
                  if (item.Equals(store))
                  {
                      userIsInStore = true;
+                     break;
                  }
              }
-             if (!userIsInStore)
-             { 
-                user.AddStore(store);
-                this.userService.SaveChanges(user);
-             }
-           
-             return View();
-            
+             return userIsInStore;
          }
+
+         void AddUserIsInStore(Users user, Store store)
+         {
+             if (!CheckIfUserIsInStore(user, store))
+             {
+                 store.AddUser(user);
+                 this.storeService.SaveOrUpdate(store);
+             }
+         }
+
+
         #endregion
 
 

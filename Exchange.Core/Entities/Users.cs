@@ -60,15 +60,15 @@ namespace Exchange.Core.Entities
         }
 
 
-        public virtual void AddStore(Store store)
-        {
-            store.UsersInStore.Add(this);
-           // Stores.Add(store);
-        }
-        public virtual void RemoveStore(Store store)
-        {
-            store.UsersInStore.Remove(this);
-            Stores.Remove(store);
-        }
+        //public virtual void AddStore(Store store)
+        //{
+        //    store.UsersInStore.Add(this);
+        //   // Stores.Add(store);
+        //}
+        //public virtual void RemoveStore(Store store)
+        //{
+        //    store.UsersInStore.Remove(this);
+        //    Stores.Remove(store);
+        //}
     }
 }
