@@ -12,26 +12,37 @@ namespace Exchange.Web.Helper
 {
     public class CryptoProvider : IValueProvider
     {
-        RouteData routeData = null;
-        object data;
+       RouteData routeData = null;
+        Dictionary<string, string> dictionary = new Dictionary<string,string>();
+
         public CryptoProvider(RouteData routeData)
         {
             this.routeData = routeData;
         }
+
         public bool ContainsPrefix(string prefix)
         {
-            if (this.routeData.Values["id"] == null)
+            var data = this.routeData.Values[prefix];
+            if (data == null)
             {
                 return false;
             }
-            data = Base.Decrypt(this.routeData.Values["id"].ToString());
-            return true;
+            else
+            {
+                this.dictionary.Add(prefix, Base.Decrypt(data.ToString()));
+            }
+            return this.dictionary.ContainsKey(prefix);
         }
+
         public ValueProviderResult GetValue(string key)
         {
-            ValueProviderResult result;
-            result = new ValueProviderResult(data,
-                "Id", CultureInfo.CurrentCulture);
+            ValueProviderResult result=null;
+            if (this.dictionary.ContainsKey(key))
+            {
+                result = new ValueProviderResult(this.dictionary[key],
+                this.dictionary[key], CultureInfo.CurrentCulture);
+            }
+                   
             return result;
         }
     }
