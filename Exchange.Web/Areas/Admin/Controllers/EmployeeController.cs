@@ -81,15 +81,16 @@ namespace Exchange.Web.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-
+                string fullName = Base.GenerateFullName(model.FirstName, model.MiddleName, model.LastName);
                 try
                 {
                     // List<Users> users = userService.GetAll().ToList();
                     string password = Base.GenearateKey(8);
+                   
                     MembershipCreateStatus status;
                     model.UserName = Base.GenerateUsername(model.FirstName, model.MiddleName, model.LastName);
                     Membership.CreateUser(model.UserName, password, model.Email, "na", "na", true, null, out status);
-                    
+                  
                     MembershipUser user = Membership.GetUser(model.UserName, false);
                         //user.Email = "test@gmail.com";
                         //Membership.UpdateUser(user);
@@ -107,15 +108,15 @@ namespace Exchange.Web.Areas.Admin.Controllers
                      AddUserIsInStore(employee, store);
 
 
-                    return Json(new { result = "", message = MessageCode.saved, code = StatusCode.saved, content = "" });
+                     return Json(new { result = "", message = MessageCode.saved, code = StatusCode.saved, content = fullName });
                 }
                 catch(Exception ex)
                 {
 
-                    return Json(new { result = StatusCode.failed, message = ex.Message, code = StatusCode.invalid });
+                    return Json(new { result = StatusCode.failed, message = ex.Message, code = StatusCode.invalid, content = fullName });
                 }
             }
-            return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid });
+            return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid});
 
             
           

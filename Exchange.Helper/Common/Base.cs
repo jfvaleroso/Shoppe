@@ -68,6 +68,14 @@ namespace Exchange.Helper.Common
             }
             return string.Empty;
         }
+        public static string GenerateFullName(string firstname, string middlename, string lastname)
+        {
+            if (!string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(lastname) && !string.IsNullOrEmpty(middlename))
+            {
+                return string.Format("{0}{1}{2}", firstname.ToString(), middlename.ToString(), lastname.Trim());
+            }
+            return string.Empty;
+        }
         #endregion
         #region Security
         public static string Encrypt(string input)

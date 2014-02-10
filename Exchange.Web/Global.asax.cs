@@ -63,7 +63,8 @@ namespace Exchange.Web
              ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(_windsorContainer.Kernel));
             //register web api dependency resolver
              GlobalConfiguration.Configuration.DependencyResolver = new WindsorDependencyResolver(_windsorContainer.Kernel);
-           
+            //filter
+             System.Web.HttpContext.Current.Application["Windsor"] = _windsorContainer;
         }
 
        

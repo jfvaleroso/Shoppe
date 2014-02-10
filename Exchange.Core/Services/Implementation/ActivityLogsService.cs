@@ -49,6 +49,16 @@ namespace Exchange.Core.Services.Implementation
             return this.activityLogsRepository.Create(entity);
         }
 
+        public void CreateAuditLog(string userName, string ipAddress, string areaAccessed,  DateTime timeAccessed, string action, string result )
+        {
+            ActivityLogs entity = new ActivityLogs();
+            entity.Description = string.Format("IP Address: {0}, Area Access: {1}, Result: {2}", ipAddress, areaAccessed, result);
+            entity.ExecutedBy = userName;
+            entity.Timestamp = timeAccessed;
+            entity.Type = action;
+            this.activityLogsRepository.Create(entity);
+        }
+
         public void SaveChanges(ActivityLogs entity)
         {
             this.activityLogsRepository.SaveChanges(entity);
