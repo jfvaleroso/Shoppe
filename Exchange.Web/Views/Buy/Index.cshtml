@@ -27,7 +27,7 @@
                         @Html.DropDownListFor(model => model.ProductId, Model.ProductList, string.Empty, new { @class = "combobox combobox-medium" })
                     </td>
                     <td class="quantity"><input class="number" data-toggle="tooltip" title="modify quantity" type="text" /></td>
-                    <td class="rate"><input class="number" data-toggle="tooltip" title="modify rate" type="text" /></td>
+                    <td class="rate"><input class="number" data-toggle="tooltip" title="modify rate" type="text" readonly="readonly" /></td>
                     <td class="amount"><input class="number" type="text" readonly="readonly" /></td>
                     <td class="vat"><input class="number" type="text" readonly="readonly" /></td>
                     <td class="subtotal"><input class="number" type="text" readonly="readonly" /></td>

@@ -60,6 +60,9 @@
             if (items > 1) {
                 $(element).closest('tr').remove();
             }
+            else {
+                $(element).closest('tr').find('input').val('');
+            }
             //create new variable
             var amount = $('#invoice tr td.amount input');
             var vat = $('#invoice tr td.vat input');
@@ -71,8 +74,8 @@
             $('#invoice tr.invoice-item:last td.product select').select2("destroy");
             var clone = $('#invoice tr.invoice-item:last').clone(true, true);
             clone.find('input').val('');
-            clone.insertAfter('#invoice tr.invoice-item:last');
-            $('#invoice select').select2();
+            clone.insertAfter('#invoice tr.invoice-item:last');         
+            $('#invoice select').select2();      
         }
 
        
@@ -108,7 +111,7 @@ $(function () {
         $(this.cells[0]).removeClass('pointer');
     });
     //allow only numbers
-    $('#invoice input.number').numeric();
+   // $('#invoice input.number').numeric();
 
     //global variables
     var inputs = $('#invoice tr td.quantity input, #invoice tr td.rate input');
@@ -135,10 +138,11 @@ $(function () {
         return false;
     });
     //test
-    $('#main-invoice .combobox').on("select2-selecting", function (e) {
+    $('#main-invoice .combobox').on("select2-selected", function (e, element) {        
         //e.object.id
         //alert(e.val);
-        var r, q;
+        var r = 0, q = 0;
+        element = this;
         $.ajax({
             url: 'api/invoice/GetProductById/',
             type: "get",
@@ -151,11 +155,14 @@ $(function () {
             success: function (data) {
                 r = data.Rate;
                 q = 1;
+                $(element).closest('tr').find('td.rate input').val(r);
+                $(element).closest('tr').find('td.quantity input').val(q);
+                invoice.calculate('#main-invoice .combobox');
             }
         });
-        $(this).closest('tr').find('td.quantity input').val(q);
-        $(this).closest('tr').find('td.rate input').val(r);
-        invoice.calculate(this);
+        
+       
+        //return false;
     });
     //remove
     $('#main-invoice .combobox').on("select2-removed", function (e) {
