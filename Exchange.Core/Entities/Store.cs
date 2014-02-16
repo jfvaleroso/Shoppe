@@ -24,11 +24,14 @@ namespace Exchange.Core.Entities
         public virtual string ModifiedBy { get; set; }
         public virtual DateTime? DateModified { get; set; }
         public virtual IList<Users> UsersInStore { get; set; }
+        public virtual IList<Invoice> Invoices { get; set; }
+
 
         public Store()
         {
 
             UsersInStore = new List<Users>();
+            this.Invoices = new List<Invoice>();
         }
 
       

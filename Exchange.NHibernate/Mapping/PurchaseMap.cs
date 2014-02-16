@@ -13,25 +13,25 @@ namespace Exchange.NHibernateBase.Mapping
         {
             Table("Purchase");
             Id(x => x.Id);
-            Map(x => x.ProductCode);
-            Map(x => x.Grams);
+
             Map(x => x.Quantity);
-            Map(x => x.Description);
+            Map(x => x.Grams);
+            Map(x => x.Rate);
             Map(x => x.Cost);
             Map(x => x.Bonus);
             Map(x => x.Total);
-            Map(x => x.Rate);
+            Map(x => x.Description);
+          
             Map(x => x.DateCreated);
-            Map(x => x.Cashier);
-            Map(x => x.InvoiceId).Column("Invoice_Id");
-            Map(x => x.Appraiser);
-            Map(x => x.CustomerId).Column("Customer_Id");
-            Map(x => x.Status);
-
-
-
-
-	}
+            Map(x => x.DateModified);
+            Map(x => x.CreatedBy);
+            Map(x => x.ModifiedBy);
+      
+            References(x => x.Invoice, "Invoice_Id");
+            References(x => x.Status, "Status_Id");
+            References(x => x.Product, "Product_Id");
+            References(x => x.SecurityCode, "SecurityCode_Id");
+	    }
         
     }
 }

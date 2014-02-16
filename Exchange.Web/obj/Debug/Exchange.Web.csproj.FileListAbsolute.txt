@@ -438,3 +438,6 @@ D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\bin\ru-ru\BundleTransformer.Core.res
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\obj\Debug\Exchange.Web.csprojResolveAssemblyReference.cache
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\obj\Debug\Exchange.Web.dll
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\obj\Debug\Exchange.Web.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\bin\Glimpse.AspNet.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\bin\Glimpse.Core.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\bin\Glimpse.Mvc4.dll

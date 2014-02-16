@@ -60,7 +60,7 @@ namespace Exchange.Core.Services.Implementation
 
         public Purchase GetByExpression(Purchase entity)
         {
-            return this.purchaseRepository.GetByExpression(x => x.Cashier.Equals(entity.Cashier));
+            return this.purchaseRepository.GetByExpression(x => x.Product.Equals(entity.Product));
         }
         public List<Purchase> GetAllData()
         {

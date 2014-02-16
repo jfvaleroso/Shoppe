@@ -92,8 +92,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\NHActivityLogsRepository.cs" />
     <Compile Include="Repositories\NHCustomerRepository.cs" />
+    <Compile Include="Repositories\NHInvoiceRepository.cs" />
     <Compile Include="Repositories\NHProductHistoryRepository.cs" />
     <Compile Include="Repositories\NHProfileRepository.cs" />
+    <Compile Include="Repositories\NHPurchaseRepository.cs" />
     <Compile Include="Repositories\NHRoleRepository.cs" />
     <Compile Include="Repositories\NHUserRepository.cs" />
     <Compile Include="Repositories\NHProductRepository.cs" />

@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IInvoiceRepository : IRepository<Invoice, int>
+    public interface IInvoiceRepository : IRepository<Invoice, long>
     {
     }
 }

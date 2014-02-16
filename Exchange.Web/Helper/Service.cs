@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Exchange.Core.Services.IServices;
 using System.Web.Mvc;
+using Exchange.Helper.Common;
 
 
 
@@ -15,6 +16,7 @@ namespace Exchange.Web.Helper
         private readonly IProductService productService;
         private readonly IStoreService storeService;
         private readonly IRoleService roleService;
+        private readonly ICustomerService customerService;
         public Service(IProductTypeService productTypeService)
         {
             this.productTypeService = productTypeService;
@@ -22,6 +24,11 @@ namespace Exchange.Web.Helper
         public Service(IProductService productService)
         {
             this.productService = productService;
+        }
+        public Service(IProductService productService,ICustomerService customerService)
+        {
+            this.productService = productService;
+            this.customerService= customerService;
         }
         public Service(IStoreService storeService, IRoleService roleService)
         {
@@ -109,6 +116,25 @@ namespace Exchange.Web.Helper
                         sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
                         source.Add(sourceItem);
                     }
+                }
+            }
+            return source;
+        }
+        public List<SelectListItem> GetCustomerList(int selectedValue)
+        {
+
+            List<SelectListItem> source = new List<SelectListItem>();
+            var items = this.customerService.GetAllData();
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                        SelectListItem sourceItem = new SelectListItem();
+                        sourceItem.Value = item.Id.ToString();
+                        sourceItem.Text = Base.GenerateFullName(item.FirstName, item.MiddleName, item.LastName);
+                        sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
+                        source.Add(sourceItem);
+                    
                 }
             }
             return source;

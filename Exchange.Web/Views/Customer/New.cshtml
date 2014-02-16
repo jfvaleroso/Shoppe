@@ -1,135 +1,211 @@
-﻿@model Exchange.Core.Entities.Customer
+﻿@model Exchange.Web.Models.CustomerModel
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "New Customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<legend>Customer Maintenance</legend>
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#">Create New Store</a></li>
-</ul>
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Customer</h3>
+
+
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>Register</strong></h3>
+            </div>
+            <div class="panel-body small">
+                Instructions here...
+            </div>
+
         </div>
-        <div class="panel-body">
-            <fieldset>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.LastName)
+
+    </div>
+    <div class="col-md-7">
+
+        @Html.Partial("ModalTemplates/_Status")
+
+        <div id="transaction">
+            @using (Html.BeginForm())
+            {
+                @Html.Partial("ModalTemplates/_Alert")
+
+                <div class="form-group">
+                    <div class="page-header-title"><strong>Customer Information</strong></div>
+
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.FirstName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                                <p class="small">Please indicate the firstname.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.MiddleName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })
+                                <p class="small">Please indicate the middle name.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.LastName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                                <p class="small">Please indicate the lastname.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-xs-4">
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Gender)
+                            </div>
+                            <div class="editor-field">
+
+                                @Html.DropDownListFor(model => model.Gender, new SelectList(
+                                                                           new List<Object>{
+                                                                           new { value = "M" , text = "Male"  },
+                                                                           new { value = "F" , text = "Female" }
+                                                                        },
+                                                                         "value",
+                                                                          "text",
+                                                                       2), string.Empty, new { @class = "combobox combobox-medium" })
+
+                                <p class="small">Please indicate the gender.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.BirthDate)
+                            </div>
+                            <div class="editor-field form-inline" id="birthdate-field">
+                                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control" })
+                                <span class="add-on">
+                                    <span class="glyphicon glyphicon-th-list">
+
+                                    </span>
+                                </span>
+                                <p class="small">Please indicate the birth date.</p>
+
+
+
+
+                            </div>
+
+
+
+
+
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.CellphoneNo)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.CellphoneNo, new { @class = "form-control" })
+                                <p class="small">Please indicate the position.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Email)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        <p class="small">Please indicate the email address.</p>
+                    </div>
+
+                    <div class="editor-label">
+                        <label>Residential Address</label>
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.ResidentialAddress, new { @class = "form-control" })
+                        <p class="small">Please indicate the address.</p>
+                    </div>
+
+                    <div class="editor-label">
+                        <label>Office Address</label>
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.OfficeAddress, new { @class = "form-control" })
+                        <p class="small">Please indicate the address.</p>
+                    </div>
+
+
+                    <div class="page-header-title"><strong>ID Presented</strong></div>
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="editor-label">
+                                <label>Type of ID</label>
+                            </div>
+                            <div class="editor-field">
+                                @Html.DropDownListFor(model => model.TypeOfID, new SelectList(
+                                                                           new List<Object>{
+                                                                           new { value = "COMPID" , text = "Company ID"  },
+                                                                           new { value = "PHk" , text = "Phil health" }
+                                                                        },
+                                                                         "value",
+                                                                          "text",
+                                                                       2), string.Empty, new { @class = "combobox combobox-medium" })
+                                <p class="small">Please indicate the address.</p>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="editor-label">
+                                <label>ID No</label>
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.IDNo, new { @class = "form-control" })
+                                <p class="small">Please indicate the address.</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+
+
                 </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.LastName)
-                    @Html.ValidationMessageFor(model => model.LastName)
+
+
+                <div class="right">
+                    <button id="btnSave" class="btn btn-large btn-success" type="button">
+                        Save
+                    </button>
+                    <button id="btnCancel" class="btn btn-large btn-success" type="button">
+                        Cancel
+                    </button>
                 </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.FirstName)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.FirstName)
-                    @Html.ValidationMessageFor(model => model.FirstName)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.MiddleName)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.MiddleName)
-                    @Html.ValidationMessageFor(model => model.MiddleName)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.TelephoneNo)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.TelephoneNo)
-                    @Html.ValidationMessageFor(model => model.TelephoneNo)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.CellphoneNo)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.CellphoneNo)
-                    @Html.ValidationMessageFor(model => model.CellphoneNo)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Email)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Email)
-                    @Html.ValidationMessageFor(model => model.Email)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.BirthDate)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.BirthDate)
-                    @Html.ValidationMessageFor(model => model.BirthDate)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Gender)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Gender)
-                    @Html.ValidationMessageFor(model => model.Gender)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.OfficeAddress)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.OfficeAddress)
-                    @Html.ValidationMessageFor(model => model.OfficeAddress)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.ResidentialAddress)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.ResidentialAddress)
-                    @Html.ValidationMessageFor(model => model.ResidentialAddress)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.PostalCode)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.PostalCode)
-                    @Html.ValidationMessageFor(model => model.PostalCode)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.City)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.City)
-                    @Html.ValidationMessageFor(model => model.City)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Province)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Province)
-                    @Html.ValidationMessageFor(model => model.Province)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.TypeOfID)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.TypeOfID)
-                    @Html.ValidationMessageFor(model => model.TypeOfID)
-                </div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.IDNo)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.IDNo)
-                    @Html.ValidationMessageFor(model => model.IDNo)
-                </div>
-            </fieldset>
+            }
         </div>
+
     </div>
-    <div class="right">
-        <button id="btnSave" class="btn btn-large btn-success" type="submit">
-            Save</button>
-        <button id="btnCancel" class="btn btn-large btn-success" type="button">
-            Cancel</button>
-    </div>
-}
+</div>
+
+
+
+
 @Html.Hidden("Item", Url.Action("Item"))
-@Html.Hidden("New", Url.Action("New"))
+@Html.Hidden("New", Url.Action("Register"))
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#birthdate-field').datetimepicker({
+            pickTime: false
+        });
+    });
+</script>

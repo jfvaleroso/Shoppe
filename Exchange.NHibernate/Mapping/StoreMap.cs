@@ -24,9 +24,13 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.DateCreated);
             Map(x => x.ModifiedBy);
             Map(x => x.DateModified);
+            HasMany(x => x.Invoices)
+            .Inverse()
+            .Cascade.All();
             HasManyToMany(x => x.UsersInStore)
            .Cascade.All()
            .Table("UsersInStore");
+         
 
         }
 

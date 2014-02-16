@@ -14,11 +14,14 @@ namespace Exchange.Web.Models
         //public float Bonus { get; set; }
         //public float SubTotal { get; set; }
         public int ProductId { get; set; }
+        public int CustomerId { get; set; }
         public IList<SelectListItem> ProductList { get; set; }
+        public IList<SelectListItem> CustomerList { get; set; }
         public BuyModel()
         {
 
             this.ProductList = new List<SelectListItem>();
+            this.CustomerList = new List<SelectListItem>();
         }
 
     }

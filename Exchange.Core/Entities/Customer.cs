@@ -35,14 +35,14 @@ namespace Exchange.Core.Entities
         public virtual DateTime? DateModified { get; set; }
         public virtual string ModifiedBy { get; set; }
         public virtual IList<Invoice> Invoices { get; set; }
-        public virtual IList<Purchase> Purchases { get; set; }
+       
 
         public Customer()
         {
 
             this.DateCreated = DateTime.Now;
             this.Invoices = new List<Invoice>();
-            this.Purchases = new List<Purchase>();
+           
         }
 
     }

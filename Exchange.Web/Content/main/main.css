@@ -199,10 +199,21 @@ margin: 5px 0;
         background-position: -322px -57px;
     }
 
+
+
     #invoice tr td input[type="text"], #invoice-summary tr td input[type="text"] {
         border: 2px;
         background-color: transparent;
         outline: 0;
+        
+    }
+
+    #invoice tr td.quantity input[type="text"],#invoice tr td.grams input[type="text"] {
+        border: 2px;
+        background-color: #ffffff;
+        outline: 0;
+        padding:5px 5px;
+        width:70px;
     }
 
     #invoice, #invoice-summary {
@@ -224,9 +235,22 @@ margin: 5px 0;
     }
 
     #invoice tr td.delete a {
+        color: gray;
+        text-decoration: none;
+        outline: 0;
+        width:50px;
+    
+        margin:0 auto
+    }
+       #invoice tr td.delete a:hover {
         color: red;
         text-decoration: none;
         outline: 0;
+        cursor:pointer
+    }
+
+       #main-invoice #customer input[type="text"]:hover {
+        cursor:pointer
     }
     /*Invoiceakd*/
 

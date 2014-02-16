@@ -82,11 +82,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IValidateRepository.cs" />
     <Compile Include="Services\Implementation\ActivityLogsService.cs" />
+    <Compile Include="Services\Implementation\InvoiceService.cs" />
     <Compile Include="Services\Implementation\ProductHistoryService.cs" />
     <Compile Include="Services\Implementation\PurchaseService.cs" />
     <Compile Include="Services\IServices\IActivityLogsService.cs" />
     <Compile Include="Services\IServices\ICustomerService.cs" />
     <Compile Include="Services\IServices\IFilterService.cs" />
+    <Compile Include="Services\IServices\IInvoiceService.cs" />
     <Compile Include="Services\IServices\IProductHistoryService.cs" />
     <Compile Include="Services\IServices\IProductService.cs" />
     <Compile Include="Services\IServices\IProductTypeService.cs" />

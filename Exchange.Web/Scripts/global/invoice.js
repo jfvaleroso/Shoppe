@@ -7,51 +7,55 @@
             window.location = url;
         },
         calculate: function (element) {
+            debugger;
             var qty = $(element).closest('tr').find('td.quantity input').val();
             var rate = $(element).closest('tr').find('td.rate input').val();
-            var amount_input = $(element).closest('tr').find('td.amount input');
-            var vat_input = $(element).closest('tr').find('td.vat input');
-            var subtotal_input = $(element).closest('tr').find('td.subtotal input');
+            var grams = $(element).closest('tr').find('td.grams input').val();
+            var cost_input = $(element).closest('tr').find('td.cost input');
+            var bonus_input = $(element).closest('tr').find('td.bonus input');
+            var total_input = $(element).closest('tr').find('td.total input');
 
-            var amount = qty * rate;
-            var vat = amount / 100 * 20;
-            var subtotal = amount + vat;
+            var cost = qty * rate * grams;
+            var bonus = cost / 100 * 20;
+            var total = cost + bonus;
 
-            amount_input.val(amount.toFixed(2));
-            vat_input.val(vat.toFixed(2));
-            subtotal_input.val(subtotal.toFixed(2));
-            invoice.updateSummary(amount_input, vat_input, subtotal_input);
+        
+
+            cost_input.val(cost.toFixed(2));
+            bonus_input.val(bonus.toFixed(2));
+            total_input.val(total.toFixed(2));
+            invoice.updateSummary(cost_input, bonus_input, total_input);
         },
-        updateSummary: function (amount, vat, subtotal) {
-            amount = $('#invoice tr td.amount input');
-            vat = $('#invoice tr td.vat input');
-            subtotal = $('#invoice tr td.subtotal input');
-            var amttoal = 0;
-            var vattotal = 0;
-            var grandtotal = 0;
+        updateSummary: function (cost, bonus, total) {
+            cost = $('#invoice tr td.cost input');
+            bonus = $('#invoice tr td.bonus input');
+            total = $('#invoice tr td.total input');
+            var total_cost = 0;
+            var total_bonus = 0;
+            var grand_total = 0;
 
-            amount.each(function () {
+            cost.each(function () {
                 if ($(this).val() != '') {
-                    amttoal += parseFloat($(this).val());
+                    total_cost += parseFloat($(this).val());
                 }
             });
-            vat.each(function () {
+            bonus.each(function () {
                 if ($(this).val() != '') {
-                    vattotal += parseFloat($(this).val());
+                    total_bonus += parseFloat($(this).val());
                 }
             });
-            subtotal.each(function () {
+            total.each(function () {
                 if ($(this).val() != '') {
-                    grandtotal += parseFloat($(this).val());
+                    grand_total += parseFloat($(this).val());
                 }
             });
-            $("#total_amount input").val(amttoal.toFixed(2));
-            $("#total_vat input").val(vattotal.toFixed(2));
-            $("#grand_total input").val(grandtotal.toFixed(2));
+            $("#total_cost input").val(total_cost.toFixed(2));
+            $("#total_bonus input").val(total_bonus.toFixed(2));
+            $("#grand_total input").val(grand_total.toFixed(2));
         },
         reseet: function () {
-            $("#total_amount input").val('');
-            $("#total_vat input").val('');
+            $("#total_cost input").val('');
+            $("#total_bonus input").val('');
             $("#grand_total input").val('');
         },
         removeItem: function (element) {
@@ -64,21 +68,99 @@
                 $(element).closest('tr').find('input').val('');
             }
             //create new variable
-            var amount = $('#invoice tr td.amount input');
-            var vat = $('#invoice tr td.vat input');
-            var subtotal = $('#invoice tr td.subtotal input');
+            var cost = $('#invoice tr td.cost input');
+            var bonus = $('#invoice tr td.bonus input');
+            var total = $('#invoice tr td.total input');
             //update latest cost
-            invoice.updateSummary(amount, vat, subtotal);
+            invoice.updateSummary(cost, bonus, total);
         },
         cloneItem: function () {       
             $('#invoice tr.invoice-item:last td.product select').select2("destroy");
             var clone = $('#invoice tr.invoice-item:last').clone(true, true);
             clone.find('input').val('');
             clone.insertAfter('#invoice tr.invoice-item:last');         
-            $('#invoice select').select2();      
-        }
+            $("#invoice tr.invoice-item select").select2({
+                placeholder: "Select one",
+                allowClear: true
+            });
+        },
+        populateProductRate: function (e, element) {
+           
+           
+        },
+        savePurchase: function () {
+            $('#invoice tr.invoice-item').each(function () {
+                debugger;
+                var quantity = $(this).find('td.quantity input').val();
+                var grams = $(this).find('td.grams input').val();
+                var rate = $(this).find('td.rate input').val();
+                var cost = $(this).find('td.cost input').val();
+                var bonus = $(this).find('td.bonus input').val();
+                var total = $(this).find('td.total input').val();
+                var product = $(this).find('td.product select').select2('val');
 
+                if (quantity != '' && grams != '' && grams > 0 && quantity > 0 && product!='') {
+                    var purchase = JSON.stringify(
+                   {
+                       'Quantity': quantity,
+                       'Grams': grams,
+                       'Rate': rate,
+                       'Cost': cost,
+                       'Bonus': bonus,
+                       'Total': total,
+                       'Description': 'none',
+                       'ProductId' :product
+                   });
+                  
+                 
+                    $.ajax({
+                        url: 'api/purchase/PostPurchase/',
+                        type: "post",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: purchase,
+                        cache: false,
+                        complete: function (data) {                       
+                        },
+                        error: function (data, textStatus, jqXHR) { alert(jqXHR) },
+                        success: function (data) {
+                            alert('success');
+                        }
+                    });
+                }
+                else {
+                    alert('add values');
+                }
+            });
+
+            
+        },
+        getRequest: function (url, title) {
+                $.ajax({
+                    url: url,
+                    context: document.body,
+                    cache: false,
+                    success: function (data) {
+                        $('#mainModal').modal('show');
+                        $('#mainModal .modal-body').html(data);
+                        $('#mainModal .modal-header .modal-title').empty().append(title);
+                       
        
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                });
+        },
+
+        test: function () {
+
+            alert('test');
+        }
+        
+
+
+
 
 
     };
@@ -111,16 +193,16 @@ $(function () {
         $(this.cells[0]).removeClass('pointer');
     });
     //allow only numbers
-   // $('#invoice input.number').numeric();
+    $('#invoice input.number').numeric();
 
     //global variables
-    var inputs = $('#invoice tr td.quantity input, #invoice tr td.rate input');
-    var amount_inputs = $('#invoice tr td.amount input');
-    var vat_inputs = $('#invoice tr td.vat input');
-    var subtotal_inputs = $('#invoice tr td.subtotal input');
+    var inputs = $('#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input');
+    var cost_inputs = $('#invoice tr td.cost input');
+    var bonus_inputs = $('#invoice tr td.bonus input');
+    var total_inputs = $('#invoice tr td.total input');
     var remove = $('#invoice tr td.delete a');
     //calculate
-    $(document).on("keyup", '#invoice tr td.quantity input, #invoice tr td.rate input', function (e) {
+    $(document).on("keyup", '#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input', function (e) {
         e.preventDefault();
         invoice.calculate(this);
         return false;
@@ -141,12 +223,13 @@ $(function () {
     $('#main-invoice .combobox').on("select2-selected", function (e, element) {        
         //e.object.id
         //alert(e.val);
-        var r = 0, q = 0;
+        var r = 0, q = 0, g = 0.0;
         element = this;
         $.ajax({
-            url: 'api/invoice/GetProductById/',
+            url: 'api/purchase/GetProductById/',
             type: "get",
             data: { id: e.val },
+            cache: false,
             complete: function (data) {
             },
             error: function (data) {
@@ -155,14 +238,13 @@ $(function () {
             success: function (data) {
                 r = data.Rate;
                 q = 1;
+                g = 0.0;
                 $(element).closest('tr').find('td.rate input').val(r);
                 $(element).closest('tr').find('td.quantity input').val(q);
+                $(element).closest('tr').find('td.grams input').val(g);
                 invoice.calculate('#main-invoice .combobox');
             }
         });
-        
-       
-        //return false;
     });
     //remove
     $('#main-invoice .combobox').on("select2-removed", function (e) {
@@ -172,6 +254,23 @@ $(function () {
         $(this).closest('tr').find('td.rate input').val(0);
         invoice.calculate(this);
     });
+    //add purchase
+    $('#btnDraft').on("click", function (e) {
+        e.preventDefault();
+        invoice.savePurchase();
+    });
+    //pop up customer view
+    $('#customer').on("click", function (e) {
+        e.preventDefault();
+        var url ='buy/addcustomer';
+        invoice.getRequest(url, "Customer Information");
+        return false;
+    });
+    //save Customer
+ 
+    
+
+
 
    
 });

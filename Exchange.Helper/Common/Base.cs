@@ -72,7 +72,7 @@ namespace Exchange.Helper.Common
         {
             if (!string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(lastname) && !string.IsNullOrEmpty(middlename))
             {
-                return string.Format("{0}{1}{2}", firstname.ToString(), middlename.ToString(), lastname.Trim());
+                return string.Format("{0}, {1} {2}",lastname.Trim(), firstname.ToString(), middlename.ToString());
             }
             return string.Empty;
         }

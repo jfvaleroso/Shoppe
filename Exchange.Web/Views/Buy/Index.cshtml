@@ -5,20 +5,67 @@
 }
 
 <div id="main-invoice">
-    <div class="panel panel-success">
+    <div class="panel panel-primary" style="background-color: #E8F1FF">
         <div class="panel-heading"><strong>Create new invoice</strong></div>
         <div class="panel-body">
 
-            <table id="invoice" class="table table-responsive table-hover table-condensed small">
+            <div class="form-group">
+              
+                <div class="row">
+                    
+                    <div class="col-xs-3">
+                        <div class="editor-label">
+                            <label>Customer Name</label>
+                        </div>
+                        <div class="editor-field" id="customer">
+                            <input type="text" class="form-control" data-id="" placeholder="+ Add or Search for the Customer" />
+                            <p class="small">Please indicate the middle name.</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="editor-label">
+                            <label>Date</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" class="form-control" />
+                            <p class="small">Please indicate the lastname.</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="editor-label">
+                            <label>Appraiser</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" class="form-control" />
+                            <p class="small">Please indicate the middle name.</p>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="editor-label">
+                            <label>Cashier</label>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" class="form-control" />
+                            <p class="small">Please indicate the lastname.</p>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+
+
+
+            <table id="invoice" class="table table-responsive table-condensed small">
                 <thead>
                     <tr>
                         <td></td>
                         <td>Product</td>
                         <td>Quantity</td>
+                        <td>Grams</td>
                         <td>Rate</td>
-                        <td>Amount</td>
+                        <td>Cost</td>
                         <td>Bonus</td>
-                        <td>SubTotal</td>
+                        <td>Total</td>
                     </tr>
                 </thead>
                 <tr class="invoice-item">
@@ -27,10 +74,11 @@
                         @Html.DropDownListFor(model => model.ProductId, Model.ProductList, string.Empty, new { @class = "combobox combobox-medium" })
                     </td>
                     <td class="quantity"><input class="number" data-toggle="tooltip" title="modify quantity" type="text" /></td>
+                    <td class="grams"><input class="number" data-toggle="tooltip" title="modify quantity" type="text" /></td>
                     <td class="rate"><input class="number" data-toggle="tooltip" title="modify rate" type="text" readonly="readonly" /></td>
-                    <td class="amount"><input class="number" type="text" readonly="readonly" /></td>
-                    <td class="vat"><input class="number" type="text" readonly="readonly" /></td>
-                    <td class="subtotal"><input class="number" type="text" readonly="readonly" /></td>
+                    <td class="cost"><input class="number" type="text" readonly="readonly" /></td>
+                    <td class="bonus"><input class="number" type="text" readonly="readonly" /></td>
+                    <td class="total"><input class="number" type="text" readonly="readonly" /></td>
                     <td class="delete"><a class="glyphicon glyphicon-remove"></a></td>
                 </tr>
             </table>
@@ -39,13 +87,13 @@
                 <tr>
                     <td>
                         <span>Sub Total:</span>
-                        <div id="total_amount"><input type="text" readonly="readonly" /></div>
+                        <div id="total_cost"><input type="text" readonly="readonly" /></div>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <span>Total Bonus:</span>
-                        <div id="total_vat"><input type="text" readonly="readonly" /></div>
+                        <div id="total_bonus"><input type="text" readonly="readonly" /></div>
                     </td>
                 </tr>
                 <tr>
@@ -69,7 +117,7 @@
         <button id="btnApprove" class="btn btn-large btn-success" type="button">
             Save and Approve
         </button>
-        <button id="btnCancel" class="btn btn-large btn-success" type="button">
+        <button id="btnCancel" class="btn btn-large btn-danger" type="button">
             Cancel
         </button>
         </div>
@@ -77,7 +125,4 @@
 
 
 
-
-<style>
-   
-</style>
+@Html.Hidden("AddCustomer", Url.Action("AddCustomer"))

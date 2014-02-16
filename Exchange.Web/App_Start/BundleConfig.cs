@@ -47,7 +47,7 @@ namespace Exchange.Web
                 .Include("~/Scripts/global/shoppe.js").Include("~/Scripts/global/invoice.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                       "~/Scripts/jquery/jquery.min.js"));
+                       "~/Scripts/jquery/jquery-1.10.2.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/tablednd").Include(
                      "~/Scripts/tablednd/jquery.tablednd.js"));

@@ -7,31 +7,62 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Exchange.Web.Models.Api;
-using System.Web.Mvc;
+using System.Web.Security;
+
 
 namespace Exchange.Web.Controllers.Api
 {
     public class InvoiceController : ApiController
     {
         private readonly IProductService productService;
-        public InvoiceController(IProductService productService)
+        private readonly IPurchaseService purchaseService;
+        private readonly IInvoiceService invoiceService;
+        public InvoiceController(IProductService productService, IPurchaseService purchaseService, IInvoiceService invoiceService)
         {
             this.productService = productService;
+            this.purchaseService = purchaseService;
+            this.invoiceService = invoiceService;
         }
 
-
-        public ProductModel GetProductById(int id)
+        [HttpPost]
+        public HttpResponseMessage PostInvoice(InvoiceModel model)
         {
-            var product = this.productService.GetDataById(id);
-            if (product == null)
+            try
             {
-                return null;
+                if (ModelState.IsValid)
+                {
+                    Invoice invoice = new Invoice();
+                    invoice.InvoiceNo = model.InvoiceNo;
+                    invoice.SubTotal = model.SubTotal;
+                    invoice.TotalBonus = model.TotalBonus;
+                    invoice.GrandTotal = model.GrandTotal;
+                    invoice.Cashier = model.Cashier;
+                    model.Appraiser = model.Appraiser;
+
+                    this.invoiceService.Create(invoice);
+
+                    HttpResponseMessage result =
+                        Request.CreateResponse(HttpStatusCode.Created, model);
+
+                    result.Headers.Location =
+                        new Uri(Url.Link("DefaultApi", new { id = invoice.Id }));
+
+                    return result;
+                }
+                else
+                {
+                    return Request.
+                        CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                }
             }
-            ProductModel model = new ProductModel();
-            model.Code = product.Code;
-            model.Rate = product.Cost;
-            return model;
+            catch (Exception ex)
+            {
+                return Request.
+                    CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
+      
+
 
     }
 }

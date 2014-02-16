@@ -37,9 +37,7 @@ namespace Exchange.NHibernateBase.Mapping
             HasMany(x => x.Invoices)
                 .Inverse()
                 .Cascade.All();
-            HasMany(x => x.Purchases)
-               .Inverse()
-               .Cascade.All();
+          
             
          
         }
