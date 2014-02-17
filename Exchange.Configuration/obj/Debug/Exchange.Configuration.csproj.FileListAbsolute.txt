@@ -19,3 +19,4 @@ D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\bin\Debug\Exchange.Configu
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\bin\Debug\Exchange.Configuration.pdb
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\obj\Debug\Exchange.Configuration.dll
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\obj\Debug\Exchange.Configuration.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Configuration\obj\Debug\Exchange.Configuration.csprojResolveAssemblyReference.cache

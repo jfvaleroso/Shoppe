@@ -15,6 +15,10 @@ namespace Exchange.Web.Models
         //public float SubTotal { get; set; }
         public int ProductId { get; set; }
         public int CustomerId { get; set; }
+
+        public string Cashier { get; set; }
+
+        public string Appraiser { get; set; }
         public IList<SelectListItem> ProductList { get; set; }
         public IList<SelectListItem> CustomerList { get; set; }
         public BuyModel()

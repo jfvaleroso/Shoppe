@@ -245,6 +245,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Access.cs" />
+    <Compile Include="Helper\Common.cs" />
     <Compile Include="Helper\CrytoProvider.cs" />
     <Compile Include="Helper\Provider.cs" />
     <Compile Include="Helper\Service.cs" />
@@ -255,6 +256,7 @@
     <Compile Include="Models\AuditModel.cs" />
     <Compile Include="Models\BuyModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\JsonResponse.cs" />
     <Compile Include="Models\JsonResponseItem.cs" />
     <Compile Include="Models\JsonResponseMessage.cs" />

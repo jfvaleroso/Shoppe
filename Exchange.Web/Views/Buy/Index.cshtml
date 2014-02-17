@@ -24,11 +24,11 @@
                     </div>
                     <div class="col-xs-3">
                         <div class="editor-label">
-                            <label>Date</label>
+                            <label>Invoice Number</label>
                         </div>
                         <div class="editor-field">
                             <input type="text" class="form-control" />
-                            <p class="small">Please indicate the lastname.</p>
+                            <p class="small">Invoice number.</p>
                         </div>
                     </div>
                     <div class="col-xs-3">
@@ -36,8 +36,8 @@
                             <label>Appraiser</label>
                         </div>
                         <div class="editor-field">
-                            <input type="text" class="form-control" />
-                            <p class="small">Please indicate the middle name.</p>
+                            @Html.TextBoxFor(model => model.Appraiser, new { @class = "form-control", @placeholder = "Search appraiser" })
+                            <p class="small">Appraiser</p>
                         </div>
                     </div>
                     <div class="col-xs-3">
@@ -45,8 +45,8 @@
                             <label>Cashier</label>
                         </div>
                         <div class="editor-field">
-                            <input type="text" class="form-control" />
-                            <p class="small">Please indicate the lastname.</p>
+                            @Html.TextBoxFor(model => model.Cashier, new { @class = "form-control" })
+                            <p class="small">Cashier.</p>
                         </div>
                     </div>
                 

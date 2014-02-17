@@ -158,7 +158,7 @@
         </div>
     }
 </div>
-
+@Scripts.Render("~/bundles/jquery.validate")
 <script>
     $(function () {
         $('#btnSaveCustomer').click(function (e) {
@@ -191,7 +191,7 @@
                         //invalid
                     else if (data.code == "007") {
                         $('#alert').removeClass('hide');
-                         $('#notification').empty().append('Required field!');
+                        
                     }
                         //existed
                     else if (data.code == "003") {

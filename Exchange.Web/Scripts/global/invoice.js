@@ -266,7 +266,32 @@ $(function () {
         invoice.getRequest(url, "Customer Information");
         return false;
     });
-    //save Customer
+    //Search Employee
+    //run autocomplete
+    $("#Appraiser").autocomplete({
+        source: function (request, response) {
+            debugger;
+            $.ajax({
+                url: 'buy/SearchEmployee',
+                dataType: "json",
+                data: { searchString: request.term },
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {
+                            label: item.label,
+                            value: item.value
+                        };
+                    }));
+                }
+
+            });
+        },
+        minLength: 2,
+        select: function (event, ui) {
+          
+        }
+    });
  
     
 
