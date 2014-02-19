@@ -27,7 +27,7 @@
                             <label>Invoice Number</label>
                         </div>
                         <div class="editor-field">
-                            <input type="text" class="form-control" />
+                            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control" })
                             <p class="small">Invoice number.</p>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                             <label>Appraiser</label>
                         </div>
                         <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Appraiser, new { @class = "form-control", @placeholder = "Search appraiser" })
+                            @Html.TextBoxFor(model => model.Appraiser, new { @class = "form-control typeahead", @placeholder = "Search appraiser", @data_provide = "typeahead", @autocomplete = "off" })
                             <p class="small">Appraiser</p>
                         </div>
                     </div>

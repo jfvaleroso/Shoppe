@@ -53,7 +53,7 @@ namespace Exchange.Web
                      "~/Scripts/tablednd/jquery.tablednd.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootstrap/bootstrap.min.js").Include("~/Scripts/bootstrap/bootstrap-select.min.js"));
+                        "~/Scripts/bootstrap/bootstrap.min.js").Include("~/Scripts/bootstrap/bootstrap-select.min.js").Include("~/Scripts/bootstrap/bootstrap3-typeahead.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap.datetime").Include(
                      "~/Scripts/bootstrap.datetime/bootstrap-datetimepicker.min.js").Include("~/Scripts/bootstrap.datetime/daterangepicker.js"));

@@ -153,9 +153,22 @@
                 });
         },
 
-        test: function () {
-
-            alert('test');
+        searchEmployee: function (query, process) {
+            names = [];
+            map = {};
+            $.ajax({
+                url: 'buy/SearchEmployee',
+                dataType: "json",
+                data: { searchString: query },
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    $.each(data, function (i, employee) {
+                        map[employee.name] = employee;
+                        names.push(employee.name);
+                    });
+                    process(names);
+                }
+            });
         }
         
 
@@ -266,35 +279,29 @@ $(function () {
         invoice.getRequest(url, "Customer Information");
         return false;
     });
-    //Search Employee
-    //run autocomplete
-    $("#Appraiser").autocomplete({
-        source: function (request, response) {
-            debugger;
-            $.ajax({
-                url: 'buy/SearchEmployee',
-                dataType: "json",
-                data: { searchString: request.term },
-                dataFilter: function (data) { return data; },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return {
-                            label: item.label,
-                            value: item.value
-                        };
-                    }));
-                }
-
-            });
+    //serach employee
+    $('#Appraiser').typeahead({
+        source: function (query, process) {
+            invoice.searchEmployee(query, process);
         },
-        minLength: 2,
-        select: function (event, ui) {
-          
+        updater: function (item) {
+            selectedName = map[item].name;
+            return item;
+        },
+        matcher: function (item) {
+            if (item.toLowerCase().indexOf(this.query.trim().toLowerCase()) != -1) {
+                return true;
+            }
+        },
+        sorter: function (items) {
+            return items.sort();
+        },
+        highlighter: function (item) {
+            var regex = new RegExp('(' + this.query + ')', 'gi');
+            return item.replace(regex, "<strong>$1</strong>");
         }
     });
- 
-    
-
+    //testing
 
 
    

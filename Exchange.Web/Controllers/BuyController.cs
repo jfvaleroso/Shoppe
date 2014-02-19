@@ -20,13 +20,17 @@ namespace Exchange.Web.Controllers
         private readonly IProductService productService;
         private readonly ICustomerService customerService;
         private readonly IProfileService profileService;
+        private readonly IUserService userService;
+        private readonly Common common;
 
-        public BuyController(IProductService productService, ICustomerService customerService, IProfileService profileService)
+        public BuyController(IProductService productService, ICustomerService customerService, IProfileService profileService, IUserService userService)
         {
             this.productService = productService;
             this.customerService = customerService;
             this.profileService = profileService;
+            this.userService = userService;
             this.service = new Service(this.productService);
+            this.common = new Common(this.userService);
         }
         #endregion
 
@@ -36,6 +40,7 @@ namespace Exchange.Web.Controllers
         {
             BuyModel model = new BuyModel();
             model.ProductList = this.service.GetProductList(0);
+            model.InvoiceNo = this.common.GetCurrentUserStoreAccess();
             model.Cashier = Common.GetCurrentUser();
 
 
@@ -99,9 +104,8 @@ namespace Exchange.Web.Controllers
             var employeeList = this.profileService.GetDataWithPagingAndSearch(searchString, 1, 20, out total);
             var data = employeeList.Select(x => new
             {
-                label = string.Format("{0}, {1}", x.LastName, x.FirstName),         
-                value = x.Users_Id.ToString(),
-               
+                name = string.Format("{0}, {1}", x.LastName, x.FirstName)         
+                //value = x.Users_Id.ToString(),               
             });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
