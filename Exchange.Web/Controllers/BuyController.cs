@@ -21,14 +21,16 @@ namespace Exchange.Web.Controllers
         private readonly ICustomerService customerService;
         private readonly IProfileService profileService;
         private readonly IUserService userService;
+        private readonly IInvoiceService invoiceService;
         private readonly Common common;
 
-        public BuyController(IProductService productService, ICustomerService customerService, IProfileService profileService, IUserService userService)
+        public BuyController(IProductService productService, ICustomerService customerService, IProfileService profileService, IUserService userService, IInvoiceService invoiceService)
         {
             this.productService = productService;
             this.customerService = customerService;
             this.profileService = profileService;
             this.userService = userService;
+            this.invoiceService = invoiceService;
             this.service = new Service(this.productService);
             this.common = new Common(this.userService);
         }
@@ -39,8 +41,12 @@ namespace Exchange.Web.Controllers
         public ActionResult Index()
         {
             BuyModel model = new BuyModel();
+            StoreModel store = new StoreModel();
+            store = this.common.GetCurrentUserStoreAccess();
             model.ProductList = this.service.GetProductList(0);
-            model.InvoiceNo = this.common.GetCurrentUserStoreAccess();
+            model.StoreId = store.Id;
+            model.StoreName = store.StoreName;
+            model.InvoiceNo = Base.GenerateInvoiceNumber("INV", store.StoreCode, this.invoiceService.GetTotalInvoiceBySTore(store.Id));
             model.Cashier = Common.GetCurrentUser();
 
 
@@ -48,7 +54,7 @@ namespace Exchange.Web.Controllers
         }
         #endregion
         #region Customer
-        public ActionResult AddCustomer()
+        public ActionResult Customer()
         {
             CustomerModel model = new CustomerModel();
             return View(model);
@@ -106,6 +112,17 @@ namespace Exchange.Web.Controllers
             {
                 name = string.Format("{0}, {1}", x.LastName, x.FirstName)         
                 //value = x.Users_Id.ToString(),               
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SearchCustomer(string searchString)
+        {
+            long total = 0;
+            var customerList = this.customerService.GetDataListWithPagingAndSearch(searchString, 1, 20, out total);
+            var data = customerList.Select(x => new
+            {
+                name = string.Format("{0}, {1}", x.LastName, x.FirstName),
+                id= x.Id.ToString()
             });
             return Json(data, JsonRequestBehavior.AllowGet);
         }

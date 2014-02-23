@@ -18,6 +18,9 @@ namespace Exchange.Web.Models
 
         public string Cashier { get; set; }
 
+        public int StoreId { get; set; }
+        public string StoreName { get; set; }
+
         public string Appraiser { get; set; }
         public string InvoiceNo { get; set; }
         public IList<SelectListItem> ProductList { get; set; }

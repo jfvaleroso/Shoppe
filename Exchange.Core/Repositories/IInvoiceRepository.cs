@@ -8,5 +8,6 @@ namespace Exchange.Core.Repositories
 {
     public interface IInvoiceRepository : IRepository<Invoice, long>
     {
+        long GetTotalInvoiceBySTore(int storeId);
     }
 }

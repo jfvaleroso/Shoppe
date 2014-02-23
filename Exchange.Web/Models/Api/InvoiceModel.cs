@@ -12,6 +12,9 @@ namespace Exchange.Web.Models.Api
         public decimal SubTotal { get; set; }
         public decimal TotalBonus { get; set; }
         public decimal GrandTotal { get; set; }
+
+        public int StoreId { get; set; }
+      
         #endregion
 
 
@@ -19,7 +22,7 @@ namespace Exchange.Web.Models.Api
         public string Cashier { get; set; }
         public string Appraiser { get; set; }
         public int CustomerId { get; set; }
-        public int StoreId { get; set; }
+      
         public int StatusId { get; set; }
         #endregion
 

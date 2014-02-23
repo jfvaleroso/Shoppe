@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +18,7 @@ namespace Exchange.Web.Models.Api
         public string Description { get; set; }
 
         public int ProductId { get; set; }
+        public long InvoiceId { get; set; }
         #endregion
 
         //#region Prereq

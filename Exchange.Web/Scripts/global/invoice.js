@@ -84,13 +84,51 @@
                 allowClear: true
             });
         },
-        populateProductRate: function (e, element) {
-           
-           
+        populateProductRate: function (e, element) {        
         },
-        savePurchase: function () {
+        saveInvoice: function () {
+            var cost = $("#total_cost input").val();;
+            var bonus = $("#total_bonus input").val();
+            var grand = $("#grand_total input").val();
+            var customer = $('div#customer input').attr('data-id');
+            var invoiceNo = $('div#invoiceNo input').val();
+            var appraiser = $('div#appraiser input').val();
+            var cashier = $('#Cashier').val();
+            var store = $('#StoreId').val();
+
+            var thisInvoice = JSON.stringify(
+             {
+                 'InvoiceNo': invoiceNo,
+                 'SubTotal': cost,
+                 'TotalBonus': bonus,
+                 'GrandTotal': grand,
+                 'StoreId': store
+
+             });
+
+            $.ajax({
+                url: 'api/invoice/PostInvoice/',
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: thisInvoice,
+                cache: false,
+                complete: function (data) {
+                },
+                error: function (data, textStatus, jqXHR) { alert(jqXHR) },
+                success: function (data) {
+                
+                    invoice.savePurchase(data);
+                   
+                }
+            });
+
+
+
+        },
+        savePurchase: function (invoiceId) {
             $('#invoice tr.invoice-item').each(function () {
-                debugger;
+                var thisInvoice = invoiceId;
                 var quantity = $(this).find('td.quantity input').val();
                 var grams = $(this).find('td.grams input').val();
                 var rate = $(this).find('td.rate input').val();
@@ -109,10 +147,11 @@
                        'Bonus': bonus,
                        'Total': total,
                        'Description': 'none',
-                       'ProductId' :product
+                       'ProductId': product,
+                       'InvoiceId': thisInvoice
                    });
                   
-                 
+                   
                     $.ajax({
                         url: 'api/purchase/PostPurchase/',
                         type: "post",
@@ -122,7 +161,7 @@
                         cache: false,
                         complete: function (data) {                       
                         },
-                        error: function (data, textStatus, jqXHR) { alert(jqXHR) },
+                        error: function (data, textStatus, jqXHR) { alert(textStatus) },
                         success: function (data) {
                             alert('success');
                         }
@@ -135,6 +174,7 @@
 
             
         },
+      
         getRequest: function (url, title) {
                 $.ajax({
                     url: url,
@@ -143,16 +183,14 @@
                     success: function (data) {
                         $('#mainModal').modal('show');
                         $('#mainModal .modal-body').html(data);
+                        $('#mainModal .modal-body .combobox').select2();
                         $('#mainModal .modal-header .modal-title').empty().append(title);
-                       
-       
                     },
                     error: function (err) {
                         alert(err);
                     }
                 });
         },
-
         searchEmployee: function (query, process) {
             names = [];
             map = {};
@@ -169,8 +207,28 @@
                     process(names);
                 }
             });
+        },
+        searchCustomer: function (query, process) {
+            names = [];
+            map = {};
+            $.ajax({
+                url: 'buy/SearchCustomer',
+                dataType: "json",
+                data: { searchString: query },
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    $.each(data, function (i, customer) {
+                        map[customer.name] = customer;
+                        names.push(customer.name, customer.id);
+                    });
+                    process(names);
+                }
+            });
+        },
+
+        popup: function () {
+            alert('teste');
         }
-        
 
 
 
@@ -270,12 +328,12 @@ $(function () {
     //add purchase
     $('#btnDraft').on("click", function (e) {
         e.preventDefault();
-        invoice.savePurchase();
+        invoice.savePurchase(22);
     });
     //pop up customer view
     $('#customer').on("click", function (e) {
         e.preventDefault();
-        var url ='buy/addcustomer';
+        var url ='buy/customer';
         invoice.getRequest(url, "Customer Information");
         return false;
     });
@@ -301,7 +359,12 @@ $(function () {
             return item.replace(regex, "<strong>$1</strong>");
         }
     });
-    //testing
+    //save invoice
+    $('#btnApprove').on("click", function (e) {
+        e.preventDefault();
+        invoice.saveInvoice();
+        return false;
+    });
 
 
    

@@ -3,6 +3,7 @@ using Exchange.Core.Entities;
 using Exchange.Core.Services.IServices;
 using Exchange.Helper.Common;
 using Exchange.Provider.Profile;
+using Exchange.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,15 @@ namespace Exchange.Web.Helper
             return Base.GenerateFullName(profile.FirstName,profile.MiddleName, profile.LastName);    
         }
 
-        public string GetCurrentUserStoreAccess()
+        public StoreModel GetCurrentUserStoreAccess()
         {
-            Users user = this.userService.GetUserByUsernameApplicationName(HttpContext.Current.User.Identity.Name, ConfigManager.Exchange.ApplicationName);       
-            return string.Join(",", user.Stores.Select(x => x.Name));
+            Users user = this.userService.GetUserByUsernameApplicationName(HttpContext.Current.User.Identity.Name, ConfigManager.Exchange.ApplicationName);
+            StoreModel model = new StoreModel();
+            model.Id = user.Stores.Select(x => x.Id).FirstOrDefault();
+            model.StoreName = user.Stores.Select(x => x.Name).FirstOrDefault();
+            model.StoreCode = user.Stores.Select(x => x.Code).FirstOrDefault();
+            return model;
+            
         }
 
       

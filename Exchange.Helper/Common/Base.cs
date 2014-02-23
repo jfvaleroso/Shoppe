@@ -76,6 +76,15 @@ namespace Exchange.Helper.Common
             }
             return string.Empty;
         }
+
+         public static string GenerateInvoiceNumber(string prefix,string store, long invoice)
+        {
+            return String.Format("{0}-{1}-{2:00000}", prefix, store,++invoice );
+        }
+
+
+
+       
         #endregion
         #region Security
         public static string Encrypt(string input)

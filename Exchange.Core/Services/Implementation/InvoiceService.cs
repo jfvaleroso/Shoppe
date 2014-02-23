@@ -79,5 +79,10 @@ namespace Exchange.Core.Services.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public long GetTotalInvoiceBySTore(int storeId)
+        {
+            return this.invoiceRepository.GetTotalInvoiceBySTore(storeId);
+        }
     }
 }

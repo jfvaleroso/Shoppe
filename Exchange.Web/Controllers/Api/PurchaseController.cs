@@ -54,16 +54,17 @@ namespace Exchange.Web.Controllers.Api
                     purchase.Bonus = model.Bonus;
                     purchase.Total = model.Total;
                     purchase.DateCreated = DateTime.Now;
+                    purchase.Invoice = this.invoiceService.GetDataById(model.InvoiceId);
                     purchase.CreatedBy = User.Identity.Name;
                     purchase.Product = this.productService.GetDataById(model.ProductId);
 
-                    long id= this.purchaseService.Create(purchase);
+                    this.purchaseService.Create(purchase);
 
                     HttpResponseMessage result =
-                        Request.CreateResponse(HttpStatusCode.Created, model);
+                        Request.CreateResponse(HttpStatusCode.Created, purchase.Id);
 
-                    //result.Headers.Location =
-                    //    new Uri(Url.Link("DefaultApi", new { id = purchase.Id }));
+                    result.Headers.Location =
+                        new Uri(Url.Link("DefaultApi", new { id = purchase.Id }));
 
                     return result;
                 }

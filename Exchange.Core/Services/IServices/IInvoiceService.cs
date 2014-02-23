@@ -8,6 +8,6 @@ namespace Exchange.Core.Services.IServices
 {
     public interface IInvoiceService : IService<Invoice, long>
     {
-
+        long GetTotalInvoiceBySTore(int storeId);
     }
 }
