@@ -12,12 +12,14 @@ namespace Exchange.NHibernateBase.Mapping
         public SecurityCodeMap()
         {
 
-            Table("SecurityMap");
+            Table("SecurityCode");
             Id(x => x.Id);
             Map(x => x.PassCode);
             Map(x => x.DateCreated);
+            Map(x => x.DateUsed);
             Map(x => x.UsedBy);
-            Map(x => x.Status);
+            Map(x => x.IsUsed);
+            Map(x => x.Bonus);
             
 
 

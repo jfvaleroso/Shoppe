@@ -526,6 +526,9 @@ namespace Exchange.Provider.Profile
                     case "Position":
                         pv.PropertyValue = profile.Position;
                         break;
+                    case "Users_Id":
+                        pv.PropertyValue = profile.Users_Id;
+                        break;
 
                     default:
                         throw new ProviderException("Unsupported property." + pv.ToString());
@@ -595,6 +598,9 @@ namespace Exchange.Provider.Profile
                            
                             case "Address":
                                 profile.Address = pv.PropertyValue.ToString();
+                                break;
+                            case "Users_Id":
+                                pv.PropertyValue = profile.Users_Id;
                                 break;
                             default:
                                 throw new ProviderException("Unsupported property.");

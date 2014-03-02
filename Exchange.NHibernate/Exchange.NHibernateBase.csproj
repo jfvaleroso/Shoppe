@@ -97,6 +97,8 @@
     <Compile Include="Repositories\NHProfileRepository.cs" />
     <Compile Include="Repositories\NHPurchaseRepository.cs" />
     <Compile Include="Repositories\NHRoleRepository.cs" />
+    <Compile Include="Repositories\NHSecurityCodeRepository.cs" />
+    <Compile Include="Repositories\NHStatusRepository.cs" />
     <Compile Include="Repositories\NHUserRepository.cs" />
     <Compile Include="Repositories\NHProductRepository.cs" />
     <Compile Include="Repositories\NHProductTypeRepository.cs" />

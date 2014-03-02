@@ -15,11 +15,11 @@
             var bonus_input = $(element).closest('tr').find('td.bonus input');
             var total_input = $(element).closest('tr').find('td.total input');
 
-            var cost = qty * rate * grams;
-            var bonus = cost / 100 * 20;
-            var total = cost + bonus;
+            var bonusRate=  $('td.bonus span.percent').attr('data-result');
 
-        
+            var cost = qty * rate * grams;
+            var bonus = cost / 100 * 0;
+            var total = cost + bonus;
 
             cost_input.val(cost.toFixed(2));
             bonus_input.val(bonus.toFixed(2));
@@ -94,6 +94,8 @@
             var invoiceNo = $('div#invoiceNo input').val();
             var appraiser = $('div#appraiser input').val();
             var cashier = $('#Cashier').val();
+            var cashierId = $('#CashierId').val();
+            var appraiserId = $('#Appraiser').attr('data-id');
             var store = $('#StoreId').val();
 
             var thisInvoice = JSON.stringify(
@@ -102,8 +104,11 @@
                  'SubTotal': cost,
                  'TotalBonus': bonus,
                  'GrandTotal': grand,
-                 'StoreId': store
-
+                 'StoreId': store,
+                 'Cashier': cashierId,
+                 'Appraiser': appraiserId,
+                 'CustomerId': customer
+ 
              });
 
             $.ajax({
@@ -191,6 +196,24 @@
                     }
                 });
         },
+        getRequestWithParameter: function (url, title, index) {
+            $.ajax({
+                url: url,
+                context: document.body,
+                cache: false,
+                success: function (data) {
+                    $('#mainModal').modal('show');
+                    $('#mainModal .modal-body').html(data);
+                    $('#mainModal .modal-body .combobox').select2();
+                    $('#mainModal .modal-header .modal-title').empty().append(title);
+                    $('#mainModal .modal-body').attr('data-index', index);
+                  
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        },
         searchEmployee: function (query, process) {
             names = [];
             map = {};
@@ -202,7 +225,7 @@
                 success: function (data) {
                     $.each(data, function (i, employee) {
                         map[employee.name] = employee;
-                        names.push(employee.name);
+                        names.push(employee.name, employee.id);
                     });
                     process(names);
                 }
@@ -225,7 +248,46 @@
                 }
             });
         },
+        serachPassCode: function (elment) {
+            $.ajax({
+                url: 'buy/SearchPassCode',
+                dataType: "json",
+                data: { searchString: $('#PassCode').val() },
+                beforeSend: function () {
+                    $('#invoice-bonus form').validate().form();
+                },
+                error: function (data, textStatus, jqXHR) { alert(textStatus) },
+                success: function (data) {
+                    if (data.code == '009') {
+                        $('#alert').removeClass('hide');
+                        $('#notification').addClass('validation-summary-errors');
 
+                    }
+                    if (data.code == '008') {
+
+                        var index = $('#mainModal .modal-body').attr('data-index');
+                        var cost = $('tr.invoice-item:eq' + '(' + index + ')').find('td.cost input').val();
+
+
+                        var bonus = data.result.Bonus * 100;
+                        var bonusCost = bonus * cost;
+
+                        $('tr.invoice-item:eq' + '(' + index + ')').find('td.bonus input').val(bonusCost.toFixed(2));
+                        $('td.bonus span.percent').attr('data-result', data.result.Bonus);
+                        $('td.bonus span.percent').attr('data-id', data.result.Id);
+                        $('td.bonus span.percent').empty().append(bonus + '%');
+                        $('#mainModal').modal('hide');
+                    }
+                    if (data.code == '007') {
+                        $('#alert').removeClass('hide');
+                        $('#notification').addClass('validation-summary-errors');
+                        $('#notification').empty().append('<ul><li>Invalid passcode.</li></ul>');
+
+                    }
+                }
+            });
+        },
+       
         popup: function () {
             alert('teste');
         }
@@ -273,7 +335,7 @@ $(function () {
     var total_inputs = $('#invoice tr td.total input');
     var remove = $('#invoice tr td.delete a');
     //calculate
-    $(document).on("keyup", '#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input', function (e) {
+    $(document).on("keyup", '#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input,#invoice tr td.bonus input', function (e) {
         e.preventDefault();
         invoice.calculate(this);
         return false;
@@ -337,13 +399,24 @@ $(function () {
         invoice.getRequest(url, "Customer Information");
         return false;
     });
+    //pop up customer view
+    $('#btnAddBonus').on("click", function (e) {
+        e.preventDefault();
+        var url = 'buy/bonus';
+        var index = $(this).parents('tr').index();
+        invoice.getRequestWithParameter(url, "Bonus", index); 
+        return false;
+    });
     //serach employee
     $('#Appraiser').typeahead({
         source: function (query, process) {
             invoice.searchEmployee(query, process);
         },
         updater: function (item) {
-            selectedName = map[item].name;
+            //selectedName = map[item].name;
+            //return item;
+            selectedId = map[item].id;
+            $('#Appraiser').attr('data-id', selectedId);
             return item;
         },
         matcher: function (item) {

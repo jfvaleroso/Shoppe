@@ -18,12 +18,14 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.TotalBonus);
             Map(x => x.GrandTotal);
 
-            Map(x => x.Cashier);
-            Map(x => x.Appraiser);
+           
 
+            References(x => x.Cashier, "Cashier_Id");
+            References(x => x.Appraiser, "Appraiser_Id");
             References(x => x.Customer, "Customer_Id");
             References(x => x.Status,"Status_Id");
             References(x => x.Store, "Store_Id");
+           
 
             Map(x => x.DateIssued);
             Map(x => x.DateModified);

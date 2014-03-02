@@ -254,6 +254,7 @@
     <Compile Include="Models\Api\ProductModel.cs" />
     <Compile Include="Models\Api\PurchaseModel.cs" />
     <Compile Include="Models\AuditModel.cs" />
+    <Compile Include="Models\BonusModel.cs" />
     <Compile Include="Models\BuyModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Models\JsonResponseItem.cs" />
     <Compile Include="Models\JsonResponseMessage.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\SettingModel.cs" />
     <Compile Include="Models\StoreModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -1078,6 +1080,7 @@
     <Content Include="Views\Shared\General\_Alphabet.cshtml" />
     <Content Include="Views\Shared\ModalTemplates\_Alert.cshtml" />
     <Content Include="Views\Buy\Customer.cshtml" />
+    <Content Include="Views\Buy\Bonus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

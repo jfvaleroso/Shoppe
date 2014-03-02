@@ -208,12 +208,12 @@ margin: 5px 0;
         
     }
 
-    #invoice tr td.quantity input[type="text"],#invoice tr td.grams input[type="text"] {
+    #invoice tr td.quantity input[type="text"],#invoice tr td.grams input[type="text"],#invoice tr td.bonus input[type="text"] {
         border: 2px;
         background-color: #ffffff;
         outline: 0;
         padding:5px 5px;
-        width:70px;
+        width:90px;
     }
 
     #invoice, #invoice-summary {

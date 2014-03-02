@@ -64,7 +64,6 @@ D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Helper.pdb
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.csprojResolveAssemblyReference.cache
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.dll
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.pdb
-C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.csprojResolveAssemblyReference.cache
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Provider.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Provider.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Core.dll
@@ -79,5 +78,6 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\FluentNHibernate.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Iesi.Collections.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\NHibernate.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\bin\Debug\Exchange.Helper.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.csprojResolveAssemblyReference.cache
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Provider\obj\Debug\Exchange.Provider.pdb

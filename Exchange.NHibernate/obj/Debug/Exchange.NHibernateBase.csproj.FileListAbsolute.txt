@@ -72,6 +72,7 @@ D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\bin\Debug\NHibernate.xml
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\obj\Debug\Exchange.NHibernateBase.csprojResolveAssemblyReference.cache
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\obj\Debug\Exchange.NHibernateBase.dll
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\obj\Debug\Exchange.NHibernateBase.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\obj\Debug\Exchange.NHibernateBase.csprojResolveAssemblyReference.cache
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\bin\Debug\Exchange.NHibernateBase.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\bin\Debug\Exchange.NHibernateBase.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\bin\Debug\Castle.Core.dll
@@ -88,6 +89,5 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\bin\Debug\Castle.Windsor.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\bin\Debug\FluentNHibernate.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\bin\Debug\Iesi.Collections.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\bin\Debug\NHibernate.xml
-C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\obj\Debug\Exchange.NHibernateBase.csprojResolveAssemblyReference.cache
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\obj\Debug\Exchange.NHibernateBase.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.NHibernate\obj\Debug\Exchange.NHibernateBase.pdb

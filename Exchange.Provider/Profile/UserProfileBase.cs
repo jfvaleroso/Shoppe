@@ -99,6 +99,16 @@ namespace Exchange.Provider.Profile
             set { base["Language"] = value; }
 
         }
+        [SettingsAllowAnonymous(false)]
+        public int Users_Id
+        {
+
+            get { return Convert.ToInt32(base["Users_Id"]); }
+
+            set { base["Users_Id"] = value; }
+
+        }
+
         #endregion
     }
 }

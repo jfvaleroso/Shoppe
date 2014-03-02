@@ -22,15 +22,17 @@ namespace Exchange.Web.Controllers
         private readonly IProfileService profileService;
         private readonly IUserService userService;
         private readonly IInvoiceService invoiceService;
+        private readonly ISecurityCodeService securityCodeService;
         private readonly Common common;
 
-        public BuyController(IProductService productService, ICustomerService customerService, IProfileService profileService, IUserService userService, IInvoiceService invoiceService)
+        public BuyController(IProductService productService, ICustomerService customerService, IProfileService profileService, IUserService userService, IInvoiceService invoiceService, ISecurityCodeService securityCodeService)
         {
             this.productService = productService;
             this.customerService = customerService;
             this.profileService = profileService;
             this.userService = userService;
             this.invoiceService = invoiceService;
+            this.securityCodeService = securityCodeService;
             this.service = new Service(this.productService);
             this.common = new Common(this.userService);
         }
@@ -42,12 +44,17 @@ namespace Exchange.Web.Controllers
         {
             BuyModel model = new BuyModel();
             StoreModel store = new StoreModel();
+            ProfileModel profile = new ProfileModel();
             store = this.common.GetCurrentUserStoreAccess();
+            profile = this.common.GetCurrentUserProfile();
+           
             model.ProductList = this.service.GetProductList(0);
             model.StoreId = store.Id;
             model.StoreName = store.StoreName;
             model.InvoiceNo = Base.GenerateInvoiceNumber("INV", store.StoreCode, this.invoiceService.GetTotalInvoiceBySTore(store.Id));
-            model.Cashier = Common.GetCurrentUser();
+            model.Cashier = profile.Name;
+            model.CashierId = profile.UserId;
+           
 
 
             return View(model);
@@ -103,6 +110,13 @@ namespace Exchange.Web.Controllers
 
         }
         #endregion
+        #region Bonus
+         public ActionResult Bonus()
+        {
+          
+            return View();
+        }
+        #endregion     
         #region Search and Auto complete
         public JsonResult SearchEmployee(string searchString)
         {
@@ -110,8 +124,8 @@ namespace Exchange.Web.Controllers
             var employeeList = this.profileService.GetDataWithPagingAndSearch(searchString, 1, 20, out total);
             var data = employeeList.Select(x => new
             {
-                name = string.Format("{0}, {1}", x.LastName, x.FirstName)         
-                //value = x.Users_Id.ToString(),               
+                name = string.Format("{0}, {1}", x.LastName, x.FirstName),      
+                id = x.Users_Id.ToString()           
             });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -126,6 +140,22 @@ namespace Exchange.Web.Controllers
             });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+     
+        public JsonResult SearchPassCode(string searchString)
+        {
+            if(ModelState.IsValid)
+            { 
+                SecurityCode data = this.securityCodeService.GetDataByCode(searchString);
+                if(data!=null)
+                {
+                    return Json(new { result = data, message = MessageCode.valid, code = StatusCode.valid }, JsonRequestBehavior.AllowGet);
+                }
+               return Json(new { result = StatusCode.empty, message = MessageCode.empty, code = StatusCode.empty }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { result = StatusCode.invalid, message = MessageCode.error, code = StatusCode.invalid }, JsonRequestBehavior.AllowGet);
+        }
+        
         #endregion
 
 

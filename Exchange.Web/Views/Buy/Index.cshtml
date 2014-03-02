@@ -46,6 +46,7 @@
                         </div>
                         <div class="editor-field" id="cashier">
                             @Html.HiddenFor(model => model.StoreId)
+                            @Html.HiddenFor(model => model.CashierId)
                             @Html.TextBoxFor(model => model.Cashier, new { @class = "form-control", @readonly="readonly" })
                             <p class="small">Cashier.</p>
                         </div>
@@ -78,7 +79,17 @@
                     <td class="grams"><input class="number" data-toggle="tooltip" title="modify quantity" type="text" /></td>
                     <td class="rate"><input class="number" data-toggle="tooltip" title="modify rate" type="text" readonly="readonly" /></td>
                     <td class="cost"><input class="number" type="text" readonly="readonly" /></td>
-                    <td class="bonus"><input class="number" type="text" readonly="readonly" /></td>
+                    <td class="bonus">                   
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit" id="btnAddBonus">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </span>
+                            <input type="text" class="form-control number" readonly="readonly">       
+                            <span class="percent" style="padding:0px 5px"> 0% </span>               
+                        </div>
+                    </td>
                     <td class="total"><input class="number" type="text" readonly="readonly" /></td>
                     <td class="delete"><a class="glyphicon glyphicon-remove"></a></td>
                 </tr>
@@ -112,9 +123,7 @@
 
     </div>
     <div class="right">
-        <button id="btnDraft" class="btn btn-large btn-success" type="button">
-            Save to draft
-        </button>
+        
         <button id="btnApprove" class="btn btn-large btn-success" type="button">
             Save and Approve
         </button>

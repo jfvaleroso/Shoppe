@@ -16,11 +16,12 @@ namespace Exchange.Core.Entities
 
 
         #region Prereq
-        public virtual string Cashier { get; set; }
-        public virtual string Appraiser { get; set; }
+        public virtual Users Cashier { get; set; }
+        public virtual Users Appraiser { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Store Store { get; set; }
         public virtual Status Status { get; set; }
+       
         #endregion
 
         #region General details

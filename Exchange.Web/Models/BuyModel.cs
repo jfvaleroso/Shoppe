@@ -17,6 +17,7 @@ namespace Exchange.Web.Models
         public int CustomerId { get; set; }
 
         public string Cashier { get; set; }
+        public int CashierId { get; set; }
 
         public int StoreId { get; set; }
         public string StoreName { get; set; }

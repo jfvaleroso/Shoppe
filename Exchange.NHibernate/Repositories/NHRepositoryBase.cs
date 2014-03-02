@@ -178,6 +178,17 @@ namespace Exchange.NHibernateBase.Repositories
             }
             return this.FindAll(criteria).ToList();
         }
+        public TEntity GetFilteredDataByParameter(List<ICriterion> criterion)
+        {
+            var session = Session.CreateCriteria<TEntity>();           
+            if (criterion != null)
+            {
+                foreach (var criteria in criterion)
+                { session.Add(criteria); }
+            }
+            var result = session.UniqueResult<TEntity>();
+            return result;
+        }
         #endregion
         #region Optimized Search
         public IEnumerable<TEntity> FindAll(DetachedCriteria criteria)

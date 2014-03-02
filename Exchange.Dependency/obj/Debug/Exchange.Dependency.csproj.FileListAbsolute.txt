@@ -96,7 +96,6 @@ D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Helper.pdb
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\obj\Debug\Exchange.Dependency.csprojResolveAssemblyReference.cache
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\obj\Debug\Exchange.Dependency.dll
 D:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\obj\Debug\Exchange.Dependency.pdb
-C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\obj\Debug\Exchange.Dependency.csprojResolveAssemblyReference.cache
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Dependency.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Dependency.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Castle.Core.dll
@@ -119,5 +118,6 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\FluentNHibernate.xm
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Iesi.Collections.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\NHibernate.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Helper.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\obj\Debug\Exchange.Dependency.csprojResolveAssemblyReference.cache
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\obj\Debug\Exchange.Dependency.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\obj\Debug\Exchange.Dependency.pdb

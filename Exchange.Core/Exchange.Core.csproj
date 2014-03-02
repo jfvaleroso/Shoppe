@@ -77,6 +77,7 @@
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\ISearchRepository.cs" />
     <Compile Include="Repositories\ISecurityCodeRepository.cs" />
+    <Compile Include="Repositories\IStatusRepository.cs" />
     <Compile Include="Repositories\IStoreRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +86,8 @@
     <Compile Include="Services\Implementation\InvoiceService.cs" />
     <Compile Include="Services\Implementation\ProductHistoryService.cs" />
     <Compile Include="Services\Implementation\PurchaseService.cs" />
+    <Compile Include="Services\Implementation\SecurityCodeService.cs" />
+    <Compile Include="Services\Implementation\StatusService.cs" />
     <Compile Include="Services\IServices\IActivityLogsService.cs" />
     <Compile Include="Services\IServices\ICustomerService.cs" />
     <Compile Include="Services\IServices\IFilterService.cs" />
@@ -95,7 +98,9 @@
     <Compile Include="Services\IServices\IProfileService.cs" />
     <Compile Include="Services\IServices\IPurchaseService.cs" />
     <Compile Include="Services\IServices\IRoleService.cs" />
+    <Compile Include="Services\IServices\ISecurityCodeService.cs" />
     <Compile Include="Services\IServices\IService.cs" />
+    <Compile Include="Services\IServices\IStatusService.cs" />
     <Compile Include="Services\IServices\IStoreService.cs" />
     <Compile Include="Services\IServices\IUserService.cs" />
     <Compile Include="Services\Implementation\CustomerService.cs" />

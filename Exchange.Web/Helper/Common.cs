@@ -29,6 +29,14 @@ namespace Exchange.Web.Helper
             var profile= UserProfileBase.GetUserProfile(HttpContext.Current.User.Identity.Name);
             return Base.GenerateFullName(profile.FirstName,profile.MiddleName, profile.LastName);    
         }
+        public ProfileModel GetCurrentUserProfile()
+        {
+            var user = UserProfileBase.GetUserProfile(HttpContext.Current.User.Identity.Name);
+            ProfileModel profile = new ProfileModel();
+            profile.Name = Base.GenerateFullName(user.FirstName, user.MiddleName, user.LastName);
+            profile.UserId = user.Users_Id;
+            return profile;
+        }
 
         public StoreModel GetCurrentUserStoreAccess()
         {
@@ -40,6 +48,14 @@ namespace Exchange.Web.Helper
             return model;
             
         }
+
+        public enum Status 
+        { 
+           Approved=1,
+           Paid=2,
+           Void=3,
+           SavedToDraft=4      
+        };
 
       
     }

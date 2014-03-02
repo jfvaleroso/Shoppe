@@ -6,7 +6,8 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface ISecurityCodeRepository : IRepository<SecurityCode, int>
+    public interface ISecurityCodeRepository : IRepository<SecurityCode, long>, ISearchRepository<SecurityCode>, IValidateRepository<SecurityCode>
     {
+        SecurityCode GetDataByCode(string searchString);
     }
 }

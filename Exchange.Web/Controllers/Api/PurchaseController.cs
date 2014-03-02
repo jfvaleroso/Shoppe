@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Exchange.Web.Models.Api;
 using System.Web.Security;
+using Exchange.Web.Helper;
 
 
 namespace Exchange.Web.Controllers.Api
@@ -17,11 +18,13 @@ namespace Exchange.Web.Controllers.Api
         private readonly IProductService productService;
         private readonly IPurchaseService purchaseService;
         private readonly IInvoiceService invoiceService;
-        public PurchaseController(IProductService productService, IPurchaseService purchaseService, IInvoiceService invoiceService)
+        private readonly IStatusService statusService;
+        public PurchaseController(IProductService productService, IPurchaseService purchaseService, IInvoiceService invoiceService, IStatusService statusService)
         {
             this.productService = productService;
             this.purchaseService = purchaseService;
             this.invoiceService = invoiceService;
+            this.statusService = statusService;
         }
 
 
@@ -57,6 +60,8 @@ namespace Exchange.Web.Controllers.Api
                     purchase.Invoice = this.invoiceService.GetDataById(model.InvoiceId);
                     purchase.CreatedBy = User.Identity.Name;
                     purchase.Product = this.productService.GetDataById(model.ProductId);
+                    purchase.Status = this.statusService.GetDataById((int)Common.Status.SavedToDraft);
+                    purchase.Description = string.Format("{0}: {1}", purchase.Product.Name, purchase.Product.Description);
 
                     this.purchaseService.Create(purchase);
 
