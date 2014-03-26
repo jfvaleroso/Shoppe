@@ -19,3 +19,4 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\bin\Debug\Exchange.Helper.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\bin\Debug\Exchange.Helper.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\obj\Debug\Exchange.Helper.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\obj\Debug\Exchange.Helper.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\obj\Debug\Exchange.Helper.csprojResolveAssemblyReference.cache

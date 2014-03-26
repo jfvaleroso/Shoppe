@@ -54,9 +54,37 @@ namespace Exchange.Web.Controllers
             model.InvoiceNo = Base.GenerateInvoiceNumber("INV", store.StoreCode, this.invoiceService.GetTotalInvoiceBySTore(store.Id));
             model.Cashier = profile.Name;
             model.CashierId = profile.UserId;
-           
+            return View(model);
+        }
+        public ActionResult View(long id)
+        {
 
+            Invoice invoice = new Invoice();
+            invoice = this.invoiceService.GetDataById(id);
 
+            BuyModel model = new BuyModel();
+            StoreModel store = new StoreModel();
+            Profiles cashier = new Profiles();
+            Profiles appraiser = new Profiles();
+            Customer customer = new Customer();
+            cashier = this.profileService.GetProfileByUserId(invoice.Cashier.Id);
+            appraiser = this.profileService.GetProfileByUserId(invoice.Appraiser.Id);
+            customer = this.customerService.GetDataById(invoice.Customer.Id);
+
+            model.StoreId = invoice.Store.Id;
+            model.StoreName = invoice.Store.Name;
+            model.InvoiceNo = invoice.InvoiceNo;
+            model.Cashier = Base.GenerateFullName(cashier.FirstName, cashier.MiddleName, cashier.LastName);
+            model.Appraiser = Base.GenerateFullName(appraiser.FirstName, appraiser.MiddleName, appraiser.LastName);
+            model.Customer = Base.GenerateFullName(customer.FirstName, customer.MiddleName, customer.LastName);
+            //summary
+            model.SubTotal = invoice.SubTotal;
+            model.TotalBonus = invoice.TotalBonus;
+            model.GrandTotal = invoice.GrandTotal;
+            //purchases
+            model.Purchases = invoice.Purchases;
+            TempData["Invoice"] = model;
+            
             return View(model);
         }
         #endregion

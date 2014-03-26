@@ -120,7 +120,7 @@
                 cache: false,
                 complete: function (data) {
                 },
-                error: function (data, textStatus, jqXHR) { alert(jqXHR) },
+                error: function (data, textStatus, jqXHR) { alert(textStatus) },
                 success: function (data) {
                 
                     invoice.savePurchase(data);
@@ -132,6 +132,7 @@
 
         },
         savePurchase: function (invoiceId) {
+            var status;
             $('#invoice tr.invoice-item').each(function () {
                 var thisInvoice = invoiceId;
                 var quantity = $(this).find('td.quantity input').val();
@@ -141,6 +142,7 @@
                 var bonus = $(this).find('td.bonus input').val();
                 var total = $(this).find('td.total input').val();
                 var product = $(this).find('td.product select').select2('val');
+               
 
                 if (quantity != '' && grams != '' && grams > 0 && quantity > 0 && product!='') {
                     var purchase = JSON.stringify(
@@ -166,9 +168,10 @@
                         cache: false,
                         complete: function (data) {                       
                         },
-                        error: function (data, textStatus, jqXHR) { alert(textStatus) },
+                        error: function (data, textStatus, jqXHR) { },
                         success: function (data) {
                             alert('success');
+                            status = 'success';
                         }
                     });
                 }
@@ -177,6 +180,11 @@
                 }
             });
 
+            //redirect to view invoice
+            if (status = 'success')
+            {
+                window.location = '/buy/view/' + invoiceId;
+            }
             
         },
       

@@ -1081,6 +1081,7 @@
     <Content Include="Views\Shared\ModalTemplates\_Alert.cshtml" />
     <Content Include="Views\Buy\Customer.cshtml" />
     <Content Include="Views\Buy\Bonus.cshtml" />
+    <Content Include="Views\Buy\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

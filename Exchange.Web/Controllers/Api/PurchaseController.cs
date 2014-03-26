@@ -9,6 +9,7 @@ using System.Web.Http;
 using Exchange.Web.Models.Api;
 using System.Web.Security;
 using Exchange.Web.Helper;
+using Exchange.Helper.Transaction;
 
 
 namespace Exchange.Web.Controllers.Api
@@ -66,10 +67,10 @@ namespace Exchange.Web.Controllers.Api
                     this.purchaseService.Create(purchase);
 
                     HttpResponseMessage result =
-                        Request.CreateResponse(HttpStatusCode.Created, purchase.Id);
+                        Request.CreateResponse(HttpStatusCode.Created, StatusCode.saved);
 
                     result.Headers.Location =
-                        new Uri(Url.Link("DefaultApi", new { id = purchase.Id }));
+                        new Uri(Url.Link("DefaultApi", new { status = StatusCode.saved }));
 
                     return result;
                 }

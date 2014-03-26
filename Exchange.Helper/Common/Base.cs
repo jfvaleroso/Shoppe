@@ -70,8 +70,9 @@ namespace Exchange.Helper.Common
         }
         public static string GenerateFullName(string firstname, string middlename, string lastname)
         {
-            if (!string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(lastname) && !string.IsNullOrEmpty(middlename))
+            if (!string.IsNullOrEmpty(firstname) && !string.IsNullOrEmpty(lastname))
             {
+                middlename = middlename ?? string.Empty;
                 return string.Format("{0}, {1} {2}",lastname.Trim(), firstname.ToString(), middlename.ToString());
             }
             return string.Empty;
