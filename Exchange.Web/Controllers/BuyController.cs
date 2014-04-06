@@ -1,9 +1,11 @@
-﻿using Exchange.Core.Entities;
+﻿using Exchange.Configuration;
+using Exchange.Core.Entities;
 using Exchange.Core.Services.IServices;
 using Exchange.Helper.Common;
 using Exchange.Helper.Transaction;
 using Exchange.Web.Helper;
 using Exchange.Web.Models;
+using RazorPDF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +75,9 @@ namespace Exchange.Web.Controllers
 
             model.StoreId = invoice.Store.Id;
             model.StoreName = invoice.Store.Name;
+            model.StoreAddress = invoice.Store.Address;
+            model.StoreTelephoneNo = invoice.Store.TelephoneNo;
+
             model.InvoiceNo = invoice.InvoiceNo;
             model.Cashier = Base.GenerateFullName(cashier.FirstName, cashier.MiddleName, cashier.LastName);
             model.Appraiser = Base.GenerateFullName(appraiser.FirstName, appraiser.MiddleName, appraiser.LastName);
@@ -83,8 +88,51 @@ namespace Exchange.Web.Controllers
             model.GrandTotal = invoice.GrandTotal;
             //purchases
             model.Purchases = invoice.Purchases;
+            //company
+            model.CompanyName = ConfigManager.Exchange.CompanyName;
+
+
             TempData["Invoice"] = model;
             
+            return View(model);
+        }
+        public ActionResult Edit(long id)
+        {
+
+            Invoice invoice = new Invoice();
+            invoice = this.invoiceService.GetDataById(id);
+
+            BuyModel model = new BuyModel();
+            StoreModel store = new StoreModel();
+            Profiles cashier = new Profiles();
+            Profiles appraiser = new Profiles();
+            Customer customer = new Customer();
+            cashier = this.profileService.GetProfileByUserId(invoice.Cashier.Id);
+            appraiser = this.profileService.GetProfileByUserId(invoice.Appraiser.Id);
+            customer = this.customerService.GetDataById(invoice.Customer.Id);
+
+            model.StoreId = invoice.Store.Id;
+            model.StoreName = invoice.Store.Name;
+            model.StoreAddress = invoice.Store.Address;
+            model.StoreTelephoneNo = invoice.Store.TelephoneNo;
+
+            model.InvoiceNo = invoice.InvoiceNo;
+            model.Cashier = Base.GenerateFullName(cashier.FirstName, cashier.MiddleName, cashier.LastName);
+            model.Appraiser = Base.GenerateFullName(appraiser.FirstName, appraiser.MiddleName, appraiser.LastName);
+            model.Customer = Base.GenerateFullName(customer.FirstName, customer.MiddleName, customer.LastName);
+            //summary
+            model.SubTotal = invoice.SubTotal;
+            model.TotalBonus = invoice.TotalBonus;
+            model.GrandTotal = invoice.GrandTotal;
+            //purchases
+            model.Purchases = invoice.Purchases;
+            //company
+            model.CompanyName = ConfigManager.Exchange.CompanyName;
+            model.ProductList = this.service.GetProductList(0);
+
+
+            TempData["Invoice"] = model;
+
             return View(model);
         }
         #endregion
@@ -184,6 +232,18 @@ namespace Exchange.Web.Controllers
             return Json(new { result = StatusCode.invalid, message = MessageCode.error, code = StatusCode.invalid }, JsonRequestBehavior.AllowGet);
         }
         
+        #endregion
+        #region Receipt
+        public ActionResult Receipt()
+        {
+            BuyModel model = new BuyModel();
+            if (TempData["Invoice"] != null)
+            {
+                model = (BuyModel)TempData["Invoice"];
+            }
+            var pdf = new PdfResult(model, "Test");
+            return pdf;
+        }
         #endregion
 
 

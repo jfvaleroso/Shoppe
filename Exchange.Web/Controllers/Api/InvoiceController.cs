@@ -64,11 +64,8 @@ namespace Exchange.Web.Controllers.Api
 
                     return result;
                 }
-                else
-                {
-                    return Request.
-                        CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
+                return Request.
+                          CreateErrorResponse(HttpStatusCode.OK, ModelState);
             }
             catch (Exception ex)
             {

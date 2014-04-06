@@ -441,3 +441,5 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\bin\Mono.Math.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\bin\ru-ru\BundleTransformer.Core.resources.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\obj\Debug\Exchange.Web.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\obj\Debug\Exchange.Web.pdb
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\bin\itextsharp.dll
+C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Web\bin\RazorPDF.dll

@@ -20,8 +20,14 @@ namespace Exchange.Web.Models
         public string Cashier { get; set; }
         public int CashierId { get; set; }
 
+
+        //store
         public int StoreId { get; set; }
         public string StoreName { get; set; }
+        public string StoreAddress { get; set; }
+        public string StoreTelephoneNo { get; set; }
+
+
 
         public string Appraiser { get; set; }
         public string InvoiceNo { get; set; }
@@ -36,6 +42,8 @@ namespace Exchange.Web.Models
         public decimal SubTotal { get; set; }
         public string Customer { get; set; }
 
+        //company details
+        public string CompanyName { get; set; }
 
 
         public BuyModel()

@@ -1,4 +1,6 @@
-﻿var invoice = function () {
+﻿
+
+var invoice = function () {
     return {
         create: function (url) {
             window.location = url;
@@ -53,7 +55,7 @@
             $("#total_bonus input").val(total_bonus.toFixed(2));
             $("#grand_total input").val(grand_total.toFixed(2));
         },
-        reseet: function () {
+        reset: function () {
             $("#total_cost input").val('');
             $("#total_bonus input").val('');
             $("#grand_total input").val('');
@@ -110,9 +112,8 @@
                  'CustomerId': customer
  
              });
-
             $.ajax({
-                url: 'api/invoice/PostInvoice/',
+                url: invoice.getHost(window.location.origin) + '/api/invoice/PostInvoice/',
                 type: "post",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -122,8 +123,9 @@
                 },
                 error: function (data, textStatus, jqXHR) { alert(textStatus) },
                 success: function (data) {
-                
-                    invoice.savePurchase(data);
+
+                    console.log(data);
+                   // invoice.savePurchase(data);
                    
                 }
             });
@@ -160,7 +162,7 @@
                   
                    
                     $.ajax({
-                        url: 'api/purchase/PostPurchase/',
+                        url: invoice.getHost(window.location.origin) + '/api/purchase/PostPurchase/',
                         type: "post",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
@@ -187,7 +189,53 @@
             }
             
         },
-      
+        modifyInvoice: function (id) {
+            var cost = $("#total_cost input").val();;
+            var bonus = $("#total_bonus input").val();
+            var grand = $("#grand_total input").val();
+            var customer = $('div#customer input').attr('data-id');
+            var invoiceNo = $('div#invoiceNo input').val();
+            var appraiser = $('div#appraiser input').val();
+            var cashier = $('#Cashier').val();
+            var cashierId = $('#CashierId').val();
+            var appraiserId = $('#Appraiser').attr('data-id');
+            var store = $('#StoreId').val();
+
+            var thisInvoice = JSON.stringify(
+             {
+                 'Id': id,
+                 'InvoiceNo': invoiceNo,
+                 'SubTotal': cost,
+                 'TotalBonus': bonus,
+                 'GrandTotal': grand,
+                 'StoreId': store,
+                 'Cashier': cashierId,
+                 'Appraiser': appraiserId,
+                 'CustomerId': customer
+
+             });
+
+            $.ajax({
+                url: invoice.getHost(window.location.origin) + '/api/invoice/PutInvoice/',
+                type: "post",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: thisInvoice,
+                cache: false,
+                complete: function (data) {
+                },
+                error: function (data, textStatus, jqXHR) { alert(textStatus) },
+                success: function (data) {
+                    //remove purchases
+                    //save purchases
+                    invoice.savePurchase(data);
+
+                }
+            });
+
+
+
+        },
         getRequest: function (url, title) {
                 $.ajax({
                     url: url,
@@ -298,7 +346,10 @@
        
         popup: function () {
             alert('teste');
-        }
+        },
+         getHost: function (url) {
+                return url.toString().replace(/^(.*\/\/[^\/?#]*).*$/,"$1");
+       }
 
 
 
@@ -342,8 +393,8 @@ $(function () {
     var bonus_inputs = $('#invoice tr td.bonus input');
     var total_inputs = $('#invoice tr td.total input');
     var remove = $('#invoice tr td.delete a');
-    //calculate
-    $(document).on("keyup", '#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input,#invoice tr td.bonus input', function (e) {
+    //calculate on key up
+    $(document).on("keyup change", '#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input,#invoice tr td.bonus input', function (e) {
         e.preventDefault();
         invoice.calculate(this);
         return false;
@@ -355,19 +406,19 @@ $(function () {
         return false;
     });
     //add blank row
-    $(document).on("click", "#main-invoice #btnAdd", function (e) {
+    $(document).on("click", "#main-invoice #btnAdd,#main-invoice-edit #btnAdd", function (e) {
         e.preventDefault();
         invoice.cloneItem();
         return false;
     });
-    //test
+    //populate product cost on add
     $('#main-invoice .combobox').on("select2-selected", function (e, element) {        
         //e.object.id
         //alert(e.val);
         var r = 0, q = 0, g = 0.0;
         element = this;
         $.ajax({
-            url: 'api/purchase/GetProductById/',
+            url: invoice.getHost(window.location.origin) + '/api/purchase/GetProductById/',
             type: "get",
             data: { id: e.val },
             cache: false,
@@ -383,12 +434,37 @@ $(function () {
                 $(element).closest('tr').find('td.rate input').val(r);
                 $(element).closest('tr').find('td.quantity input').val(q);
                 $(element).closest('tr').find('td.grams input').val(g);
-                invoice.calculate('#main-invoice .combobox');
+                invoice.calculate(element);
+            }
+        });
+    });
+    //populate product cost on edit
+    $('#main-invoice-edit .combobox').on("select2-selected", function (e, element) {
+        //e.object.id
+        //alert(e.val);
+        var r = 0, q = 0, g = 0.0;
+        element = this;
+        $.ajax({
+            url: invoice.getHost(window.location.origin) + '/api/purchase/GetProductById/',
+            type: "get",
+            data: { id: e.val },
+            cache: false,
+            complete: function (data) {
+            },
+            error: function (data) {
+                alert('error');
+            },
+            success: function (data) {
+                r = data.Rate;
+                q = 1;
+                $(element).closest('tr').find('td.rate input').val(r);
+                $(element).closest('tr').find('td.quantity input').val(q);
+                invoice.calculate(element);
             }
         });
     });
     //remove
-    $('#main-invoice .combobox').on("select2-removed", function (e) {
+    $('#main-invoice .combobox,#main-invoice-edit .combobox').on("select2-removed", function (e) {
         //e.object.id
         //alert(e.val);
         $(this).closest('tr').find('td.quantity input').val(0);
@@ -440,12 +516,32 @@ $(function () {
             return item.replace(regex, "<strong>$1</strong>");
         }
     });
-    //save invoice
-    $('#btnApprove').on("click", function (e) {
+    //save and approve invoice
+    $('#btnSaveAndApprove').on("click", function (e) {
         e.preventDefault();
+        $(this).empty().append('Saving your invoice...');
+        $(this).attr('disabled', 'disabled');
         invoice.saveInvoice();
         return false;
     });
+    //save and approve invoice
+    $('#btnSaveChangesAndApprove').on("click", function (e) {
+        e.preventDefault();
+        invoice.modifyInvoice();
+        return false;
+    });
+
+    //print
+    $('#btnConfirmAndPrint').on("click", function (e) {
+        e.preventDefault();
+       window.location = '/buy/test/51'
+        return false;
+    });
+    $("#btnCancelInvoice").click(function (event) {
+        event.preventDefault();
+        window.location = "/buy/";
+    });
+
 
 
    

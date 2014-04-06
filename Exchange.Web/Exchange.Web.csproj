@@ -76,6 +76,9 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\iTextSharp.4.1.2\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Optimization">
       <HintPath>..\packages\Microsoft.Web.Optimization.0.1\lib\net40\Microsoft.Web.Optimization.dll</HintPath>
@@ -89,6 +92,9 @@
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorPDF">
+      <HintPath>..\packages\RazorPDF.1.0.0\lib\net40\RazorPDF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -905,6 +911,7 @@
     <Content Include="Areas\Admin\Views\Roles\New.cshtml" />
     <Content Include="Areas\Admin\Views\Roles\Manage.cshtml" />
     <Content Include="Areas\Admin\Views\Employee\Manage.cshtml" />
+    <Content Include="Content\bootstrap\fonts\8-PM____.TTF" />
     <None Include="Scripts\jquery.validate\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate\jquery.numeric.js" />
     <Content Include="Scripts\jquery.validate\jquery.validate.js" />
@@ -1082,6 +1089,9 @@
     <Content Include="Views\Buy\Customer.cshtml" />
     <Content Include="Views\Buy\Bonus.cshtml" />
     <Content Include="Views\Buy\View.cshtml" />
+    <Content Include="Views\Buy\Receipt.cshtml" />
+    <Content Include="Views\Shared\_PdfLayout.cshtml" />
+    <Content Include="Views\Buy\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
