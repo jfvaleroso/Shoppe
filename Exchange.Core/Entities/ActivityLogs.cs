@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exchange.Core.Entities
 {
-    public class ActivityLogs : Entity<long>
+    public class ActivityLogs : Entity<Guid>
     {
         public virtual string Type { get; set; }
         public virtual string Description { get; set; }

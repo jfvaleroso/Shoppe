@@ -58,6 +58,7 @@
                         $('#mainModal').modal('hide');
                         //add notification
                         $('#panel-status').removeClass().addClass('panel fade in panel-success');
+                        $('#panel-status').find('em').addClass('success');
                         $('#general-status').empty().append(data.message + data.content);
                         $('#alert').addClass('hide');
                     }

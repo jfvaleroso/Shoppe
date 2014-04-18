@@ -8,9 +8,9 @@ using System.Text;
 
 namespace Exchange.NHibernateBase.Repositories
 {
-    public class NHInvoiceRepository : NHRepositoryBase<Invoice, long>, IInvoiceRepository
+    public class NHInvoiceRepository : NHRepositoryBase<Invoice, Guid>, IInvoiceRepository
     {
-        public long GetTotalInvoiceBySTore(int storeId)
+        public long GetTotalInvoiceBySTore(Guid storeId)
         {
             return this.GetTotalCount(InvoiceFilter.SearchByStore(storeId), InvoiceFilter.AliasByStore(), InvoiceFilter.Orders());
         }

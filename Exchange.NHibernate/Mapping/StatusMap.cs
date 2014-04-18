@@ -13,6 +13,7 @@ namespace Exchange.NHibernateBase.Mapping
         {
             Table("Status");
             Id(x => x.Id);
+            Map(x => x.Code);
             Map(x => x.Name);
             Map(x => x.Description);
             Map(x => x.Active);

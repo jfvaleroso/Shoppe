@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IActivityLogsRepository : IRepository<ActivityLogs, long>, ISearchRepository<ActivityLogs>
+    public interface IActivityLogsRepository : IRepository<ActivityLogs, Guid>, ISearchRepository<ActivityLogs>
     {
     }
 }

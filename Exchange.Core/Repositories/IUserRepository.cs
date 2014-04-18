@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IUserRepository : IRepository<Users, int>, ISearchRepository<Users>
+    public interface IUserRepository : IRepository<Users, Guid>, ISearchRepository<Users>
     {
         #region Membership
         Users GetUserByIdUserKey(object providerUserKey);

@@ -26,7 +26,7 @@ namespace Exchange.Core.Services.Implementation
             this.customerRepository.Save(entity);
         }
 
-        public long Create(Customer entity)
+        public Guid Create(Customer entity)
         {
             return this.customerRepository.Create(entity);
         }
@@ -41,7 +41,7 @@ namespace Exchange.Core.Services.Implementation
             this.customerRepository.SaveOrUpdate(entity);
         }
 
-        public bool Delete(long id)
+        public bool Delete(Guid id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace Exchange.Core.Services.Implementation
         }
         #endregion
         #region Search and Filter
-        public Customer GetDataById(long id)
+        public Customer GetDataById(Guid id)
         {
             return this.customerRepository.Get(id);
         }

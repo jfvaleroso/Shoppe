@@ -7,7 +7,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IRoleService : IService<Roles, int>, IValidateService<Roles>
+    public interface IRoleService : IService<Roles, Guid>, IValidateService<Roles>
     {
         Roles GetDataByName(string roleName);
     }

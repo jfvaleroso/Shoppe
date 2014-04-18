@@ -12,11 +12,19 @@ using Exchange.NHibernateBase.Filters;
 
 namespace Exchange.NHibernateBase.Repositories
 {
-    public class NHProductRepository : NHRepositoryBase<Product, int>, IProductRepository
+    public class NHProductRepository : NHRepositoryBase<Product, Guid>, IProductRepository
     {
         public List<Product> GetDataWithPagingAndSearch(string searchString, int pageIndex, int pageSize, out long total)
         {
             return this.GetDataWithPagingAndSearch(ProductFilter.Search(searchString), searchString, pageIndex, pageSize, out total);
         }
+
+        public List<Product> Test()
+        {
+            return this.Test(ProductFilter.Test(),ProductFilter.AliasTest(), ProductFilter.OrdersTest());
+        }
+
+
+
     }
 }

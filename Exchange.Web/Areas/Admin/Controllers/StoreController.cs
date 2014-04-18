@@ -37,7 +37,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
                 {
                     Active = x.Active,
                     Id = x.Id,
-                    SecuredId = Base.Encrypt(x.Id.ToString()),
+                    
                     Code = x.Code,
                     Name = x.Name,
                     Address= x.Address,
@@ -91,12 +91,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Manage
-        [CrytoProvider]
-        public ActionResult Manage(int id)
+        
+        public ActionResult Manage(string id)
         {
             try
             {
-                Store store = this.storeService.GetDataById(id);
+                Store store = this.storeService.GetDataById(new Guid(id));
                 if (store != null)
                     return View(store);
             }
@@ -144,12 +144,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Display Item
-        [CrytoProvider]
-        public ActionResult Item(int id)
+        
+        public ActionResult Item(string id)
         {
             try
             {
-                Store store = this.storeService.GetDataById(id);
+                Store store = this.storeService.GetDataById(new Guid(id));
                 if (store != null)
                     return View(store);
 
@@ -162,13 +162,13 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Delete
-        public JsonResult Delete(int id)
+        public JsonResult Delete(string id)
         {
             try
             {
-                if (id > 0)
+                if (!string.IsNullOrEmpty(id))
                 {
-                    this.storeService.Delete(id);
+                    this.storeService.Delete(new Guid(id));
                     return Json(new { result = StatusCode.done, message = MessageCode.deleted, code = StatusCode.deleted });
                 }
             }

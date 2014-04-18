@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IPurchaseRepository : IRepository<Purchase, long>, ISearchRepository<Purchase>
+    public interface IPurchaseRepository : IRepository<Purchase, Guid>, ISearchRepository<Purchase>
     {
       
        

@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface ICashOnHandRepository : IRepository<CashOnHand, int>
+    public interface ICashOnHandRepository : IRepository<CashOnHand, Guid>
     {
 
     }

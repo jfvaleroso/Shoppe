@@ -12,7 +12,7 @@ using Exchange.NHibernateBase.Filters;
 
 namespace Exchange.NHibernateBase.Repositories
 {
-    public class NHStoreRepository : NHRepositoryBase<Store, int>, IStoreRepository
+    public class NHStoreRepository : NHRepositoryBase<Store, Guid>, IStoreRepository
     {
         public List<Store> GetDataWithPagingAndSearch(string searchString, int pageIndex, int pageSize, out long total)
         {

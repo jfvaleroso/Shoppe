@@ -46,13 +46,13 @@ namespace Exchange.Web.Controllers.Api
                     invoice.SubTotal = model.SubTotal;
                     invoice.TotalBonus = model.TotalBonus;
                     invoice.GrandTotal = model.GrandTotal;
-                    invoice.Store = this.storeInvoice.GetDataById(model.StoreId);
-                    int status = (int)Common.Status.SavedToDraft;
+                    invoice.Store = this.storeInvoice.GetDataById(new Guid(model.StoreId));
+                    string status = Helper.Status.SavedToDraft;
 
-                    invoice.Cashier = this.userService.GetUserById(Convert.ToInt32(model.Cashier));
-                    invoice.Appraiser = this.userService.GetUserById(Convert.ToInt32(model.Appraiser));
-                    invoice.Customer = this.customerService.GetDataById(model.CustomerId);
-                    invoice.Status = this.statusService.GetDataById(status);
+                    invoice.Cashier = this.userService.GetUserById(new Guid(model.Cashier));
+                    invoice.Appraiser = this.userService.GetUserById(new Guid(model.AppraiserId));
+                    invoice.Customer = this.customerService.GetDataById(new Guid(model.CustomerId));
+                    invoice.Status = this.statusService.GetStatusByCode(status);
 
                     this.invoiceService.Create(invoice);
 

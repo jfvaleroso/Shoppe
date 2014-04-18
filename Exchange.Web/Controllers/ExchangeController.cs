@@ -44,7 +44,7 @@ namespace Exchange.Web.Controllers
                     Cost = string.Format(new CultureInfo("en-PH"), "{0:C}", x.Cost),
                     Description = x.Description,
                     Id = x.Id,
-                    SecuredId = Base.Encrypt(x.Id.ToString()),
+                    
                     Name = x.Name,
                     DateModified= x.DateModified != null ? x.DateModified : x.DateCreated,
                     ProductType = x.ProductType.Name

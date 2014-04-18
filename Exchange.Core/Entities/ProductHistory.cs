@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exchange.Core.Entities
 {
-    public class ProductHistory : Entity<long>
+    public class ProductHistory : Entity<Guid>
     {
 
         public virtual decimal Cost { get; set; }

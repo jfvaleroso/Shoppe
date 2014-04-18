@@ -31,8 +31,8 @@ namespace Exchange.Core.Services.Implementation
             return this.userRepository.GetDataWithPagingAndSearch(searchString, pageIndex, pageSize, out total);
         }
 
-       
-        public Entities.Users GetUserById(int userId)
+
+        public Entities.Users GetUserById(Guid userId)
         {
             return this.userRepository.Get(userId);
         }

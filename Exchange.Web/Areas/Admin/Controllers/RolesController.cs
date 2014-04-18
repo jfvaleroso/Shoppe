@@ -39,7 +39,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
                    RoleName= x.RoleName,
                    Description=x.Description,
                    Id= x.Id,
-                   SecuredId = Base.Encrypt(x.Id.ToString()),
+                   
                    IsSuperAdmin= Access.IsSuperAdmin() ? "YES" : "NO"
                    
                 });
@@ -85,12 +85,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Manage
-        [CrytoProvider]
-        public ActionResult Manage(int id)
+        
+        public ActionResult Manage(string id)
         {
             try
             {
-                Roles roles = this.roleService.GetDataById(id);
+                Roles roles = this.roleService.GetDataById(new Guid(id));
                 if (roles != null)
                     return View(roles);
             }
@@ -131,12 +131,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Display Item
-        [CrytoProvider]
-        public ActionResult Item(int id)
+        
+        public ActionResult Item(string id)
         {
             try
             {
-                Roles roles = this.roleService.GetDataById(id);
+                Roles roles = this.roleService.GetDataById(new Guid(id));
                 if (roles != null)
                     return View(roles);
 
@@ -149,13 +149,13 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Delete
-        public JsonResult Delete(int id)
+        public JsonResult Delete(string id)
         {
             try
             {
-                if (id > 0)
+                if (!string.IsNullOrEmpty(id))
                 {
-                    this.roleService.Delete(id);
+                    this.roleService.Delete(new Guid(id));
                     return Json(new { result = StatusCode.done, message = MessageCode.deleted, code = StatusCode.deleted });
                 }
             }

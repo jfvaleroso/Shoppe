@@ -23,7 +23,7 @@ namespace Exchange.Core.Services.Implementation
             this.invoiceRepository.Save(entity);
         }
 
-        public long Create(Invoice entity)
+        public Guid Create(Invoice entity)
         {
             return this.invoiceRepository.Create(entity);
         }
@@ -38,7 +38,7 @@ namespace Exchange.Core.Services.Implementation
             this.invoiceRepository.SaveOrUpdate(entity);
         }
 
-        public bool Delete(long id)
+        public bool Delete(Guid id)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Exchange.Core.Services.Implementation
         }
         #endregion
         #region Search and Filter
-        public Invoice GetDataById(long id)
+        public Invoice GetDataById(Guid id)
         {
             return this.invoiceRepository.Get(id);
         }
@@ -80,7 +80,7 @@ namespace Exchange.Core.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public long GetTotalInvoiceBySTore(int storeId)
+        public long GetTotalInvoiceBySTore(Guid storeId)
         {
             return this.invoiceRepository.GetTotalInvoiceBySTore(storeId);
         }

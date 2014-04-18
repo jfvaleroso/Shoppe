@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Exchange.Core.Entities
 {
-    public class Store : Entity<int>
+    public class Store : Entity<Guid>
     {
 
         [Required]

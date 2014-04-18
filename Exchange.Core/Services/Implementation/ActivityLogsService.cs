@@ -16,7 +16,7 @@ namespace Exchange.Core.Services.Implementation
             this.activityLogsRepository = activityLogsRepository;
         }
 
-        public ActivityLogs GetDataById(long id)
+        public ActivityLogs GetDataById(Guid id)
         {
             return this.activityLogsRepository.Get(id);
         }
@@ -44,7 +44,7 @@ namespace Exchange.Core.Services.Implementation
             this.activityLogsRepository.Save(entity);
         }
 
-        public long Create(ActivityLogs entity)
+        public Guid Create(ActivityLogs entity)
         {
             return this.activityLogsRepository.Create(entity);
         }
@@ -69,7 +69,7 @@ namespace Exchange.Core.Services.Implementation
             this.activityLogsRepository.SaveOrUpdate(entity);
         }
 
-        public bool Delete(long id)
+        public bool Delete(Guid id)
         {
             try
             {

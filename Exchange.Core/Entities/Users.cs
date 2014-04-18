@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Exchange.Core.Entities
 {
-    public class Users : Entity<int>
+    public class Users : Entity<Guid>
     {
        
         public virtual string Username { get; set; }

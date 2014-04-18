@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exchange.Core.Entities
 {
-    public class Note : Entity<int>
+    public class Note : Entity<Guid>
     {
         public virtual string Description { get; set; }
         public virtual DateTime Date { get; set; }

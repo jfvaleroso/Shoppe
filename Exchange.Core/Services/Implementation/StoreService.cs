@@ -27,7 +27,7 @@ namespace Exchange.Core.Services.Implementation
         {
             this.storeRepository.Save(store);
         }
-        public int Create(Store store)
+        public Guid Create(Store store)
         {
             return this.storeRepository.Create(store);
         }
@@ -42,7 +42,7 @@ namespace Exchange.Core.Services.Implementation
         }
 
         [UnitOfWork]
-        public bool Delete(int storeId)
+        public bool Delete(Guid storeId)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Exchange.Core.Services.Implementation
         }
         #endregion
         #region Seach and Filter
-        public Store GetDataById(int id)
+        public Store GetDataById(Guid id)
         {
             return this.storeRepository.Get(id);
         }
@@ -87,7 +87,7 @@ namespace Exchange.Core.Services.Implementation
         }
 
         #endregion
-        #region Validtor
+        #region Validator
         public bool CheckDataIfExists(Store entity)
         {
             Dictionary<string, object> parameter = new Dictionary<string, object>();

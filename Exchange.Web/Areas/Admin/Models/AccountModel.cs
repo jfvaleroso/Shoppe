@@ -10,8 +10,8 @@ namespace Exchange.Web.Areas.Admin.Models
 {
     public class RegisterModel
     {
-     
-        public int Id { get; set; }
+
+        public string Id { get; set; }
        // [Required]
         [Display(Name = "Username")]
         public string UserName { get; set; }
@@ -67,7 +67,7 @@ namespace Exchange.Web.Areas.Admin.Models
         public string RoleName { get; set; }
         //[Required]
         [Display(Name = "StoreName")]
-        public int StoreId { get; set; }
+        public string StoreId { get; set; }
         public IList<SelectListItem> RoleList { get; set; }
         public IList<SelectListItem> StoreList { get; set; }
 

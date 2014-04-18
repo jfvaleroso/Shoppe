@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exchange.Core.Entities
 {
-    public class Purchase: Entity<long>
+    public class Purchase : Entity<Guid>
     {
 
         #region Purchase data
@@ -19,7 +19,6 @@ namespace Exchange.Core.Entities
         #endregion
 
         #region Prereq
-        public virtual Status Status { get; set; }
         public virtual Invoice Invoice { get; set; }
         public virtual Product Product { get; set; }
         public virtual SecurityCode SecurityCode { get; set; }

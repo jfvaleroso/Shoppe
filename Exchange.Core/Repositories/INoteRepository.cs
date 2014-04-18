@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-     public interface INoteRepository : IRepository<Note, int>
+    public interface INoteRepository : IRepository<Note, Guid>
     {
     }
 }

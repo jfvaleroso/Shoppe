@@ -22,7 +22,7 @@ namespace Exchange.Core.Services.Implementation
         {
             this.securityCodeRepository.Save(entity);
         }
-        public long Create(SecurityCode entity)
+        public Guid Create(SecurityCode entity)
         {
 
             return this.securityCodeRepository.Create(entity);
@@ -35,8 +35,8 @@ namespace Exchange.Core.Services.Implementation
         {
             this.securityCodeRepository.SaveOrUpdate(entity);
         }
-     
-        public bool Delete(long productId)
+
+        public bool Delete(Guid productId)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Exchange.Core.Services.Implementation
         {
             return this.securityCodeRepository.Get(x => x.IsUsed.Equals(isUsed)).ToList();
         }
-        public SecurityCode GetDataById(long id)
+        public SecurityCode GetDataById(Guid id)
         {
             return this.securityCodeRepository.Get(id);
         }

@@ -6,8 +6,8 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IProductRepository : IRepository<Product, int>, ISearchRepository<Product>, IValidateRepository<Product>
+    public interface IProductRepository : IRepository<Product, Guid>, ISearchRepository<Product>, IValidateRepository<Product>
     {
-       
+        List<Product> Test();
     }
 }

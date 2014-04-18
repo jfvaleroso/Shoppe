@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Exchange.Core.Entities
 {
-    public class ProductType : Entity<int>
+    public class ProductType : Entity<Guid>
     {
         [Required]
         public virtual string Code { get; set; }

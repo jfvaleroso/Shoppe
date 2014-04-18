@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IRoleRepository : IRepository<Roles, int>, ISearchRepository<Roles>, IValidateRepository<Roles>
+    public interface IRoleRepository : IRepository<Roles, Guid>, ISearchRepository<Roles>, IValidateRepository<Roles>
     {
         #region Roles
         Roles GetRoleByRoleNameApplicationName(string roleName, string applicationName);

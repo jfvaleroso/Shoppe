@@ -23,7 +23,7 @@ namespace Exchange.Core.Services.Implementation
             this.purchaseRepository.Save(entity);
         }
 
-        public long Create(Purchase entity)
+        public Guid Create(Purchase entity)
         {
             return this.purchaseRepository.Create(entity);
         }
@@ -38,7 +38,7 @@ namespace Exchange.Core.Services.Implementation
             this.purchaseRepository.SaveOrUpdate(entity);
         }
 
-        public bool Delete(long id)
+        public bool Delete(Guid id)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Exchange.Core.Services.Implementation
         }
         #endregion
         #region Search and Filter
-        public Purchase GetDataById(long id)
+        public Purchase GetDataById(Guid id)
         {
             return this.purchaseRepository.Get(id);
         }

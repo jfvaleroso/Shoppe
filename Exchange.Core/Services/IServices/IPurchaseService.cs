@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IPurchaseService : IService<Purchase, long>
+    public interface IPurchaseService : IService<Purchase, Guid>
     {
     }
 }

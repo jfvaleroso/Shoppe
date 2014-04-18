@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exchange.Core.Entities
 {
-    public class Invoice : Entity<long>
+    public class Invoice : Entity<Guid>
     {
         #region Invoice details
         public virtual string InvoiceNo { get; set; }

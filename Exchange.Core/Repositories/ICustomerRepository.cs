@@ -6,7 +6,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface ICustomerRepository : IRepository<Customer, long>, ISearchRepository<Customer>
+    public interface ICustomerRepository : IRepository<Customer, Guid>, ISearchRepository<Customer>
     {
         
     }

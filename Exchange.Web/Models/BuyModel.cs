@@ -14,15 +14,15 @@ namespace Exchange.Web.Models
         //public float Amount { get; set; }
         //public float Bonus { get; set; }
         //public float SubTotal { get; set; }
-        public int ProductId { get; set; }
-        public long CustomerId { get; set; }
+        public string ProductId { get; set; }
+        public string CustomerId { get; set; }
 
         public string Cashier { get; set; }
-        public int CashierId { get; set; }
+        public string CashierId { get; set; }
 
 
         //store
-        public int StoreId { get; set; }
+        public string StoreId { get; set; }
         public string StoreName { get; set; }
         public string StoreAddress { get; set; }
         public string StoreTelephoneNo { get; set; }
@@ -30,6 +30,7 @@ namespace Exchange.Web.Models
 
 
         public string Appraiser { get; set; }
+        public string AppraiserId { get; set; }
         public string InvoiceNo { get; set; }
         public IList<SelectListItem> ProductList { get; set; }
         public IList<SelectListItem> CustomerList { get; set; }

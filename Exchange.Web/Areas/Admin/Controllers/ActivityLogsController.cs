@@ -36,11 +36,11 @@ namespace Exchange.Web.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Item(long id)
+        public ActionResult Item(string id)
         {
             try
             {
-                ActivityLogs activityLogs = this.activityLogsService.GetDataById(id);
+                ActivityLogs activityLogs = this.activityLogsService.GetDataById(new Guid(id));
                 if (activityLogs != null)
                     return View(activityLogs);
 

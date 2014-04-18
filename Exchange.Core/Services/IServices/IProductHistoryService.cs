@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IProductHistoryService : IService<ProductHistory, long>
+    public interface IProductHistoryService : IService<ProductHistory, Guid>
     {
     }
 }

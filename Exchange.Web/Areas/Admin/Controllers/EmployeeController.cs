@@ -69,8 +69,8 @@ namespace Exchange.Web.Areas.Admin.Controllers
         public ActionResult Register()
         {
             RegisterModel model = new RegisterModel();
-            model.StoreList = this.service.GetStoreList(0);
-            model.RoleList = this.service.GetRoleList(0);
+            model.StoreList = this.service.GetStoreList(new Guid());
+            model.RoleList = this.service.GetRoleList(new Guid());
             return View(model);
         }
         [Audit]
@@ -103,7 +103,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
                     }
 
                      Users employee = this.userService.GetUserByUsernameApplicationName(user.UserName, ConfigManager.Exchange.ApplicationName);
-                     Store store= this.storeService.GetDataById(model.StoreId);
+                     Store store= this.storeService.GetDataById(new Guid(model.StoreId));
 
                      AddUserIsInStore(employee, store);
 
@@ -126,17 +126,17 @@ namespace Exchange.Web.Areas.Admin.Controllers
     
         #endregion
         #region Manage
-        [CrytoProvider]
-        public ActionResult Manage(int Id)
+        
+        public ActionResult Manage(string id)
         {
             RegisterModel model = new RegisterModel();
-            Profiles profile = this.profileService.GetProfileByUserId(Id);
-            Users user = this.userService.GetUserById(Id);
+            Profiles profile = this.profileService.GetProfileByUserId(new Guid(id));
+            Users user = this.userService.GetUserById(new Guid(id));
             //get roles
             string[] roles = Access.GetUserRoles(user.Username);
             Exchange.Core.Entities.Roles role= this.roleService.GetDataByName(roles[0].ToString());
             //get store
-            int storeId = user.Stores.Count() > 0  ? user.Stores.FirstOrDefault().Id : 0;
+            Guid storeId = user.Stores.Count() > 0  ? user.Stores.FirstOrDefault().Id : new Guid();
 
             if (profile != null)
             {
@@ -167,7 +167,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
                 {
                     Users employee = this.userService.GetUserByUsernameApplicationName(model.UserName, ConfigManager.Exchange.ApplicationName);             
                     MembershipUser user = Membership.GetUser(model.UserName, false);
-                    Store store = this.storeService.GetDataById(model.StoreId);
+                    Store store = this.storeService.GetDataById(new Guid(model.StoreId));
 
                     employee.Roles.Clear();
                     employee.Stores.Clear();

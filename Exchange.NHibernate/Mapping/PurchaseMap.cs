@@ -28,7 +28,6 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.ModifiedBy);
       
             References(x => x.Invoice, "Invoice_Id");
-            References(x => x.Status, "Status_Id");
             References(x => x.Product, "Product_Id");
             References(x => x.SecurityCode, "SecurityCode_Id");
 	    }

@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Exchange.Core.Entities
 {
-    public class Status : Entity<int>
+    public class Status : Entity<Guid>
     {
+      public virtual string Code { get; set; }
        public virtual string Name { get; set; }
        public virtual string Description { get; set; }
        public virtual bool Active { get; set; }

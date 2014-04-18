@@ -88,7 +88,7 @@ var invoice = function () {
         },
         populateProductRate: function (e, element) {        
         },
-        saveInvoice: function () {
+        saveInvoice: function (element) {
             var cost = $("#total_cost input").val();;
             var bonus = $("#total_bonus input").val();
             var grand = $("#grand_total input").val();
@@ -97,21 +97,26 @@ var invoice = function () {
             var appraiser = $('div#appraiser input').val();
             var cashier = $('#Cashier').val();
             var cashierId = $('#CashierId').val();
-            var appraiserId = $('#Appraiser').attr('data-id');
+            var appraiserId = $('#AppraiserId').val();
             var store = $('#StoreId').val();
 
             var thisInvoice = JSON.stringify(
              {
                  'InvoiceNo': invoiceNo,
-                 'SubTotal': cost,
-                 'TotalBonus': bonus,
-                 'GrandTotal': grand,
+                 'SubTotal': cost=='' ? '0.0' : cost,
+                 'TotalBonus': bonus == '' ? '0.0' : bonus,
+                 'GrandTotal': grand == '' ? '0.0' : grand,
                  'StoreId': store,
                  'Cashier': cashierId,
-                 'Appraiser': appraiserId,
-                 'CustomerId': customer
- 
+                 'Appraiser': appraiser,
+                 'CustomerId': customer == '' ? 0 : customer,
+                 'AppraiserId': appraiserId == '' ? 0 : appraiserId
              });
+
+            //disable button
+            $(element).empty().append('Saving your invoice...');
+            $(element).attr('disabled', 'disabled');
+
             $.ajax({
                 url: invoice.getHost(window.location.origin) + '/api/invoice/PostInvoice/',
                 type: "post",
@@ -123,9 +128,22 @@ var invoice = function () {
                 },
                 error: function (data, textStatus, jqXHR) { alert(textStatus) },
                 success: function (data) {
-
-                    console.log(data);
-                   // invoice.savePurchase(data);
+                    if (data.ModelState != null) {
+                        $('#panel-status').removeClass().addClass('panel fade in panel-danger');
+                        $('#general-status').empty();
+                        $('#panel-status').find('em').addClass('warning');
+                        $.each(data.ModelState, function (i, item) {
+                            $('#general-status').append(item[0] + '<br/>');
+                        });
+                        $('#alert').addClass('hide');
+                        //enable button
+                        $(element).empty().append('Save and Approve');
+                        $(element).attr('disabled', false);
+                    }
+                    else {
+                        invoice.savePurchase(data);
+                    }
+                
                    
                 }
             });
@@ -178,7 +196,7 @@ var invoice = function () {
                     });
                 }
                 else {
-                    alert('add values');
+                   
                 }
             });
 
@@ -214,6 +232,8 @@ var invoice = function () {
                  'CustomerId': customer
 
              });
+
+          
 
             $.ajax({
                 url: invoice.getHost(window.location.origin) + '/api/invoice/PutInvoice/',
@@ -271,8 +291,6 @@ var invoice = function () {
             });
         },
         searchEmployee: function (query, process) {
-            names = [];
-            map = {};
             $.ajax({
                 url: 'buy/SearchEmployee',
                 dataType: "json",
@@ -280,16 +298,14 @@ var invoice = function () {
                 dataFilter: function (data) { return data; },
                 success: function (data) {
                     $.each(data, function (i, employee) {
-                        map[employee.name] = employee;
-                        names.push(employee.name, employee.id);
+                        search_employee_map[employee.name] = employee;
+                        search_employee_names.push(employee.name);
                     });
-                    process(names);
+                    process(search_employee_names);
                 }
             });
         },
         searchCustomer: function (query, process) {
-            names = [];
-            map = {};
             $.ajax({
                 url: 'buy/SearchCustomer',
                 dataType: "json",
@@ -297,10 +313,10 @@ var invoice = function () {
                 dataFilter: function (data) { return data; },
                 success: function (data) {
                     $.each(data, function (i, customer) {
-                        map[customer.name] = customer;
-                        names.push(customer.name, customer.id);
+                        search_customer_map[customer.name] = customer;
+                        search_customer_names.push(customer.name);
                     });
-                    process(names);
+                    process(search_customer_names);
                 }
             });
         },
@@ -342,12 +358,11 @@ var invoice = function () {
                     }
                 }
             });
-        },
-       
+        },     
         popup: function () {
             alert('teste');
         },
-         getHost: function (url) {
+        getHost: function (url) {
                 return url.toString().replace(/^(.*\/\/[^\/?#]*).*$/,"$1");
        }
 
@@ -358,7 +373,10 @@ var invoice = function () {
     };
 }();
 
-
+var search_employee_names = [];
+var search_employee_map = {};
+var search_customer_names = [];
+var search_customer_map = {};
 
 $(function () {
 
@@ -497,16 +515,15 @@ $(function () {
             invoice.searchEmployee(query, process);
         },
         updater: function (item) {
-            //selectedName = map[item].name;
-            //return item;
-            selectedId = map[item].id;
-            $('#Appraiser').attr('data-id', selectedId);
+            selectedId = search_employee_map[item].id;
+            $('#AppraiserId').val(selectedId);
             return item;
         },
         matcher: function (item) {
             if (item.toLowerCase().indexOf(this.query.trim().toLowerCase()) != -1) {
                 return true;
             }
+ 
         },
         sorter: function (items) {
             return items.sort();
@@ -515,13 +532,17 @@ $(function () {
             var regex = new RegExp('(' + this.query + ')', 'gi');
             return item.replace(regex, "<strong>$1</strong>");
         }
+    }).blur(function () {
+        if (search_employee_names.indexOf($(this).val().trim()) == -1) {
+            $('#Appraiser').val('');
+            $('#AppraiserId').val('0');
+        }
+
     });
     //save and approve invoice
     $('#btnSaveAndApprove').on("click", function (e) {
-        e.preventDefault();
-        $(this).empty().append('Saving your invoice...');
-        $(this).attr('disabled', 'disabled');
-        invoice.saveInvoice();
+        e.preventDefault();    
+        invoice.saveInvoice(this);
         return false;
     });
     //save and approve invoice
@@ -534,7 +555,7 @@ $(function () {
     //print
     $('#btnConfirmAndPrint').on("click", function (e) {
         e.preventDefault();
-       window.location = '/buy/test/51'
+       window.location = '/buy/receipt/51'
         return false;
     });
     $("#btnCancelInvoice").click(function (event) {

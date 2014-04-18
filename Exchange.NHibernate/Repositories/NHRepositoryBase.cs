@@ -9,6 +9,7 @@ using Exchange.Core.Entities;
 using NHibernate.Criterion;
 using Exchange.NHibernateBase.Repositories;
 using System.Linq.Expressions;
+using Exchange.NHibernateBase.Filters;
 
 namespace Exchange.NHibernateBase.Repositories
 {
@@ -65,6 +66,7 @@ namespace Exchange.NHibernateBase.Repositories
         public IQueryable<TEntity> GetAll()
         {
             return Session.Query<TEntity>();
+         
         }    
         #endregion
         #region Search
@@ -188,6 +190,31 @@ namespace Exchange.NHibernateBase.Repositories
             }
             var result = session.UniqueResult<TEntity>();
             return result;
+        }
+        public List<TEntity> Test(List<ICriterion> criterion, Dictionary<string, string> aliases, List<Order> orders)
+        {
+            var session = Session.CreateCriteria<TEntity>();
+            //alias
+            if (aliases != null)
+            {
+                foreach (var alias in aliases)
+                { session.CreateAlias(alias.Key, alias.Value); }
+            }
+            if (criterion != null)
+            {
+                foreach (var criteria in criterion)
+                { session.Add(criteria); }
+            }
+            //orders
+            if (orders != null)
+            {
+                foreach (var order in orders)
+                { session.AddOrder(order); }
+            }
+            var results = session
+                .Future<TEntity>()
+                .ToList<TEntity>();
+            return results;
         }
         #endregion
         #region Optimized Search

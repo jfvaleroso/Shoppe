@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exchange.Core.Entities
 {
-    public class SecurityCode : Entity<long>
+    public class SecurityCode : Entity<Guid>
     {
         public virtual string PassCode { get; set; }
         public virtual DateTime DateCreated { get; set; }

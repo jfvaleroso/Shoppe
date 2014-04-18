@@ -12,11 +12,11 @@ using Exchange.NHibernateBase.Filters;
 
 namespace Exchange.NHibernateBase.Repositories
 {
-    public class NHProfileRepository : NHRepositoryBase<Profiles, int>, IProfileRepository
+    public class NHProfileRepository : NHRepositoryBase<Profiles, Guid>, IProfileRepository
     {
 
         #region Profile Method
-        public Profiles GetProfileByUserId(int userId, bool isAnonymous)
+        public Profiles GetProfileByUserId(Guid userId, bool isAnonymous)
         {
             
            Profiles profile = Session.CreateCriteria(typeof(Profiles))
@@ -25,7 +25,7 @@ namespace Exchange.NHibernateBase.Repositories
                                             .UniqueResult<Profiles>();
            return profile;
         }
-        public Profiles GetProfileByUserId(int userId)
+        public Profiles GetProfileByUserId(Guid userId)
         {
             Profiles profile = Session.CreateCriteria(typeof(Profiles))
                                             .Add(NHibernate.Criterion.Restrictions.Eq("Users_Id", userId))

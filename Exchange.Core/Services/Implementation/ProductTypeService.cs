@@ -24,7 +24,7 @@ namespace Exchange.Core.Services.Implementation
         {
             this.productTypeRepository.Save(entity);
         }
-        public int Create(ProductType entity)
+        public Guid Create(ProductType entity)
         {
            return this.productTypeRepository.Create(entity);
         }
@@ -37,7 +37,7 @@ namespace Exchange.Core.Services.Implementation
             this.productTypeRepository.SaveOrUpdate(productType);
         }
         [UnitOfWork]
-        public bool Delete(int id)
+        public bool Delete(Guid id)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Exchange.Core.Services.Implementation
         }
         #endregion
         #region Search and Filter
-        public ProductType GetDataById(int id)
+        public ProductType GetDataById(Guid id)
        {
            return this.productTypeRepository.Get(id);
        }

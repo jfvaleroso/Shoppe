@@ -259,7 +259,7 @@
                 invoice.searchCustomer(query, process);
             },
             updater: function (item) {
-                selectedId = map[item].id;
+                selectedId = search_customer_map[item].id;
                 $('#txtSearchName').attr('data-id', selectedId);
                 return item;
             },
@@ -275,6 +275,11 @@
                 var regex = new RegExp('(' + this.query + ')', 'gi');
                 return item.replace(regex, "<strong>$1</strong>");
             }
+        }).blur(function () {
+            if (search_customer_names.indexOf($(this).val().trim()) == -1) {
+                $(this).val('');
+            }
+
         });
 
         $('#btnSaveSearch').click(function (e) {

@@ -23,7 +23,7 @@ namespace Exchange.Core.Services.Implementation
         {
             this.statusRepository.Save(entity);
         }
-        public int Create(Status entity)
+        public Guid Create(Status entity)
         {
            return this.statusRepository.Create(entity);
         }
@@ -36,7 +36,7 @@ namespace Exchange.Core.Services.Implementation
             this.statusRepository.SaveOrUpdate(productType);
         }
         [UnitOfWork]
-        public bool Delete(int id)
+        public bool Delete(Guid id)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Exchange.Core.Services.Implementation
         }
         #endregion
         #region Search and Filter
-        public Status GetDataById(int id)
+        public Status GetDataById(Guid id)
        {
            return this.statusRepository.Get(id);
        }
@@ -105,5 +105,10 @@ namespace Exchange.Core.Services.Implementation
             return false;
         }
         #endregion
+
+        public Status GetStatusByCode(string code)
+        {
+            return this.statusRepository.GetByExpression(x => x.Code.Equals(code));
+        }
     }
 }

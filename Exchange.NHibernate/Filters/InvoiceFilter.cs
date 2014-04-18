@@ -20,7 +20,7 @@ namespace Exchange.NHibernateBase.Filters
             aliases.Add("Store", "s");
             return aliases;
         }
-        public static List<ICriterion> SearchByStore(int storeId)
+        public static List<ICriterion> SearchByStore(Guid storeId)
         {
             List<ICriterion> criterion = new List<ICriterion>();
             criterion.Add(Restrictions.Eq("s.Id", storeId));

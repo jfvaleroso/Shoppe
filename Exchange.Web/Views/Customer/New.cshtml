@@ -88,17 +88,9 @@
                                 @Html.LabelFor(model => model.BirthDate)
                             </div>
                             <div class="editor-field form-inline" id="birthdate-field">
-                                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control" })
-                                <span class="add-on">
-                                    <span class="glyphicon glyphicon-th-list">
-
-                                    </span>
-                                </span>
+                                <div class="picker" id="birthdate-picker"></div>
+                                @Html.HiddenFor(model => model.BirthDate)                          
                                 <p class="small">Please indicate the birth date.</p>
-
-
-
-
                             </div>
 
 
@@ -204,8 +196,13 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#birthdate-field').datetimepicker({
-            pickTime: false
+
+
+        $("#birthdate-picker").birthdaypicker({
+            futureDates: true,
+            minAge:18
         });
+
+  
     });
 </script>

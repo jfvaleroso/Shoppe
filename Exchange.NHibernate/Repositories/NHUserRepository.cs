@@ -11,7 +11,7 @@ using Exchange.NHibernateBase.Filters;
 
 namespace Exchange.NHibernateBase.Repositories
 {
-    public class NHUserRepository : NHRepositoryBase<Users, int>, IUserRepository
+    public class NHUserRepository : NHRepositoryBase<Users, Guid>, IUserRepository
     {
         #region Membership User Method
         public Users GetUserByIdUserKey(object providerUserKey)

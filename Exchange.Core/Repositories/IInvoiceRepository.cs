@@ -6,8 +6,8 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IInvoiceRepository : IRepository<Invoice, long>
+    public interface IInvoiceRepository : IRepository<Invoice, Guid>
     {
-        long GetTotalInvoiceBySTore(int storeId);
+        long GetTotalInvoiceBySTore(Guid storeId);
     }
 }

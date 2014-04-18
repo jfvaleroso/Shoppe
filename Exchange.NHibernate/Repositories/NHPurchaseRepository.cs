@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Exchange.NHibernateBase.Repositories
 {
-    public class NHPurchaseRepository : NHRepositoryBase<Purchase, long>, IPurchaseRepository
+    public class NHPurchaseRepository : NHRepositoryBase<Purchase, Guid>, IPurchaseRepository
     {
         public List<Purchase> GetDataWithPagingAndSearch(string searchString, int pagNumber, int pageSize, out long total)
         {

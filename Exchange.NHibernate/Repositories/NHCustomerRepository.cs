@@ -10,7 +10,7 @@ using Exchange.NHibernateBase.Filters;
 
 namespace Exchange.NHibernateBase.Repositories
 {
-    public class NHCustomerRepository : NHRepositoryBase<Customer, long>, ICustomerRepository
+    public class NHCustomerRepository : NHRepositoryBase<Customer, Guid>, ICustomerRepository
     {
         public List<Customer> GetDataWithPagingAndSearch(string searchString, int pageIndex, int pageSize, out long total)
         {

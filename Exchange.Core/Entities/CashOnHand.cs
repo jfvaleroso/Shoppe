@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Exchange.Core.Entities
 {
-    public class CashOnHand : Entity<int>
+    public class CashOnHand : Entity<Guid>
     {
         public virtual decimal Cash { get; set; }
         public virtual string Note { get; set; }
@@ -14,6 +14,6 @@ namespace Exchange.Core.Entities
         public virtual DateTime DateCreated { get; set; }
         public virtual DateTime DateModified { get; set; }
         public virtual string ModifiedBy { get; set; }
-        public virtual int StoreId { get; set; }
+        public virtual Guid StoreId { get; set; }
     }
 }

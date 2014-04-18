@@ -7,7 +7,7 @@ namespace Exchange.Web.Models
 {
     public class ProfileModel
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Name { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IProductHistoryRepository : IRepository<ProductHistory, long>, ISearchRepository<ProductHistory>
+    public interface IProductHistoryRepository : IRepository<ProductHistory, Guid>, ISearchRepository<ProductHistory>
     {
     }
 }

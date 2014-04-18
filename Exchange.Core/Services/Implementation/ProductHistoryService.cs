@@ -35,7 +35,7 @@ namespace Exchange.Core.Services.Implementation
         }
         #endregion
         #region No Implementaion
-        public ProductHistory GetDataById(long id)
+        public ProductHistory GetDataById(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -48,7 +48,7 @@ namespace Exchange.Core.Services.Implementation
         {
             throw new NotImplementedException();
         }
-        public long Create(ProductHistory entity)
+        public Guid Create(ProductHistory entity)
         {
             throw new NotImplementedException();
         }
@@ -63,7 +63,7 @@ namespace Exchange.Core.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public bool Delete(long id)
+        public bool Delete(Guid id)
         {
             throw new NotImplementedException();
         }

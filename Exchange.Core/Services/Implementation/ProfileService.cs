@@ -17,15 +17,15 @@ namespace Exchange.Core.Services.Implementation
         }
 
         #region Profile Implementation
-        public Profiles GetProfileByUserId(int userId, bool isAnonymous)
+        public Profiles GetProfileByUserId(Guid userId, bool isAnonymous)
         {
           return this.profileRepository.GetProfileByUserId(userId, isAnonymous);
         }
-        public Profiles GetProfileByUserId(int userId)
+        public Profiles GetProfileByUserId(Guid userId)
         {
             return this.profileRepository.GetProfileByUserId(userId);
-        }   
-        public Profiles Get(int key)
+        }
+        public Profiles Get(Guid key)
         {
             return this.profileRepository.Get(key);
         }

@@ -33,6 +33,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
         #region Index
         public ActionResult Index()
         {
+            var data = productService.GetAllData();
             return View();
         }
         public JsonResult ProductListWithPaging(string searchString = "", int jtStartIndex = 1, int jtPageSize = 15)
@@ -48,7 +49,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
                     Cost = string.Format(new CultureInfo("en-PH"),"{0:C}", x.Cost),
                     Description = x.Description,
                     Id = x.Id,
-                    SecuredId = Base.Encrypt(x.Id.ToString()),
+                    
                     Name = x.Name,
                     ProductType= x.ProductType.Name
                 });
@@ -61,13 +62,13 @@ namespace Exchange.Web.Areas.Admin.Controllers
             }
         }
 
-        [CrytoProvider]
-        public ActionResult History(int id)
+        
+        public ActionResult History(string id)
         {
             try
             {
                 ProductModel model = new ProductModel();
-                Product product = this.productService.GetDataById(id);
+                Product product = this.productService.GetDataById(new Guid(id));
                 model.Id = product.Id;
                 model.Active = product.Active;
                 model.Code =  product.Code;
@@ -113,7 +114,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
         public ActionResult New()
         {
             ProductModel product = new ProductModel();
-            product.ProductTypeList = this.service.GetProductTypeList(0);
+            product.ProductTypeList = this.service.GetProductTypeList(new Guid());
             return View(product);
         }
         [HttpPost]
@@ -135,7 +136,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
                         product.Code = model.Code.ToUpper();
                         product.Cost = model.Cost;
                         product.Description = model.Description;
-                        product.ProductType = this.productTypeService.GetDataById(model.ProductTypeId);
+                        product.ProductType = this.productTypeService.GetDataById(new Guid(model.ProductTypeId));
                         product.Id = this.productService.Create(product);
                         model.Id = product.Id;
                         return Json(new { result = Base.Encrypt(product.Id.ToString()), message = MessageCode.saved, code = StatusCode.saved, content = product.Name.ToString() });
@@ -154,13 +155,13 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Manage
-        [CrytoProvider]
-        public ActionResult Manage(int id)
+        
+        public ActionResult Manage(string id)
         {
             try
             {
                 ProductModel model = new ProductModel();
-                Product product = this.productService.GetDataById(id);
+                Product product = this.productService.GetDataById(new Guid(id));
                 model.Id = product.Id;
                 model.Active = product.Active;
                 model.Code = product.Code;
@@ -185,8 +186,8 @@ namespace Exchange.Web.Areas.Admin.Controllers
             try
             {
                
-                int productTypeId= model.ProductTypeId > 0 ?  model.ProductTypeId : 0;
-                model.ProductType = this.productTypeService.GetDataById(productTypeId);
+                string productTypeId= model.ProductTypeId ?? string.Empty;
+                model.ProductType = this.productTypeService.GetDataById(new Guid(productTypeId));
                 if (ModelState.IsValid)
                 {
                     bool ifExists = this.productService.CheckDataIfExists(model);
@@ -229,12 +230,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Item
-        [CrytoProvider]
-        public ActionResult Item(int id)
+        
+        public ActionResult Item(string id)
         {
             try
             {
-                Product product = this.productService.GetDataById(id);
+                Product product = this.productService.GetDataById(new Guid(id));
                 if (product != null)
                     return View(product);
 
@@ -247,13 +248,13 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Delete
-        public JsonResult Delete(int id)
+        public JsonResult Delete(string id)
         {
             try
             {
-                if (id > 0)
+                if (!string.IsNullOrEmpty(id))
                 {
-                    this.productTypeService.Delete(id);
+                    this.productTypeService.Delete(new Guid(id));
                     return Json(new { result = StatusCode.done, message = MessageCode.deleted, code = StatusCode.deleted });
                 }
             }

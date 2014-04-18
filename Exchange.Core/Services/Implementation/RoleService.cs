@@ -23,9 +23,9 @@ namespace Exchange.Core.Services.Implementation
         {
             this.roleRepository.Save(entity);
         }
-        public int Create(Roles entity)
+        public Guid Create(Roles entity)
         {
-            return (int)this.roleRepository.Create(entity);
+            return (Guid)this.roleRepository.Create(entity);
         }
         public void SaveChanges(Roles entity)
         {
@@ -35,7 +35,7 @@ namespace Exchange.Core.Services.Implementation
         {
             this.roleRepository.SaveOrUpdate(entity);
         }
-        public bool Delete(int id)
+        public bool Delete(Guid id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Exchange.Core.Services.Implementation
         {
             return this.roleRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
         }
-        public Roles GetDataById(int id)
+        public Roles GetDataById(Guid id)
         {
             return this.roleRepository.Get(id);
         }

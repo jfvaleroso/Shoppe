@@ -6,8 +6,8 @@ using System.Text;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IInvoiceService : IService<Invoice, long>
+    public interface IInvoiceService : IService<Invoice, Guid>
     {
-        long GetTotalInvoiceBySTore(int storeId);
+        long GetTotalInvoiceBySTore(Guid storeId);
     }
 }

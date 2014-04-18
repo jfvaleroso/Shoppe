@@ -7,7 +7,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface ICustomerService : IService<Customer, long>
+    public interface ICustomerService : IService<Customer, Guid>
     {
         
      

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Exchange.Core.Entities
 {
-    public class Roles : Entity<int>
+    public class Roles : Entity<Guid>
     {
       
         [Required]

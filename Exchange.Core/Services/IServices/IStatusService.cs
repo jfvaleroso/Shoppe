@@ -6,7 +6,8 @@ using System.Text;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IStatusService : IService<Status, int>
+    public interface IStatusService : IService<Status, Guid>
     {
+        Status GetStatusByCode(string code);
     }
 }

@@ -34,7 +34,7 @@ namespace Exchange.Web.Helper
             var user = UserProfileBase.GetUserProfile(HttpContext.Current.User.Identity.Name);
             ProfileModel profile = new ProfileModel();
             profile.Name = Base.GenerateFullName(user.FirstName, user.MiddleName, user.LastName);
-            profile.UserId = user.Users_Id;
+            profile.UserId = user.Users_Id.ToString();
             return profile;
         }
 
@@ -42,20 +42,14 @@ namespace Exchange.Web.Helper
         {
             Users user = this.userService.GetUserByUsernameApplicationName(HttpContext.Current.User.Identity.Name, ConfigManager.Exchange.ApplicationName);
             StoreModel model = new StoreModel();
-            model.Id = user.Stores.Select(x => x.Id).FirstOrDefault();
+            model.Id = user.Stores.Select(x => x.Id).FirstOrDefault().ToString();
             model.StoreName = user.Stores.Select(x => x.Name).FirstOrDefault();
             model.StoreCode = user.Stores.Select(x => x.Code).FirstOrDefault();
             return model;
             
         }
 
-        public enum Status 
-        { 
-           Approved=1,
-           Paid=2,
-           Void=3,
-           SavedToDraft=4      
-        };
+
 
       
     }

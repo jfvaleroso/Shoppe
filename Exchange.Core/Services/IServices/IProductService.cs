@@ -7,7 +7,7 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IProductService : IService<Product, int>, IValidateService<Product>, IFilterService<Product>
+    public interface IProductService : IService<Product, Guid>, IValidateService<Product>, IFilterService<Product>
     {
        
       

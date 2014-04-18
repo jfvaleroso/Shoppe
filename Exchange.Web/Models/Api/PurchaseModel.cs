@@ -17,8 +17,8 @@ namespace Exchange.Web.Models.Api
         public decimal Total { get; set; }
         public string Description { get; set; }
 
-        public int ProductId { get; set; }
-        public long InvoiceId { get; set; }
+        public string ProductId { get; set; }
+        public string InvoiceId { get; set; }
         #endregion
 
         //#region Prereq

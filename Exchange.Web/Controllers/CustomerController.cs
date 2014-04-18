@@ -70,11 +70,11 @@ namespace Exchange.Web.Controllers
             return Json(new { result = customer.Id, message = "Please complete the fields" });
 
         }
-        public ActionResult Manage(int id)
+        public ActionResult Manage(string id)
         {
             try
             {
-                Customer customer = this.customerService.GetDataById(id);
+                Customer customer = this.customerService.GetDataById(new Guid(id));
                 if (customer != null)
                     return View(customer);
             }
@@ -122,11 +122,11 @@ namespace Exchange.Web.Controllers
             return Json(new { result = "0", message = "Please complete the fields" });
 
         }
-        public ActionResult Item(int id)
+        public ActionResult Item(string id)
         {
             try
             {
-                Customer customer = this.customerService.GetDataById(id);
+                Customer customer = this.customerService.GetDataById(new Guid(id));
                 if (customer != null)
                     return View(customer);
 
@@ -137,11 +137,11 @@ namespace Exchange.Web.Controllers
             }
             return RedirectToAction("Index");
         }
-        public JsonResult Delete(int id)
+        public JsonResult Delete(string id)
         {
             try
             {
-                    this.customerService.Delete(id);
+                    this.customerService.Delete(new Guid(id));
                     return Json(new { result = "1", message = "Successfully deleted" });
             }
             catch (Exception)

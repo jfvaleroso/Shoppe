@@ -6,11 +6,11 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IProfileRepository : IRepository<Profiles, int>, ISearchRepository<Profiles>
+    public interface IProfileRepository : IRepository<Profiles, Guid>, ISearchRepository<Profiles>
     {
         #region Profile
-        Profiles GetProfileByUserId(int userId,bool isAnonymous);
-        Profiles GetProfileByUserId(int userId);
+        Profiles GetProfileByUserId(Guid userId, bool isAnonymous);
+        Profiles GetProfileByUserId(Guid userId);
         IList<Profiles> GetProfilesByAppplicationNameLastActivityDate(string applicationName, DateTime userInactiveSinceDate, bool isAnonymous);
         IList<Profiles> GeProfilesByAppplicationNameLastActivityDateIsAnonymous(string applicationName, DateTime userInactiveSinceDate, bool isAnonymous);
         #endregion

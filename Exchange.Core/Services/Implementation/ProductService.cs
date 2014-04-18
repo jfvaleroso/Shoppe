@@ -27,7 +27,7 @@ namespace Exchange.Core.Services.Implementation
             product.Code = product.Name.Substring(0, 5) + product.Id.ToString();
             this.productRepository.Save(product);
         }
-        public int Create(Product product)
+        public Guid Create(Product product)
         {
 
             return this.productRepository.Create(product);
@@ -41,7 +41,7 @@ namespace Exchange.Core.Services.Implementation
             this.productRepository.SaveOrUpdate(product);
         }
         [UnitOfWork]
-        public bool Delete(int productId)
+        public bool Delete(Guid productId)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Exchange.Core.Services.Implementation
         {
             return this.productRepository.Get(x => x.Active.Equals(active)).ToList();
         }
-        public Product GetDataById(int id)
+        public Product GetDataById(Guid id)
         {
             return this.productRepository.Get(id);
         }
@@ -72,7 +72,7 @@ namespace Exchange.Core.Services.Implementation
         }
         public List<Product> GetAllData()
         {
-            return this.productRepository.GetAll().ToList();
+            return this.productRepository.Test();
         }
         [UnitOfWork]
         public List<Product> GetDataListWithPaging(int pageNumber, int pageSize, out long total)

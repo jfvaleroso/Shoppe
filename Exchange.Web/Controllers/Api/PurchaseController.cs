@@ -29,9 +29,9 @@ namespace Exchange.Web.Controllers.Api
         }
 
 
-        public ProductModel GetProductById(int id)
+        public ProductModel GetProductById(string id)
         {
-            var product = this.productService.GetDataById(id);
+            var product = this.productService.GetDataById(new Guid(id));
             if (product == null)
             {
                 return null;
@@ -58,10 +58,9 @@ namespace Exchange.Web.Controllers.Api
                     purchase.Bonus = model.Bonus;
                     purchase.Total = model.Total;
                     purchase.DateCreated = DateTime.Now;
-                    purchase.Invoice = this.invoiceService.GetDataById(model.InvoiceId);
+                    purchase.Invoice = this.invoiceService.GetDataById(new Guid(model.InvoiceId));
                     purchase.CreatedBy = User.Identity.Name;
-                    purchase.Product = this.productService.GetDataById(model.ProductId);
-                    purchase.Status = this.statusService.GetDataById((int)Common.Status.SavedToDraft);
+                    purchase.Product = this.productService.GetDataById(new Guid(model.ProductId));
                     purchase.Description = string.Format("{0}: {1}", purchase.Product.Name, purchase.Product.Description);
 
                     this.purchaseService.Create(purchase);

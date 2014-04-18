@@ -6,6 +6,6 @@ using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
-    public interface IStoreRepository : IRepository<Store, int>, ISearchRepository<Store>, IValidateRepository<Store>
+    public interface IStoreRepository : IRepository<Store, Guid>, ISearchRepository<Store>, IValidateRepository<Store>
     { }
 }

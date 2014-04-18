@@ -255,6 +255,7 @@
     <Compile Include="Helper\CrytoProvider.cs" />
     <Compile Include="Helper\Provider.cs" />
     <Compile Include="Helper\Service.cs" />
+    <Compile Include="Helper\Status.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Api\InvoiceModel.cs" />
     <Compile Include="Models\Api\ProductModel.cs" />
@@ -624,6 +625,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Readme.txt" />
+    <Content Include="Scripts\bootstrap.datetime\bday-picker.js" />
     <Content Include="Scripts\bootstrap.datetime\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.datetime\daterangepicker.js" />
     <Content Include="Scripts\bootstrap.datetime\moment.js" />

@@ -14,7 +14,7 @@ namespace Exchange.Web.Areas.Admin.Models
     {
         [Required]
         [Display(Name="Product Type")]
-        public int ProductTypeId { get; set; }
+        public string ProductTypeId { get; set; }
         public List<SelectListItem> ProductTypeList { get; set; }
         public ProductModel()
         {

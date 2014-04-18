@@ -11,7 +11,7 @@ using Exchange.NHibernateBase.Filters;
 
 namespace Exchange.NHibernateBase.Repositories
 {
-    public class NHRoleRepository : NHRepositoryBase<Roles, int>, IRoleRepository
+    public class NHRoleRepository : NHRepositoryBase<Roles, Guid>, IRoleRepository
     {
 
         #region Role Method

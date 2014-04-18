@@ -17,8 +17,8 @@ namespace Exchange.Web.Models
         public string TelephoneNo { get; set; }
         public string CellphoneNo { get; set; }
         public string Email { get; set; }
-       [Required]
-        public DateTime BirthDate { get; set; }
+        [Required]
+        public string BirthDate { get; set; }
         public string Gender { get; set; }
         public string OfficeAddress { get; set; }
         [Required]

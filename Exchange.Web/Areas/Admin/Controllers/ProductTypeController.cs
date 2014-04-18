@@ -90,12 +90,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Manage
-        [CrytoProvider]
-        public ActionResult Manage(int id)
+        
+        public ActionResult Manage(string id)
         {
             try
             {
-                ProductType productType = this.productTypeService.GetDataById(id);
+                ProductType productType = this.productTypeService.GetDataById(new Guid(id));
                 if (productType != null)
                     return View(productType);
             }
@@ -140,12 +140,12 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Display Item
-        [CrytoProvider]
-        public ActionResult Item(int id)
+        
+        public ActionResult Item(string id)
         {
             try
             {
-                ProductType productType = this.productTypeService.GetDataById(id);
+                ProductType productType = this.productTypeService.GetDataById(new Guid(id));
                 if (productType != null)
                     return View(productType);
 
@@ -158,13 +158,13 @@ namespace Exchange.Web.Areas.Admin.Controllers
         }
         #endregion
         #region Delete
-        public JsonResult Delete(int id)
+        public JsonResult Delete(string id)
         {
             try
             {
-                if (id > 0)
+                if (!string.IsNullOrEmpty(id))
                 {
-                    this.productTypeService.Delete(id);
+                    this.productTypeService.Delete(new Guid(id));
                     return Json(new { result = StatusCode.done, message = MessageCode.deleted, code = StatusCode.deleted });
                 }
             }

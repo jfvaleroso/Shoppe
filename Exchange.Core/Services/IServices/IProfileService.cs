@@ -11,9 +11,9 @@ namespace Exchange.Core.Services.IServices
     {
 
         #region Profile
-        Profiles GetProfileByUserId(int userId, bool isAnonymous);
-        Profiles GetProfileByUserId(int userId);
-        Profiles Get(int key);
+        Profiles GetProfileByUserId(Guid userId, bool isAnonymous);
+        Profiles GetProfileByUserId(Guid userId);
+        Profiles Get(Guid key);
         void Save(Profiles enitity);
         void SaveChanges(Profiles enitity);
         void SaveOrUpdate(Profiles entity);

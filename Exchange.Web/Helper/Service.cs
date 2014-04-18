@@ -36,7 +36,7 @@ namespace Exchange.Web.Helper
             this.roleService = roleService;
         }
 
-        public List<SelectListItem> GetProductTypeList(int selectedValue)
+        public List<SelectListItem> GetProductTypeList(Guid selectedValue)
         {
 
             List<SelectListItem> source = new List<SelectListItem>();
@@ -57,7 +57,7 @@ namespace Exchange.Web.Helper
             }
             return source;
         }
-        public List<SelectListItem> GetProductList(int selectedValue)
+        public List<SelectListItem> GetProductList(Guid selectedValue)
         {
 
             List<SelectListItem> source = new List<SelectListItem>();
@@ -78,7 +78,7 @@ namespace Exchange.Web.Helper
             }
             return source;
         }
-        public List<SelectListItem> GetStoreList(int selectedValue)
+        public List<SelectListItem> GetStoreList(Guid selectedValue)
         {
 
             List<SelectListItem> source = new List<SelectListItem>();
@@ -99,7 +99,7 @@ namespace Exchange.Web.Helper
             }
             return source;
         }
-        public List<SelectListItem> GetRoleList(int selectedValue)
+        public List<SelectListItem> GetRoleList(Guid selectedValue)
         {
 
             List<SelectListItem> source = new List<SelectListItem>();
@@ -120,7 +120,7 @@ namespace Exchange.Web.Helper
             }
             return source;
         }
-        public List<SelectListItem> GetCustomerList(int selectedValue)
+        public List<SelectListItem> GetCustomerList(Guid selectedValue)
         {
 
             List<SelectListItem> source = new List<SelectListItem>();

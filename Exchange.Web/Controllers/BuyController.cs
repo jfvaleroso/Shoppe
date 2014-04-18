@@ -49,20 +49,20 @@ namespace Exchange.Web.Controllers
             ProfileModel profile = new ProfileModel();
             store = this.common.GetCurrentUserStoreAccess();
             profile = this.common.GetCurrentUserProfile();
-           
-            model.ProductList = this.service.GetProductList(0);
+
+            model.ProductList = this.service.GetProductList(new Guid());
             model.StoreId = store.Id;
             model.StoreName = store.StoreName;
-            model.InvoiceNo = Base.GenerateInvoiceNumber("INV", store.StoreCode, this.invoiceService.GetTotalInvoiceBySTore(store.Id));
+            model.InvoiceNo = Base.GenerateInvoiceNumber("INV", store.StoreCode, this.invoiceService.GetTotalInvoiceBySTore(new Guid(store.Id)));
             model.Cashier = profile.Name;
             model.CashierId = profile.UserId;
             return View(model);
         }
-        public ActionResult View(long id)
+        public ActionResult View(string id)
         {
 
             Invoice invoice = new Invoice();
-            invoice = this.invoiceService.GetDataById(id);
+            invoice = this.invoiceService.GetDataById(new Guid(id));
 
             BuyModel model = new BuyModel();
             StoreModel store = new StoreModel();
@@ -73,7 +73,7 @@ namespace Exchange.Web.Controllers
             appraiser = this.profileService.GetProfileByUserId(invoice.Appraiser.Id);
             customer = this.customerService.GetDataById(invoice.Customer.Id);
 
-            model.StoreId = invoice.Store.Id;
+            model.StoreId = invoice.Store.Id.ToString();
             model.StoreName = invoice.Store.Name;
             model.StoreAddress = invoice.Store.Address;
             model.StoreTelephoneNo = invoice.Store.TelephoneNo;
@@ -96,11 +96,11 @@ namespace Exchange.Web.Controllers
             
             return View(model);
         }
-        public ActionResult Edit(long id)
+        public ActionResult Edit(string id)
         {
 
             Invoice invoice = new Invoice();
-            invoice = this.invoiceService.GetDataById(id);
+            invoice = this.invoiceService.GetDataById(new Guid(id));
 
             BuyModel model = new BuyModel();
             StoreModel store = new StoreModel();
@@ -111,7 +111,7 @@ namespace Exchange.Web.Controllers
             appraiser = this.profileService.GetProfileByUserId(invoice.Appraiser.Id);
             customer = this.customerService.GetDataById(invoice.Customer.Id);
 
-            model.StoreId = invoice.Store.Id;
+            model.StoreId = invoice.Store.Id.ToString();
             model.StoreName = invoice.Store.Name;
             model.StoreAddress = invoice.Store.Address;
             model.StoreTelephoneNo = invoice.Store.TelephoneNo;
@@ -128,7 +128,7 @@ namespace Exchange.Web.Controllers
             model.Purchases = invoice.Purchases;
             //company
             model.CompanyName = ConfigManager.Exchange.CompanyName;
-            model.ProductList = this.service.GetProductList(0);
+            model.ProductList = this.service.GetProductList(new Guid());
 
 
             TempData["Invoice"] = model;
@@ -159,7 +159,7 @@ namespace Exchange.Web.Controllers
                         customer.FirstName = model.FirstName;
                         customer.Active = true;
                         customer.Gender = model.Gender;
-                        customer.BirthDate = model.BirthDate;
+                        customer.BirthDate = Convert.ToDateTime(model.BirthDate);
                         customer.CellphoneNo = model.CellphoneNo;
                         customer.Email = model.Email;
                         customer.ResidentialAddress = model.ResidentialAddress;
@@ -241,7 +241,7 @@ namespace Exchange.Web.Controllers
             {
                 model = (BuyModel)TempData["Invoice"];
             }
-            var pdf = new PdfResult(model, "Test");
+            var pdf = new PdfResult(model, "Receipt");
             return pdf;
         }
         #endregion

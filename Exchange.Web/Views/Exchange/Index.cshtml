@@ -56,7 +56,7 @@
                     title: 'Cost History',
                     width: '5%',
                     display: function (data) {
-                        var $img = '<a data-toggle="tooltip" title="Click to view previous costs." href=@Url.Action("Product", "Admin")/History/' + data.record.SecuredId + '><span class="glyphicon glyphicon-folder-open"></span></a>';
+                        var $img = '<a data-toggle="tooltip" title="Click to view previous costs." href=@Url.Action("Product", "Admin")/History/' + data.record.Id + '><span class="glyphicon glyphicon-folder-open"></span></a>';
                         return $img;
                     }
                 },
