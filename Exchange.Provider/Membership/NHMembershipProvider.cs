@@ -735,10 +735,10 @@ namespace Exchange.Provider.Membership
 
                         try
                         {
-                            int retId = (int)session.Save(user);
+                            Guid retId = (Guid)session.Save(user);
                             
                             transaction.Commit();
-                            if ((retId <1))
+                            if ((retId == Guid.Empty))
                                 status = MembershipCreateStatus.UserRejected;
                             else
                                 status = MembershipCreateStatus.Success;

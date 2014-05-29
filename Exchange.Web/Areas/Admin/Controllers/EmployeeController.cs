@@ -85,7 +85,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
                 try
                 {
                     // List<Users> users = userService.GetAll().ToList();
-                    string password = Base.GenearateKey(8);
+                    string password = "admin@2014";//Base.GenearateKey(8);
                    
                     MembershipCreateStatus status;
                     model.UserName = Base.GenerateUsername(model.FirstName, model.MiddleName, model.LastName);
@@ -195,7 +195,7 @@ namespace Exchange.Web.Areas.Admin.Controllers
         private void CreateProfile(RegisterModel model)
         {
             UserProfileBase profile = UserProfileBase.GetUserProfile(model.UserName);
-            if (profile != null)
+            if (profile == null)
             {
                 profile.FirstName = model.FirstName;
                 profile.MiddleName = model.MiddleName;

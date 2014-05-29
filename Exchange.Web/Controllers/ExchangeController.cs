@@ -43,7 +43,7 @@ namespace Exchange.Web.Controllers
                     Code = x.Code,
                     Cost = string.Format(new CultureInfo("en-PH"), "{0:C}", x.Cost),
                     Description = x.Description,
-                    Id = x.Id,
+                    Id = x.Id.ToString(),
                     
                     Name = x.Name,
                     DateModified= x.DateModified != null ? x.DateModified : x.DateCreated,
