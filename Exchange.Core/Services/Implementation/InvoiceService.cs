@@ -4,85 +4,92 @@ using Exchange.Core.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Exchange.Core.Services.Implementation
 {
-    public class InvoiceService:IInvoiceService
+    public class InvoiceService : IInvoiceService
     {
-           #region Constructor
-        private readonly IInvoiceRepository invoiceRepository;
+        #region Constructor
+
+        private readonly IInvoiceRepository _invoiceRepository;
+
         public InvoiceService(IInvoiceRepository invoiceRepository)
         {
-            this.invoiceRepository = invoiceRepository;
+            _invoiceRepository = invoiceRepository;
         }
-        #endregion
+
+        #endregion Constructor
+
         #region CRUD
+
         public void Save(Invoice entity)
         {
-            this.invoiceRepository.Save(entity);
+            _invoiceRepository.Save(entity);
         }
 
         public Guid Create(Invoice entity)
         {
-            return this.invoiceRepository.Create(entity);
+            return _invoiceRepository.Create(entity);
         }
 
         public void SaveChanges(Invoice entity)
         {
-            this.invoiceRepository.Create(entity);
+            _invoiceRepository.Create(entity);
         }
 
         public void SaveOrUpdate(Invoice entity)
         {
-            this.invoiceRepository.SaveOrUpdate(entity);
+            _invoiceRepository.SaveOrUpdate(entity);
         }
 
         public bool Delete(Guid id)
         {
             try
             {
-                this.invoiceRepository.Delete(id);
+                _invoiceRepository.Delete(id);
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
-        #endregion
+
+        #endregion CRUD
+
         #region Search and Filter
+
         public Invoice GetDataById(Guid id)
         {
-            return this.invoiceRepository.Get(id);
+            return _invoiceRepository.Get(id);
         }
 
         public Invoice GetByExpression(Invoice entity)
         {
-            return this.invoiceRepository.GetByExpression(x => x.Customer.Equals(entity.Customer));
+            return _invoiceRepository.GetByExpression(x => x.Customer.Equals(entity.Customer));
         }
+
         public List<Invoice> GetAllData()
         {
-            return this.invoiceRepository.GetAll().ToList();
+            return _invoiceRepository.GetAll().ToList();
         }
+
         public List<Invoice> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {
-            return this.invoiceRepository.GetDataWithPaging(pageNumber, pageSize, out total);
+            return _invoiceRepository.GetDataWithPaging(pageNumber, pageSize, out total);
         }
 
-      
-        #endregion
+        #endregion Search and Filter
 
-
-        public List<Invoice> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
+        public List<Invoice> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize,
+            out long total)
         {
             throw new NotImplementedException();
         }
 
         public long GetTotalInvoiceBySTore(Guid storeId)
         {
-            return this.invoiceRepository.GetTotalInvoiceBySTore(storeId);
+            return _invoiceRepository.GetTotalInvoiceBySTore(storeId);
         }
     }
 }

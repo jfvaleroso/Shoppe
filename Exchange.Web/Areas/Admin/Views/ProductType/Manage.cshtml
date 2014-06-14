@@ -4,77 +4,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
 <div class="row">
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><strong>Product Type</strong></h3>
-
             </div>
             <div class="panel-body small">
                 Instructions here...
-
-
             </div>
-
         </div>
-
     </div>
     <div class="col-md-7">
-     
+
         @Html.Partial("ModalTemplates/_Status")
 
         <div id="transaction">
             @using (Html.BeginForm())
             {
-                       @Html.Partial("ModalTemplates/_Alert")
+                @Html.Partial("ModalTemplates/_Alert")
 
-
-                 <div class="form-group">
-                     <div class="editor-label text-right">
-                         <p class="small ">
-                             @string.Format("{0}{1}", "Last modified by:", Html.DisplayFor(model => model.ModifiedBy).ToString() != "" ? Html.DisplayFor(model => model.ModifiedBy).ToString() : Html.DisplayFor(model => model.CreatedBy).ToString())
-                             @string.Format("{0}{1}", "Last date modified:", Html.DisplayFor(model => model.DateModified).ToString() != "" ? Html.DisplayFor(model => model.DateModified).ToString() : Html.DisplayFor(model => model.DateCreated).ToString())
-                           
-                         </p>
-                     </div>
-                         <div class="editor-label">
-                             @Html.LabelFor(model => model.Code)
-                         </div>
-                         <div class="editor-field">
-                             @Html.TextBoxFor(model => model.Code, new { @class = "form-control" })
-                             <p class="small">Product Type Code</p>
-                         </div>
-                         <div class="editor-label">
-                             @Html.LabelFor(model => model.Name)
-                         </div>
-                         <div class="editor-field">
-                             @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-                             <p class="small">Manage the product type name.</p>
-                         </div>
-                         <div class="editor-label">
-                             @Html.LabelFor(model => model.Description)
-                         </div>
-                         <div class="editor-field">
-                             @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
-                             <p class="small">Manage the product type description.</p>
-                         </div>
-                         <div class="editor-label">
-                             @Html.LabelFor(model => model.Active)
-
-                         </div>
-                         <div class="editor-field small">
-                             @Html.CheckBoxFor(model => model.Active)
-                             Activate or deactivate product type
-
-                         </div>
-                         @Html.HiddenFor(model => model.Id)
-
-                     </div>
-                
+                <div class="form-group">
+                    <div class="editor-label text-right">
+                        <p class="small ">
+                            @string.Format("{0}{1}", "Last modified by:", Html.DisplayFor(model => model.ModifiedBy).ToString() != "" ? Html.DisplayFor(model => model.ModifiedBy).ToString() : Html.DisplayFor(model => model.CreatedBy).ToString())
+                            @string.Format("{0}{1}", "Last date modified:", Html.DisplayFor(model => model.DateModified).ToString() != "" ? Html.DisplayFor(model => model.DateModified).ToString() : Html.DisplayFor(model => model.DateCreated).ToString())
+                        </p>
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Code)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Code, new {@class = "form-control"})
+                        <p class="small">Product Type Code</p>
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Name, new {@class = "form-control"})
+                        <p class="small">Manage the product type name.</p>
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Description)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.Description, new {@class = "form-control"})
+                        <p class="small">Manage the product type description.</p>
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Active)
+                    </div>
+                    <div class="editor-field small">
+                        @Html.CheckBoxFor(model => model.Active)
+                        Activate or deactivate product type
+                    </div>
+                    @Html.HiddenFor(model => model.Id)
+                </div>
 
                 <div class="right">
                     <button id="btnSaveChanges" class="btn btn-large btn-success" type="button">
@@ -86,12 +72,9 @@
                 </div>
             }
         </div>
-
     </div>
 </div>
-
 
 @Html.Hidden("Item", Url.Action("Item"))
 @Html.Hidden("Manage", Url.Action("Manage"))
 @Html.Hidden("CheckAvailability", Url.Action("CheckAvailability"))
-  

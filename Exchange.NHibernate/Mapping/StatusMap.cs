@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
-using Exchange.Core.Entities;
 
 namespace Exchange.NHibernateBase.Mapping
 {
@@ -21,9 +17,6 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.CreatedBy);
             Map(x => x.DateModified);
             Map(x => x.ModifiedBy);
-  
-
-
         }
     }
 }

@@ -6,10 +6,7 @@ namespace Exchange.Web.Areas.Report
     {
         public override string AreaName
         {
-            get
-            {
-                return "Report";
-            }
+            get { return "Report"; }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
@@ -18,7 +15,7 @@ namespace Exchange.Web.Areas.Report
                 "Report_default",
                 "Report/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
-            );
+                );
         }
     }
 }

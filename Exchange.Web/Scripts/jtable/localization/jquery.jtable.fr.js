@@ -2,8 +2,7 @@
     jTable localization file for 'French' language.
     Author: Guillaume Vernet
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Erreur de communication avec le serveur.',
         loadingMessage: 'Chargement des données...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Nombre d\'enregistrement',
         gotoPageLabel: 'Aller à la page'
     });
-
 })(jQuery);

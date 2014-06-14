@@ -1,25 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
-using System.Globalization;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace Exchange.Web.Models
 {
-   
-
     //[Table("UserProfile")]
     public class UserProfile
     {
         [Key]
-      //  [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        //  [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+
         public string UserName { get; set; }
     }
-
-  
 
     public class LocalPasswordModel
     {
@@ -110,11 +103,9 @@ namespace Exchange.Web.Models
         //[Display(Name = "State")]
         //public string State { get; set; }
 
-
         //[Required]
         //[Display(Name = "Zip")]
         //public string Zip { get; set; }
-
 
         //[Required]
         //[Display(Name = "Country")]
@@ -131,16 +122,9 @@ namespace Exchange.Web.Models
         //[Required]
         //[Display(Name = "Subscription")]
         //public string Subscription { get; set; }
-      
+
         public IEnumerable<SelectListItem> UserRoles { get; set; }
+
         public IEnumerable<SelectListItem> StoreList { get; set; }
-
-
-
-
-
-
     }
-
-  
 }

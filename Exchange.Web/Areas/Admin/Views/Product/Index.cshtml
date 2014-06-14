@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $('#DataTable').jtable({
             title: '',
             paging: true,
@@ -12,7 +12,7 @@
             sorting: false,
             gotoPageArea: 'none',
             pageSizeChangeArea: false,
-            columnSelectable:false,
+            columnSelectable: false,
             actions: {
                 listAction: '@Url.Action("ProductListWithPaging")'
             },
@@ -24,7 +24,7 @@
                 View: {
                     title: '',
                     width: '1.3%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = '<a data-toggle="tooltip" title="Click to manage." href=@Url.Action("Manage")/' + data.record.Id + '><span class="glyphicon glyphicon-th-list"></span></a>';
                         return $img;
                     }
@@ -42,7 +42,7 @@
                 },
                 Cost: {
                     title: 'Current Cost Per Gram',
-                    display: function (data) {
+                    display: function(data) {
                         var $cost = '<strong>' + data.record.Cost + '</strong>';
                         return $cost;
                     }
@@ -50,7 +50,7 @@
                 History: {
                     title: 'Cost History',
                     width: '5%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = '<a data-toggle="tooltip" title="Click to view previous costs." href=@Url.Action("History")/' + data.record.Id + '><span class="glyphicon glyphicon-folder-open"></span></a>';
                         return $img;
                     }
@@ -58,12 +58,11 @@
                 Active: {
                     title: 'Active',
                     width: '1.3%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img;
                         if (data.record.Active) {
                             $img = '<img class="center" src="@Url.Content("~/Content/images/active.png")" />';
-                        }
-                        else {
+                        } else {
                             $img = '<img class="center" src="@Url.Content("~/Content/images/inactive.png")" />';
                         }
                         return $img;
@@ -72,9 +71,9 @@
                 Delete: {
                     title: '',
                     width: '1.1%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = $('<a data-toggle="tooltip" title="remove this item" class="glyphicon glyphicon-trash pointer" ' + '></a>');
-                        $img.on('click', function (event) {
+                        $img.on('click', function(event) {
                             event.preventDefault();
                             $('#modalConfirmation #item').empty().append(data.record.Name);
                             $('#modalConfirmation').modal('show');
@@ -89,22 +88,19 @@
 
             toolbar: {
                 items: [
-
-                    ]
+                ]
             }
 
         });
-      
 
     });
-   
 </script>
 @using (Html.BeginForm())
-{ 
-        @Html.Partial("ModalTemplates/_Confirmation")
-        @Html.Partial("ModalTemplates/_Status")
-    
-      <div class="row">
+{
+    @Html.Partial("ModalTemplates/_Confirmation")
+    @Html.Partial("ModalTemplates/_Status")
+
+    <div class="row">
         <div class="col-lg-6">
             <div class="input-group">
                 <span class="input-group-btn">
@@ -135,8 +131,3 @@
 @Html.Hidden("New", Url.Action("New"))
 @Html.Hidden("Manage", Url.Action("Manage"))
 @Html.Hidden("Delete", Url.Action("Delete"))
-
-
-
-
- 

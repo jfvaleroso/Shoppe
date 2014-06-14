@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Exchange.Helper.Transaction
+﻿namespace Exchange.Helper.Transaction
 {
     public class StatusCode
     {
         #region Status Code
+
         public static string saved = "000";
         public static string modified = "001";
         public static string deleted = "002";
@@ -18,8 +14,7 @@ namespace Exchange.Helper.Transaction
         public static string invalid = "007";
         public static string valid = "008";
         public static string empty = "009";
-        #endregion
+
+        #endregion Status Code
     }
-
-
 }

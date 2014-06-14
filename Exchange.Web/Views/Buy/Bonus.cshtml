@@ -9,50 +9,34 @@
     @using (Html.BeginForm())
     {
         @Html.Partial("ModalTemplates/_Alert")
-             <div class="form-group">
-                    <div class="editor-label">
-                        <label>Pass Code</label>
-                    </div>
-                    <div class="editor-field">
-                         @Html.TextBoxFor(model => model.PassCode, new { @class = "form-control" })
-                        <p class="small">Please input the passcode. Note: this is case sensitive</p>
-                    </div>
-                </div>
-                <div class="right">
-                    <button id="btnUseBonus" class="btn btn-large btn-success" type="button">
-                        Use
-                    </button>
-                    <button id="btnCancel" class="btn btn-large btn-success" type="button" data-dismiss="modal">
-                        Cancel
-                    </button>
-                </div>
-       
+        <div class="form-group">
+            <div class="editor-label">
+                <label>Pass Code</label>
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.PassCode, new {@class = "form-control"})
+                <p class="small">Please input the passcode. Note: this is case sensitive</p>
+            </div>
+        </div>
+        <div class="right">
+            <button id="btnUseBonus" class="btn btn-large btn-success" type="button">
+                Use
+            </button>
+            <button id="btnCancel" class="btn btn-large btn-success" type="button" data-dismiss="modal">
+                Cancel
+            </button>
+        </div>
     }
 </div>
 @Scripts.Render("~/bundles/jquery.validate")
 
-
 <script>
-    $(function () {
-        $('#btnUseBonus').on('click',function (e) {
+    $(function() {
+        $('#btnUseBonus').on('click', function(e) {
             e.preventDefault();
             invoice.serachPassCode(this);
 
-           
-
         });
 
-
-
-
     });
-
-
 </script>
-
-
-
-
-
-
-

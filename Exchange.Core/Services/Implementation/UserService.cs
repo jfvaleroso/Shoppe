@@ -1,56 +1,107 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Services.IServices;
+﻿using Exchange.Core.Entities;
 using Exchange.Core.Repositories;
+using Exchange.Core.Services.IServices;
+using System;
+using System.Collections.Generic;
 
 namespace Exchange.Core.Services.Implementation
 {
-    public class UserService:IUserService
+    public class UserService : IUserService
     {
+        private readonly IUserRepository _userRepository;
 
-        private readonly IUserRepository userRepository;
         public UserService(IUserRepository userRepository)
-	    {
-            this.userRepository = userRepository;
-	    }
-
-
-
-
-
-       
-        public List<Entities.Users> GetUsersWithPaging(int pageIndex, int pageSize, out long total)
         {
-            return this.userRepository.GetDataWithPaging(pageIndex, pageSize, out total);
+            _userRepository = userRepository;
         }
 
-        public List<Entities.Users> GetUsersWithPagingAndSearch(string searchString, int pageIndex, int pageSize, out long total)
+        public void Save(Users entity)
         {
-            return this.userRepository.GetDataWithPagingAndSearch(searchString, pageIndex, pageSize, out total);
+            _userRepository.Save(entity);
         }
 
-
-        public Entities.Users GetUserById(Guid userId)
+        public List<Users> GetUsersWithPaging(int pageIndex, int pageSize, out long total)
         {
-            return this.userRepository.Get(userId);
+            return _userRepository.GetDataWithPaging(pageIndex, pageSize, out total);
         }
 
-
-        public Entities.Users GetUserByUsernameApplicationName(string username, string applicationName)
+        public List<Users> GetUsersWithPagingAndSearch(string searchString, int pageIndex, int pageSize, out long total)
         {
-            return this.userRepository.GetUserByUsernameApplicationName(username, applicationName);
+            return _userRepository.GetDataWithPagingAndSearch(searchString, pageIndex, pageSize, out total);
         }
 
-
-        public void SaveOrUpdate(Entities.Users entity)
+        public IList<Users> GetUsersByApplicationName(string applicationName)
         {
-            this.userRepository.SaveOrUpdate(entity);
+            return _userRepository.GetUsersByAppplicationName(applicationName);
         }
-        public void SaveChanges(Entities.Users entity)
+
+        public Users GetUserById(Guid userId)
         {
-            this.userRepository.SaveOrUpdate(entity);
+            return _userRepository.Get(userId);
+        }
+
+        public Users GetUserByUsernameApplicationName(string username, string applicationName)
+        {
+            return _userRepository.GetUserByUsernameApplicationName(username, applicationName);
+        }
+
+        public Users GetUserByIdApplicationName(Guid userId, string applicationName)
+        {
+            return _userRepository.GetUserByIdApplicationName(userId, applicationName);
+        }
+
+        public void SaveOrUpdate(Users entity)
+        {
+            _userRepository.SaveOrUpdate(entity);
+        }
+
+        public void SaveChanges(Users entity)
+        {
+            _userRepository.SaveOrUpdate(entity);
+        }
+
+        public Users GetDataById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Users GetByExpression(Users entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Users> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Users> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize,
+            out long total)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Users> GetAllData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Guid Create(Users entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Guid id)
+        {
+            try
+            {
+                _userRepository.Delete(id);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

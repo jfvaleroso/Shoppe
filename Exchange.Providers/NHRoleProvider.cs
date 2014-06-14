@@ -1,75 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Collections.Specialized;
-using System.Data;
-using System.Data.Odbc;
-using System.Configuration.Provider;
-using System.Diagnostics;
-using System.Web;
-using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web.Configuration;
+﻿using Castle.Windsor;
 using Exchange.Core.Entities;
 using Exchange.Core.Services.IServices;
-using System.Web.Mvc;
-
-
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Configuration.Provider;
+using System.Data.Odbc;
+using System.Text;
+using System.Web;
+using System.Web.Configuration;
+using System.Web.Hosting;
+using System.Web.Security;
+using Roles = Exchange.Core.Entities.Roles;
 
 namespace Exchange.Providers
 {
-    public sealed class NHRoleProvider : System.Web.Security.RoleProvider
+    public sealed class NhRoleProvider : RoleProvider
     {
-        private readonly IUserService userService;
-        private readonly IRoleService roleService;
-        public NHRoleProvider()
-            : this(DependencyResolver.Current.GetService<IUserService>(), DependencyResolver.Current.GetService<IRoleService>())
+        private readonly WindsorContainer _container = (WindsorContainer)HttpContext.Current.Application["Windsor"];
+        private readonly IRoleService _roleService;
+        private readonly IUserService _userService;
+
+        public NhRoleProvider()
         {
+            _userService = _container.Resolve<IUserService>();
+            _roleService = _container.Resolve<IRoleService>();
         }
-
-        public NHRoleProvider(IUserService userService, IRoleService roleService)
-        {
-            this.userService = userService;
-            this.roleService= roleService;
-            Initialize();
-        }
-
-         private void Initialize()
-        {
-            if (!HasInitialized)
-            {
-                string configPath = "~/web.config";
-               Configuration config = WebConfigurationManager.OpenWebConfiguration(configPath);
-               RoleManagerSection section = (RoleManagerSection)config.GetSection("system.web/roleManager");
-               ProviderSettingsCollection settings = section.Providers;
-               NameValueCollection roleManagerParams = settings[section.DefaultProvider].Parameters;
-               Initialize(section.DefaultProvider, roleManagerParams);
-               HasInitialized = true;
-            }
-
-
-        }
-      
-
+        
         #region private
-        private string eventSource = "RoleProvider";
-        private string eventLog = "Application";
-        private string exceptionMessage = "An exception occurred. Please check the Event Log.";
-        private string connectionString;
+
         private string _applicationName;
-      
-        #endregion
+        private string _connectionString;
+        private string eventLog = "Application";
+        private string eventSource = "RoleProvider";
+        private string exceptionMessage = "An exception occurred. Please check the Event Log.";
+
+        #endregion private
+
         #region Properties
+
         public override string ApplicationName
         {
             get { return _applicationName; }
             set { _applicationName = value; }
         }
-         private bool HasInitialized { get; set; }
         public bool WriteExceptionsToEventLog { get; set; }
-        #endregion
+
+        #endregion Properties
+
         #region Helper Functions
+
         private string GetConfigValue(string configValue, string defaultValue)
         {
             if (String.IsNullOrEmpty(configValue))
@@ -77,12 +58,15 @@ namespace Exchange.Providers
 
             return configValue;
         }
+
         private void WriteToEventLog(Exception e, string action)
         {
-            
         }
-        #endregion
+
+        #endregion Helper Functions
+
         #region Public Methods
+
         public override void Initialize(string name, NameValueCollection config)
         {
             // Initialize values from web.config.
@@ -100,23 +84,20 @@ namespace Exchange.Providers
             }
 
             // Initialize the abstract base class.
+            base.Initialize(name, config);
 
-            if (!HasInitialized)
-            {
-                base.Initialize(name, config);
-            }
-
-            _applicationName = GetConfigValue(config["applicationName"], System.Web.Hosting.HostingEnvironment.ApplicationVirtualPath);
+            _applicationName = GetConfigValue(config["applicationName"], HostingEnvironment.ApplicationVirtualPath);
             WriteExceptionsToEventLog = Convert.ToBoolean(GetConfigValue(config["writeExceptionsToEventLog"], "true"));
 
             // Initialize Connection.
-            ConnectionStringSettings ConnectionStringSettings = ConfigurationManager.ConnectionStrings[config["connectionStringName"]];
+            ConnectionStringSettings ConnectionStringSettings =
+                ConfigurationManager.ConnectionStrings[config["connectionStringName"]];
             if (ConnectionStringSettings == null || ConnectionStringSettings.ConnectionString.Trim() == "")
                 throw new ProviderException("Connection string cannot be blank.");
 
-            connectionString = ConnectionStringSettings.ConnectionString;
-        
+            _connectionString = ConnectionStringSettings.ConnectionString;
         }
+
         public override void AddUsersToRoles(string[] usernames, string[] rolenames)
         {
             Users usr = null;
@@ -139,38 +120,32 @@ namespace Exchange.Providers
                 }
             }
 
-         
-              
-                    try
+            try
+            {
+                foreach (string username in usernames)
+                {
+                    foreach (string rolename in rolenames)
                     {
-                        foreach (string username in usernames)
-                        {
-                            foreach (string rolename in rolenames)
-                            {
-                                //get the user
-                                usr = this.userService.GetUserByUsernameApplicationName(username, this.ApplicationName);
-                               
-                                if (usr != null)
-                                {
-                                    //get the role first from db
-                                    Roles role = this.roleService.GetRoleByRoleNameApplicationName(rolename, this.ApplicationName);                                  
-                                    //Roles role = GetRole(rolename);
-                                    usr.AddRole(role);
-                                }
-                            }
-                            this.userService.SaveOrUpdate(usr);
-                        }
-                       
-                    }
-                    catch (Exception e)
-                    {
-                        
-                            throw e;
-                    }
+                        //get the user
+                        usr = _userService.GetUserByUsernameApplicationName(username, ApplicationName);
 
-               
-            
+                        if (usr != null)
+                        {
+                            //get the role first from db
+                            Roles role = _roleService.GetDataByName(rolename, ApplicationName);
+                            //Roles role = GetRole(rolename);
+                            usr.AddRole(role);
+                        }
+                    }
+                    _userService.SaveOrUpdate(usr);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
+
         public override void CreateRole(string rolename)
         {
             if (rolename.Contains(","))
@@ -179,24 +154,19 @@ namespace Exchange.Providers
             if (RoleExists(rolename))
                 throw new ProviderException("Roles name already exists.");
 
-         
-               
-                    try
-                    {
-                        Roles role = new Roles();
-                        role.ApplicationName = this.ApplicationName;
-                        role.RoleName = rolename;
-                        this.roleService.Save(role);
-                       
-                    }
-                    catch (OdbcException e)
-                    {
-                        
-                            throw e;
-                    }
-                
-            
+            try
+            {
+                var role = new Roles();
+                role.ApplicationName = ApplicationName;
+                role.RoleName = rolename;
+                _roleService.Save(role);
+            }
+            catch (OdbcException e)
+            {
+                throw e;
+            }
         }
+
         public override bool DeleteRole(string rolename, bool throwOnPopulatedRole)
         {
             bool deleted = false;
@@ -206,44 +176,36 @@ namespace Exchange.Providers
             if (throwOnPopulatedRole && GetUsersInRole(rolename).Length > 0)
                 throw new ProviderException("Cannot delete a populated role.");
 
-
-                    try
-                    {
-                      Roles role = this.roleService.GetRoleByRoleNameApplicationName(rolename,this.ApplicationName);
-                      this.roleService.Delete(role);
-                      
-
-                    }
-                    catch (OdbcException e)
-                    {
-                       
-                            throw e;
-                    }
-              
+            try
+            {
+                Roles role = _roleService.GetDataByName(rolename, ApplicationName);
+                _roleService.Delete(role.Id);
+            }
+            catch (OdbcException e)
+            {
+                throw e;
+            }
 
             return deleted;
         }
+
         public override string[] GetAllRoles()
         {
-            StringBuilder sb = new StringBuilder();
-           
-              
-                    try
-                    {
-                        IList<Roles> allroles =this.roleService.GetRolesByApplicationName(this.ApplicationName);
+            var sb = new StringBuilder();
 
-                        foreach (Roles r in allroles)
-                        {
-                            sb.Append(r.RoleName + ",");
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        
-                            throw e;
-                    }
-                
-            
+            try
+            {
+                IList<Roles> allroles = _roleService.GetDataByApplicationName(ApplicationName);
+
+                foreach (Roles r in allroles)
+                {
+                    sb.Append(r.RoleName + ",");
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
 
             if (sb.Length > 0)
             {
@@ -254,32 +216,29 @@ namespace Exchange.Providers
 
             return new string[0];
         }
+
         public override string[] GetRolesForUser(string username)
         {
             Users usr = null;
             IList<Roles> usrroles = null;
-            StringBuilder sb = new StringBuilder();
-          
-               
-                    try
+            var sb = new StringBuilder();
+
+            try
+            {
+                usr = _userService.GetUserByUsernameApplicationName(username, ApplicationName);
+                if (usr != null)
+                {
+                    usrroles = usr.Roles;
+                    foreach (Roles r in usrroles)
                     {
-                        usr =this.userService.GetUserByUsernameApplicationName(username, this.ApplicationName); 
-                        if (usr != null)
-                        {
-                            usrroles = usr.Roles;
-                            foreach (Roles r in usrroles)
-                            {
-                                sb.Append(r.RoleName + ",");
-                            }
-                        }
+                        sb.Append(r.RoleName + ",");
                     }
-                    catch (Exception e)
-                    {
-                       
-                            throw e;
-                    }
-                
-            
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
 
             if (sb.Length > 0)
             {
@@ -290,28 +249,25 @@ namespace Exchange.Providers
 
             return new string[0];
         }
+
         public override string[] GetUsersInRole(string rolename)
         {
-            StringBuilder sb = new StringBuilder();
-           
-               
-                    try
-                    {
-                        Roles role =this.roleService.GetRoleByRoleNameApplicationName(rolename, this.ApplicationName);
-                        IList<Users> usrs = role.UsersInRole;
+            var sb = new StringBuilder();
 
-                        foreach (Users u in usrs)
-                        {
-                            sb.Append(u.Username + ",");
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                      
-                            throw e;
-                    }
-               
-            
+            try
+            {
+                Roles role = _roleService.GetDataByName(rolename, ApplicationName);
+                IList<Users> usrs = role.UsersInRole;
+
+                foreach (Users u in usrs)
+                {
+                    sb.Append(u.Username + ",");
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
 
             if (sb.Length > 0)
             {
@@ -322,43 +278,42 @@ namespace Exchange.Providers
 
             return new string[0];
         }
+
         public override bool IsUserInRole(string username, string rolename)
         {
             bool userIsInRole = false;
             Users usr = null;
             IList<Roles> usrroles = null;
-            StringBuilder sb = new StringBuilder();
-           
-               
-                    try
-                    {
-                        usr = this.userService.GetUserByUsernameApplicationName(username, this.ApplicationName);
+            var sb = new StringBuilder();
 
-                        if (usr != null)
+            try
+            {
+                usr = _userService.GetUserByUsernameApplicationName(username, ApplicationName);
+
+                if (usr != null)
+                {
+                    usrroles = usr.Roles;
+                    if (usrroles != null)
+                    {
+                        foreach (Roles r in usrroles)
                         {
-                            usrroles = usr.Roles;
-                            if (usrroles != null)
+                            if (r.RoleName.Equals(rolename))
                             {
-                                foreach (Roles r in usrroles)
-                                {
-                                    if (r.RoleName.Equals(rolename))
-                                    {
-                                        userIsInRole = true;
-                                        break;
-                                    }
-                                }
+                                userIsInRole = true;
+                                break;
                             }
                         }
                     }
-                    catch (Exception e)
-                    {
-                       
-                            throw e;
-                    }
-                
-            
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
             return userIsInRole;
         }
+
         public override void RemoveUsersFromRoles(string[] usernames, string[] rolenames)
         {
             Users usr = null;
@@ -377,100 +332,88 @@ namespace Exchange.Providers
                 }
             }
 
-            //get user , get his roles , the remove the role and save   
-           
-               
-                    try
+            //get user , get his roles , the remove the role and save
+
+            try
+            {
+                foreach (string username in usernames)
+                {
+                    usr = _userService.GetUserByUsernameApplicationName(username, ApplicationName);
+
+                    var rolestodelete = new List<Roles>();
+                    foreach (string rolename in rolenames)
                     {
-                        foreach (string username in usernames)
+                        IList<Roles> roles = usr.Roles;
+                        foreach (Roles r in roles)
                         {
-                            usr = this.userService.GetUserByUsernameApplicationName(username, this.ApplicationName);
-
-                            var rolestodelete = new List<Roles>();
-                            foreach (string rolename in rolenames)
-                            {
-                                IList<Roles> roles = usr.Roles;
-                                foreach (Roles r in roles)
-                                {
-                                    if (r.RoleName.Equals(rolename))
-                                        rolestodelete.Add(r);
-
-                                }
-                            }
-                            foreach (Roles rd in rolestodelete)
-                                usr.RemoveRole(rd);
-
-
-                           this.userService.SaveOrUpdate(usr);
+                            if (r.RoleName.Equals(rolename))
+                                rolestodelete.Add(r);
                         }
-                        
                     }
-                    catch (OdbcException e)
-                    {
-                       
-                            throw e;
-                    }
-                
-            
+                    foreach (Roles rd in rolestodelete)
+                        usr.RemoveRole(rd);
 
+                    _userService.SaveOrUpdate(usr);
+                }
+            }
+            catch (OdbcException e)
+            {
+                throw e;
+            }
         }
+
         public override bool RoleExists(string rolename)
         {
             bool exists = false;
 
-            StringBuilder sb = new StringBuilder();
-         
-               
-                    try
-                    {
-                        Roles role = this.roleService.GetRoleByRoleNameApplicationName(rolename, this.ApplicationName);
-                        if (role != null)
-                            exists = true;
+            var sb = new StringBuilder();
 
-                    }
-                    catch (Exception e)
-                    {
-                        
-                            throw e;
-                    }
-               
-            
+            try
+            {
+                Roles role = _roleService.GetDataByName(rolename, ApplicationName);
+                if (role != null)
+                    exists = true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
             return exists;
         }
+
         public override string[] FindUsersInRole(string rolename, string usernameToMatch)
         {
-            StringBuilder sb = new StringBuilder();
-         
-              
-                    try
-                    {
-                        Roles role = this.roleService.GetRoleByRoleNameApplicationName(rolename, this.ApplicationName);
+            var sb = new StringBuilder();
 
-                        IList<Users> users = role.UsersInRole;
-                        if (users != null)
-                        {
-                            foreach (Users u in users)
-                            {
-                                if (String.Compare(u.Username, usernameToMatch, true) == 0)
-                                    sb.Append(u.Username + ",");
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                      
-                            throw e;
-                    }
-                
-                if (sb.Length > 0)
+            try
+            {
+                Roles role = _roleService.GetDataByName(rolename, ApplicationName);
+
+                IList<Users> users = role.UsersInRole;
+                if (users != null)
                 {
-                    // Remove trailing comma.
-                    sb.Remove(sb.Length - 1, 1);
-                    return sb.ToString().Split(',');
+                    foreach (Users u in users)
+                    {
+                        if (String.Compare(u.Username, usernameToMatch, true) == 0)
+                            sb.Append(u.Username + ",");
+                    }
                 }
-                return new string[0];
-            
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            if (sb.Length > 0)
+            {
+                // Remove trailing comma.
+                sb.Remove(sb.Length - 1, 1);
+                return sb.ToString().Split(',');
+            }
+            return new string[0];
         }
-        #endregion
+
+        #endregion Public Methods
     }
 }

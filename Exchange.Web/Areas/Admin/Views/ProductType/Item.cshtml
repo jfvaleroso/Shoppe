@@ -5,7 +5,6 @@
 }
 @using (Html.BeginForm())
 {
-            
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong>New Product</strong>
@@ -18,21 +17,21 @@
                             @Html.LabelFor(model => model.Code)
                         </div>
                         <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Code, new { @class = "form-control", disabled = "true" })
+                            @Html.TextBoxFor(model => model.Code, new {@class = "form-control", disabled = "true"})
                             @Html.ValidationMessageFor(model => model.Code)
                         </div>
                         <div class="editor-label">
                             @Html.LabelFor(model => model.Name)
                         </div>
                         <div class="editor-field">
-                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control", disabled = "true" })
+                            @Html.TextBoxFor(model => model.Name, new {@class = "form-control", disabled = "true"})
                             @Html.ValidationMessageFor(model => model.Name)
                         </div>
                         <div class="editor-label">
                             @Html.LabelFor(model => model.Description)
                         </div>
                         <div class="editor-field">
-                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", disabled = "true" })
+                            @Html.TextAreaFor(model => model.Description, new {@class = "form-control", disabled = "true"})
                             @Html.ValidationMessageFor(model => model.Description)
                         </div>
                         @Html.HiddenFor(model => model.Id)

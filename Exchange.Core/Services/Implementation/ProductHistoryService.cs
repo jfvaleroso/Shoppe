@@ -4,37 +4,48 @@ using Exchange.Core.Services.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Exchange.Core.Services.Implementation
 {
     public class ProductHistoryService : IProductHistoryService
     {
-
         #region Constructor
-        private readonly IProductHistoryRepository productHistoryRepository;
+
+        private readonly IProductHistoryRepository _productHistoryRepository;
+
         public ProductHistoryService(IProductHistoryRepository productHistoryRepository)
         {
-            this.productHistoryRepository = productHistoryRepository;
+            _productHistoryRepository = productHistoryRepository;
         }
-        #endregion
+
+        #endregion Constructor
+
         #region Search and Filter
+
         public List<ProductHistory> GetAllData()
         {
-            return this.productHistoryRepository.GetAll().ToList();
+            return _productHistoryRepository.GetAll().ToList();
         }
-        public List<ProductHistory> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
+
+        public List<ProductHistory> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize,
+            out long total)
         {
-            return this.productHistoryRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+            return _productHistoryRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
         }
-        #endregion
+
+        #endregion Search and Filter
+
         #region CRUD
+
         public void Save(ProductHistory entity)
         {
-            this.productHistoryRepository.SaveOrUpdate(entity);
+            _productHistoryRepository.SaveOrUpdate(entity);
         }
-        #endregion
+
+        #endregion CRUD
+
         #region No Implementaion
+
         public ProductHistory GetDataById(Guid id)
         {
             throw new NotImplementedException();
@@ -44,10 +55,12 @@ namespace Exchange.Core.Services.Implementation
         {
             throw new NotImplementedException();
         }
+
         public List<ProductHistory> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {
             throw new NotImplementedException();
         }
+
         public Guid Create(ProductHistory entity)
         {
             throw new NotImplementedException();
@@ -67,9 +80,7 @@ namespace Exchange.Core.Services.Implementation
         {
             throw new NotImplementedException();
         }
-        #endregion
 
-
-      
+        #endregion No Implementaion
     }
 }

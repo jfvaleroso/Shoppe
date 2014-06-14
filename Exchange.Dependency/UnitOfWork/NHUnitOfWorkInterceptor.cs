@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NHibernate;
+﻿using Castle.DynamicProxy;
 using Exchange.NHibernateBase.Repositories;
+using NHibernate;
+using System;
 using System.Reflection;
-using Castle.DynamicProxy;
-using System.Configuration;
-
-
+using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
 namespace Exchange.Dependency.UnitOfWork
 {
-    public class NHUnitOfWorkInterceptor : Castle.DynamicProxy.IInterceptor, IDisposable
+    public class NHUnitOfWorkInterceptor : IInterceptor, IDisposable
     {
         private readonly ISessionFactory _sessionFactory;
 
         /// <summary>
-        /// Creates a new NHUnitOfWorkInterceptor object.
+        ///     Creates a new NHUnitOfWorkInterceptor object.
         /// </summary>
         /// <param name="sessionFactory">Nhibernate session factory.</param>
         public NHUnitOfWorkInterceptor(ISessionFactory sessionFactory)
@@ -25,13 +20,21 @@ namespace Exchange.Dependency.UnitOfWork
             _sessionFactory = sessionFactory;
         }
 
+        public void Dispose()
+        {
+            if (NHUnitOfWork.Current != null)
+            {
+                NHUnitOfWork.Current.Dispose();
+                NHUnitOfWork.Current = null;
+            }
+        }
+
         /// <summary>
-        /// Intercepts a method.
+        ///     Intercepts a method.
         /// </summary>
         /// <param name="invocation">Method invocation arguments</param>
         public void Intercept(IInvocation invocation)
         {
-
             if (!RequiresDbConnection(invocation.MethodInvocationTarget))
             {
                 invocation.Proceed();
@@ -40,8 +43,6 @@ namespace Exchange.Dependency.UnitOfWork
 
             try
             {
-
-
                 if (NHUnitOfWork.Current == null)
                 {
                     NHUnitOfWork.Current = new NHUnitOfWork(_sessionFactory);
@@ -62,7 +63,6 @@ namespace Exchange.Dependency.UnitOfWork
                     }
                     catch
                     {
-
                     }
 
                     throw;
@@ -70,19 +70,8 @@ namespace Exchange.Dependency.UnitOfWork
             }
             finally
             {
-              // NHUnitOfWork.Current = null;
+                // NHUnitOfWork.Current = null;
             }
-        }
-
-        public void Dispose()
-        {
-            if (NHUnitOfWork.Current != null)
-            {
-                NHUnitOfWork.Current.Dispose();
-                NHUnitOfWork.Current = null;
-            }
-            
-            
         }
 
         private static bool RequiresDbConnection(MethodInfo methodInfo)
@@ -102,11 +91,7 @@ namespace Exchange.Dependency.UnitOfWork
                 return true;
             }
 
-
-
             return false;
         }
-
-      
     }
 }

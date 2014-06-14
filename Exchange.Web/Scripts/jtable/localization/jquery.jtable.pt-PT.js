@@ -1,8 +1,7 @@
 ﻿/*
     jTable localization file for 'Portuguese - Portugal' language.
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Erro na ligação ao servidor.',
         loadingMessage: 'A ler dados ...',
@@ -25,5 +24,4 @@
         pageSizeChangeLabel: 'Row count', //New. Must be localized.
         gotoPageLabel: 'Go to page' //New. Must be localized.
     });
-
 })(jQuery);

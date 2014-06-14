@@ -1,12 +1,13 @@
-;(function ($) {
+﻿;
+(function($) {
 /**
  * jqGrid Persian Translation
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl.html
 **/
-	$.jgrid = $.jgrid || {};
-	$.extend($.jgrid,{
+    $.jgrid = $.jgrid || {};
+    $.extend($.jgrid, {
         defaults: {
             recordtext: "نمابش {0} - {1} از {2}",
             emptyrecords: "رکوردی یافت نشد",
@@ -18,14 +19,16 @@
             Find: "يافته ها",
             Reset: "از نو",
             odata: ['برابر', 'نا برابر', 'به', 'کوچکتر', 'از', 'بزرگتر', 'شروع با', 'شروع نشود با', 'نباشد', 'عضو این نباشد', 'اتمام با', 'تمام نشود با', 'حاوی', 'نباشد حاوی'],
-            groupOps: [{
-                op: "AND",
-                text: "کل"
-            },
-            {
-                op: "OR",
-                text: "مجموع"
-            }],
+            groupOps: [
+                {
+                    op: "AND",
+                    text: "کل"
+                },
+                {
+                    op: "OR",
+                    text: "مجموع"
+                }
+            ],
             matchText: " حاوی",
             rulesText: " اطلاعات"
         },
@@ -114,8 +117,8 @@
                 dayNames: ["يک", "دو", "سه", "چهار", "پنج", "جمع", "شنب", "يکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"],
                 monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "ژانويه", "فوريه", "مارس", "آوريل", "مه", "ژوئن", "ژوئيه", "اوت", "سپتامبر", "اکتبر", "نوامبر", "December"],
                 AmPm: ["ب.ظ", "ب.ظ", "ق.ظ", "ق.ظ"],
-                S: function (b) {
-                    return b < 11 || b > 13 ? ["st", "nd", "rd", "th"][Math.min((b - 1) % 10, 3)] : "th"
+                S: function(b) {
+                    return b < 11 || b > 13 ? ["st", "nd", "rd", "th"][Math.min((b - 1) % 10, 3)] : "th";
                 },
                 srcformat: "Y-m-d",
                 newformat: "d/m/Y",

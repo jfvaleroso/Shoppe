@@ -1,9 +1,8 @@
-/*
+﻿/*
     jTable localization file for 'Chinese' language.
     Author: monkeycraps
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: '服务器请求错误。',
         loadingMessage: '加载中...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Row count', //New. Must be localized.
         gotoPageLabel: 'Go to page' //New. Must be localized.
     });
-
 })(jQuery);

@@ -1,37 +1,35 @@
 ﻿using Exchange.Core.Entities;
 using Exchange.Core.Services.IServices;
+using Exchange.Web.Models.Api;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Exchange.Web.Models.Api;
-using System.Web.Security;
-using Exchange.Web.Helper;
-
+using Status = Exchange.Web.Helper.Status;
 
 namespace Exchange.Web.Controllers.Api
 {
     public class InvoiceController : ApiController
     {
-        private readonly IProductService productService;
-        private readonly IPurchaseService purchaseService;
-        private readonly IInvoiceService invoiceService;
-        private readonly IStoreService storeInvoice;
-        private readonly IUserService userService;
-        private readonly ICustomerService customerService;
-        private readonly IStatusService statusService;
+        private readonly ICustomerService _customerService;
+        private readonly IInvoiceService _invoiceService;
+        private readonly IProductService _productService;
+        private readonly IPurchaseService _purchaseService;
+        private readonly IStatusService _statusService;
+        private readonly IStoreService _storeInvoice;
+        private readonly IUserService _userService;
 
-        public InvoiceController(IProductService productService, IPurchaseService purchaseService, IInvoiceService invoiceService, IStoreService storeInvoice, IUserService userService, ICustomerService customerService, IStatusService statusService)
+        public InvoiceController(IProductService productService, IPurchaseService purchaseService,
+            IInvoiceService invoiceService, IStoreService storeInvoice, IUserService userService,
+            ICustomerService customerService, IStatusService statusService)
         {
-            this.productService = productService;
-            this.purchaseService = purchaseService;
-            this.invoiceService = invoiceService;
-            this.storeInvoice = storeInvoice;
-            this.userService = userService;
-            this.customerService = customerService;
-            this.statusService = statusService;
+            _productService = productService;
+            _purchaseService = purchaseService;
+            _invoiceService = invoiceService;
+            _storeInvoice = storeInvoice;
+            _userService = userService;
+            _customerService = customerService;
+            _statusService = statusService;
         }
 
         [HttpPost]
@@ -41,20 +39,22 @@ namespace Exchange.Web.Controllers.Api
             {
                 if (ModelState.IsValid)
                 {
-                    Invoice invoice = new Invoice();
-                    invoice.InvoiceNo = model.InvoiceNo;
-                    invoice.SubTotal = model.SubTotal;
-                    invoice.TotalBonus = model.TotalBonus;
-                    invoice.GrandTotal = model.GrandTotal;
-                    invoice.Store = this.storeInvoice.GetDataById(new Guid(model.StoreId));
-                    string status = Helper.Status.SavedToDraft;
+                    var invoice = new Invoice
+                    {
+                        InvoiceNo = model.InvoiceNo,
+                        SubTotal = model.SubTotal,
+                        TotalBonus = model.TotalBonus,
+                        GrandTotal = model.GrandTotal,
+                        Store = _storeInvoice.GetDataById(new Guid(model.StoreId))
+                    };
+                    string status = Status.SavedToDraft;
 
-                    invoice.Cashier = this.userService.GetUserById(new Guid(model.Cashier));
-                    invoice.Appraiser = this.userService.GetUserById(new Guid(model.AppraiserId));
-                    invoice.Customer = this.customerService.GetDataById(new Guid(model.CustomerId));
-                    invoice.Status = this.statusService.GetStatusByCode(status);
+                    invoice.Cashier = _userService.GetUserById(new Guid(model.Cashier));
+                    invoice.Appraiser = _userService.GetUserById(new Guid(model.AppraiserId));
+                    invoice.Customer = _customerService.GetDataById(new Guid(model.CustomerId));
+                    invoice.Status = _statusService.GetStatusByCode(status);
 
-                    this.invoiceService.Create(invoice);
+                    _invoiceService.Create(invoice);
 
                     HttpResponseMessage result =
                         Request.CreateResponse(HttpStatusCode.Created, invoice.Id);
@@ -65,7 +65,7 @@ namespace Exchange.Web.Controllers.Api
                     return result;
                 }
                 return Request.
-                          CreateErrorResponse(HttpStatusCode.OK, ModelState);
+                    CreateErrorResponse(HttpStatusCode.OK, ModelState);
             }
             catch (Exception ex)
             {
@@ -73,8 +73,5 @@ namespace Exchange.Web.Controllers.Api
                     CreateErrorResponse(HttpStatusCode.BadRequest, ex);
             }
         }
-      
-
-
     }
 }

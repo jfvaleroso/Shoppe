@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
+﻿using Exchange.Core.Entities;
 using Exchange.Core.Repositories;
-using NHibernate.Criterion;
-using Exchange.Helper;
 using Exchange.NHibernateBase.Filters;
+using System;
+using System.Collections.Generic;
 
 namespace Exchange.NHibernateBase.Repositories
 {
     public class NHCustomerRepository : NHRepositoryBase<Customer, Guid>, ICustomerRepository
     {
-        public List<Customer> GetDataWithPagingAndSearch(string searchString, int pageIndex, int pageSize, out long total)
+        public List<Customer> GetDataWithPagingAndSearch(string searchString, int pageIndex, int pageSize,
+            out long total)
         {
-            return this.GetDataWithPagingAndSearch(CustomerFilter.Search(searchString), CustomerFilter.Alias(), CustomerFilter.Orders(), pageIndex, pageSize, out total);
+            return GetDataWithPagingAndSearch(CustomerFilter.Search(searchString), CustomerFilter.Alias(),
+                CustomerFilter.Orders(), pageIndex, pageSize, out total);
         }
     }
 }

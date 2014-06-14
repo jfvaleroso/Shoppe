@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Exchange.Web.Helper;
 using System.Web.Mvc;
-using Exchange.Web.Helper;
 
 namespace Exchange.Web.Filters
 {
-    
     public class CrytoProviderAttribute : FilterAttribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationContext filterContext)
@@ -16,4 +11,3 @@ namespace Exchange.Web.Filters
         }
     }
 }
-

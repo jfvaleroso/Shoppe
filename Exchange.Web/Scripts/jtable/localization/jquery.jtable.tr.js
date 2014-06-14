@@ -2,8 +2,7 @@
     jTable localization file for 'Turkish' language.
     Author: Halil İbrahim Kalkan
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Sunucu ile iletişim kurulurken bir hata oluştu.',
         loadingMessage: 'Kayıtlar yükleniyor...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Satır sayısı',
         gotoPageLabel: 'Sayfaya git'
     });
-
 })(jQuery);

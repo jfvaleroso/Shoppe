@@ -1,6 +1,6 @@
 ﻿@model Exchange.Core.Entities.ActivityLogs
 @{
-  
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <legend>Activity</legend>
@@ -14,7 +14,7 @@
         {
             @Html.ValidationSummary(true)
             <fieldset>
-               
+
                 <div class="display-label">
                     @Html.DisplayNameFor(model => model.Type)
                 </div>
@@ -44,5 +44,5 @@
     </div>
 </div>
 <div class="right">
-    <input type="button" value="Back to the List" class="btn btn-large btn-success"  onclick="location.href='@Url.Action("Index")'" />
+    <input type="button" value="Back to the List" class="btn btn-large btn-success"  onclick=" location.href = '@Url.Action("Index")' " />
 </div>

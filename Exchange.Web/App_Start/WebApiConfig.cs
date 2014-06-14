@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace Exchange.Web
 {
@@ -9,24 +6,16 @@ namespace Exchange.Web
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional }
+                );
 
-            config.Routes.MapHttpRoute(
-               name: "DefaultApi_action",
-               routeTemplate: "api/{controller}/{action}/{id}",
-               defaults: new { id = RouteParameter.Optional }
-           );
+            config.Routes.MapHttpRoute("DefaultApi_action", "api/{controller}/{action}/{id}",
+                new { id = RouteParameter.Optional }
+                );
 
-
-            config.Routes.MapHttpRoute(
-                  name: "DefaultApi_Purchase",
-                  routeTemplate: "api/{controller}/{action}/{quantity}/{grams}/{rate}/{total}",
-                  defaults: new { id = RouteParameter.Optional }
-              );
+            config.Routes.MapHttpRoute("DefaultApi_Purchase",
+                "api/{controller}/{action}/{quantity}/{grams}/{rate}/{total}", new { id = RouteParameter.Optional }
+                );
         }
     }
 }

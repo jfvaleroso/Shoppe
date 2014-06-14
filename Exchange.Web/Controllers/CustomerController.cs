@@ -1,53 +1,56 @@
-﻿using System;
+﻿using Exchange.Core.Entities;
+using Exchange.Core.Services.IServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Exchange.Core.Services.IServices;
-using Exchange.Core.Entities;
 
 namespace Exchange.Web.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly ICustomerService customerService;
-        private readonly IActivityLogsService activityLogService;
+        private readonly IActivityLogsService _activityLogService;
+        private readonly ICustomerService _customerService;
+
         public CustomerController(ICustomerService customerService, IActivityLogsService activityLogService)
         {
-            this.customerService = customerService;
-            this.activityLogService = activityLogService;
+            _customerService = customerService;
+            _activityLogService = activityLogService;
         }
 
         public ActionResult Index()
         {
             return View();
         }
+
         public JsonResult CustomerListWithPaging(string searchString = "", int jtStartIndex = 1, int jtPageSize = 15)
         {
             try
             {
                 long total = 0;
-                var customerList = this.customerService.GetDataListWithPagingAndSearch(searchString, jtStartIndex, jtPageSize, out total);
+                List<Customer> customerList = _customerService.GetDataListWithPagingAndSearch(searchString, jtStartIndex,
+                    jtPageSize, out total);
                 var collection = customerList.Select(x => new
                 {
-                    LastName = x.LastName,
-                    FirstName = x.FirstName,
-                    MiddleName = x.MiddleName,
-                    CellphoneNo = x.CellphoneNo,
+                    x.LastName,
+                    x.FirstName,
+                    x.MiddleName,
+                    x.CellphoneNo,
                 });
-                return Json(new { Result = "OK", Records = collection, TotalRecordCount = total }, JsonRequestBehavior.AllowGet);
+                return Json(new { Result = "OK", Records = collection, TotalRecordCount = total },
+                    JsonRequestBehavior.AllowGet);
             }
             catch
             {
                 return Json(new { Result = "ERROR", Message = "error" });
-
             }
         }
 
         public ActionResult New()
-        {         
+        {
             return View();
         }
+
         [HttpPost]
         public JsonResult New(Customer customer)
         {
@@ -55,35 +58,39 @@ namespace Exchange.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
                     customer.Active = true;
                     customer.DateCreated = DateTime.Now;
-                    customer.CreatedBy = User.Identity.Name.ToString();
-                    customer.Id = this.customerService.Create(customer);
+                    customer.CreatedBy = User.Identity.Name;
+                    customer.Id = _customerService.Create(customer);
                     return Json(new { result = customer.Id, message = "Successfully Saved" });
                 }
             }
             catch (Exception ex)
             {
-                this.activityLogService.Create(new ActivityLogs { Description = ex.InnerException.Message.ToString(), ExecutedBy = User.Identity.Name, Type = "Error: Adding Customer" });
+                _activityLogService.Create(new ActivityLogs
+                {
+                    Description = ex.InnerException.Message,
+                    ExecutedBy = User.Identity.Name,
+                    Type = "Error: Adding Customer"
+                });
             }
             return Json(new { result = customer.Id, message = "Please complete the fields" });
-
         }
+
         public ActionResult Manage(string id)
         {
             try
             {
-                Customer customer = this.customerService.GetDataById(new Guid(id));
+                Customer customer = _customerService.GetDataById(new Guid(id));
                 if (customer != null)
                     return View(customer);
             }
             catch (Exception)
             {
-
             }
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         public JsonResult Manage(Customer customer)
         {
@@ -91,8 +98,7 @@ namespace Exchange.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Customer entity = new Customer();
-                    entity = this.customerService.GetDataById(customer.Id);
+                    Customer entity = _customerService.GetDataById(customer.Id);
                     entity.LastName = customer.LastName;
                     entity.FirstName = customer.FirstName;
                     entity.MiddleName = customer.MiddleName;
@@ -110,43 +116,40 @@ namespace Exchange.Web.Controllers
                     entity.IDNo = customer.IDNo;
                     entity.Active = customer.Active;
                     entity.DateModified = DateTime.Now;
-                    entity.ModifiedBy = User.Identity.Name.ToString();
-                    this.customerService.SaveChanges(entity);
+                    entity.ModifiedBy = User.Identity.Name;
+                    _customerService.SaveChanges(entity);
                     return Json(new { result = entity.Id, message = "Successfully saved" });
                 }
             }
             catch (Exception)
             {
-
             }
             return Json(new { result = "0", message = "Please complete the fields" });
-
         }
+
         public ActionResult Item(string id)
         {
             try
             {
-                Customer customer = this.customerService.GetDataById(new Guid(id));
+                Customer customer = _customerService.GetDataById(new Guid(id));
                 if (customer != null)
                     return View(customer);
-
             }
             catch (Exception)
             {
-
             }
             return RedirectToAction("Index");
         }
+
         public JsonResult Delete(string id)
         {
             try
             {
-                    this.customerService.Delete(new Guid(id));
-                    return Json(new { result = "1", message = "Successfully deleted" });
+                _customerService.Delete(new Guid(id));
+                return Json(new { result = "1", message = "Successfully deleted" });
             }
             catch (Exception)
             {
-
             }
             return Json(new { result = "0", message = "Error" });
         }

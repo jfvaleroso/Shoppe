@@ -2,8 +2,7 @@
     jTable localization file for 'Portuguese - Brazilian' language.
     Authors: Renato Bigliazzi, Paulo Soriano
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Erro ao tentar conexão com o servidor.',
         loadingMessage: 'Carregando registros...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Linhas',
         gotoPageLabel: 'Ir para página'
     });
-
 })(jQuery);

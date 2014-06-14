@@ -5,37 +5,33 @@ using System.Web.Http.Dependencies;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Lifestyle;
 using IDependencyResolver = System.Web.Http.Dependencies.IDependencyResolver;
-using Castle.Windsor;
 
 namespace Exchange.Web.ApiDependency
 {
     public class WindsorDependencyScope : IDependencyScope
     {
-        private readonly IKernel container;
-
-        private readonly IDependencyResolver resolver;
-
-        private readonly IDisposable scope;
+        private readonly IKernel _container;
+        private readonly IDisposable _scope;
 
         public WindsorDependencyScope(IKernel container)
         {
-            this.container = container;
-            this.scope = container.BeginScope();
+            _container = container;
+            _scope = container.BeginScope();
         }
 
         public object GetService(Type serviceType)
         {
-            return this.container.HasComponent(serviceType) ? this.container.Resolve(serviceType) : null;
+            return _container.HasComponent(serviceType) ? _container.Resolve(serviceType) : null;
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return this.container.ResolveAll(serviceType).Cast<object>();
+            return _container.ResolveAll(serviceType).Cast<object>();
         }
 
         public void Dispose()
         {
-            this.scope.Dispose();
+            _scope.Dispose();
         }
     }
 }

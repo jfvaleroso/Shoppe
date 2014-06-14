@@ -5,7 +5,7 @@
 }
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $('#ActivityLogsTable').jtable({
             title: '',
             paging: true,
@@ -24,7 +24,7 @@
                 View: {
                     title: '',
                     width: '1.3%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = '<a href=@Url.Action("Item")/' + data.record.Id + '><span class="glyphicon glyphicon-th-list"></span></a>';
                         return $img;
                     }
@@ -42,7 +42,7 @@
                 },
                 Timestamp: {
                     title: 'Timestamp',
-                    display: function (data) {
+                    display: function(data) {
                         var d = new Date(parseInt(data.record.Timestamp.replace('/Date(', '')));
                         var formattedDate = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
                         var hours = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
@@ -56,20 +56,19 @@
 
             toolbar: {
                 items: [
-
-                    ]
+                ]
             }
 
         });
         //load table
         $('#modal').modal('show').delay(100000);
-        $('#modal').bind('hidden', function () {
+        $('#modal').bind('hidden', function() {
             $('#ActivityLogsTable').jtable('load');
         }).modal('hide');
         //with filtering
 
         //Re-load records when user click 'load records' button.
-        $('#btnSearch').click(function (e) {
+        $('#btnSearch').click(function(e) {
             e.preventDefault();
             var searchString = $('#searchString').val();
             $('#ActivityLogsTable').jtable('load', {
@@ -81,16 +80,13 @@
         $('#btnSearch').click();
 
     });
-   
 </script>
 @using (Html.BeginForm())
-{ 
-   
-     <div class="row">
+{
+    <div class="row">
         <div class="col-lg-6">
             <div class="input-group">
                 <span class="input-group-btn">
-                  
                 </span>
             </div>
         </div>
@@ -104,7 +100,6 @@
             </div>
         </div>
     </div>
-   
 }
 <div class="table-wrapper">
     <div id="ActivityLogsTable">

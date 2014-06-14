@@ -2,8 +2,7 @@
     jTable localization file for 'Spanish' language.
     Author: Guillermo Bisheimer
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Ocurrió un error en la comunicación con el servidor.',
         loadingMessage: 'Cargando registros...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Registros por página',
         gotoPageLabel: 'Ir a página'
     });
-
 })(jQuery);

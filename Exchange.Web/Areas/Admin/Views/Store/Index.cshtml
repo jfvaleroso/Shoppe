@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $('#DataTable').jtable({
             title: '',
             paging: true,
@@ -24,8 +24,8 @@
                 View: {
                     title: '',
                     width: '1.3%',
-                    display: function (data) {
-                      var $img = '<a data-toggle="tooltip" title="Click to manage."  href=@Url.Action("Manage")/' + data.record.Id + '><span class="glyphicon glyphicon-th-list"></span></a>';
+                    display: function(data) {
+                        var $img = '<a data-toggle="tooltip" title="Click to manage."  href=@Url.Action("Manage")/' + data.record.Id + '><span class="glyphicon glyphicon-th-list"></span></a>';
                         return $img;
                     }
                 },
@@ -44,18 +44,17 @@
                 PermitNo: {
                     title: 'PermitNo'
                 },
-                UserCount:{
+                UserCount: {
                     title: 'Employees'
                 },
                 Active: {
                     title: 'Active',
                     width: '1.3%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img;
                         if (data.record.Active) {
                             $img = '<img class="center" src="@Url.Content("~/Content/images/active.png")" />';
-                        }
-                        else {
+                        } else {
                             $img = '<img class="center" src="@Url.Content("~/Content/images/inactive.png")" />';
                         }
                         return $img;
@@ -65,18 +64,16 @@
 
             toolbar: {
                 items: [
-
                 ]
             }
 
         });
 
     });
-
 </script>
+
 @using (Html.BeginForm())
-{ 
-    
+{
     <div class="row">
         <div class="col-lg-6">
             <div class="input-group">
@@ -96,7 +93,6 @@
             </div>
         </div>
     </div>
-      
 }
 <div class="table-wrapper">
     <div id="DataTable" class="small">
@@ -108,6 +104,3 @@
 @Html.Hidden("New", Url.Action("New"))
 @Html.Hidden("Manage", Url.Action("Manage"))
 @Html.Hidden("Delete", Url.Action("Delete"))
-
-
-

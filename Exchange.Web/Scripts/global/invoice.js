@@ -1,14 +1,12 @@
-﻿
-
-var invoice = function () {
+﻿var invoice = function() {
     return {
-        create: function (url) {
+        create: function(url) {
             window.location = url;
         },
-        manage: function (url) {
+        manage: function(url) {
             window.location = url;
         },
-        calculate: function (element) {
+        calculate: function(element) {
             debugger;
             var qty = $(element).closest('tr').find('td.quantity input').val();
             var rate = $(element).closest('tr').find('td.rate input').val();
@@ -17,7 +15,7 @@ var invoice = function () {
             var bonus_input = $(element).closest('tr').find('td.bonus input');
             var total_input = $(element).closest('tr').find('td.total input');
 
-            var bonusRate=  $('td.bonus span.percent').attr('data-result');
+            var bonusRate = $('td.bonus span.percent').attr('data-result');
 
             var cost = qty * rate * grams;
             var bonus = cost / 100 * 0;
@@ -28,7 +26,7 @@ var invoice = function () {
             total_input.val(total.toFixed(2));
             invoice.updateSummary(cost_input, bonus_input, total_input);
         },
-        updateSummary: function (cost, bonus, total) {
+        updateSummary: function(cost, bonus, total) {
             cost = $('#invoice tr td.cost input');
             bonus = $('#invoice tr td.bonus input');
             total = $('#invoice tr td.total input');
@@ -36,17 +34,17 @@ var invoice = function () {
             var total_bonus = 0;
             var grand_total = 0;
 
-            cost.each(function () {
+            cost.each(function() {
                 if ($(this).val() != '') {
                     total_cost += parseFloat($(this).val());
                 }
             });
-            bonus.each(function () {
+            bonus.each(function() {
                 if ($(this).val() != '') {
                     total_bonus += parseFloat($(this).val());
                 }
             });
-            total.each(function () {
+            total.each(function() {
                 if ($(this).val() != '') {
                     grand_total += parseFloat($(this).val());
                 }
@@ -55,18 +53,17 @@ var invoice = function () {
             $("#total_bonus input").val(total_bonus.toFixed(2));
             $("#grand_total input").val(grand_total.toFixed(2));
         },
-        reset: function () {
+        reset: function() {
             $("#total_cost input").val('');
             $("#total_bonus input").val('');
             $("#grand_total input").val('');
         },
-        removeItem: function (element) {
+        removeItem: function(element) {
             //retain one row
             var items = $('#invoice tr.invoice-item').length;
             if (items > 1) {
                 $(element).closest('tr').remove();
-            }
-            else {
+            } else {
                 $(element).closest('tr').find('input').val('');
             }
             //create new variable
@@ -76,19 +73,19 @@ var invoice = function () {
             //update latest cost
             invoice.updateSummary(cost, bonus, total);
         },
-        cloneItem: function () {       
+        cloneItem: function() {
             $('#invoice tr.invoice-item:last td.product select').select2("destroy");
             var clone = $('#invoice tr.invoice-item:last').clone(true, true);
             clone.find('input').val('');
-            clone.insertAfter('#invoice tr.invoice-item:last');         
+            clone.insertAfter('#invoice tr.invoice-item:last');
             $("#invoice tr.invoice-item select").select2({
                 placeholder: "Select one",
                 allowClear: true
             });
         },
-        populateProductRate: function (e, element) {        
+        populateProductRate: function(e, element) {
         },
-        saveInvoice: function (element) {
+        saveInvoice: function(element) {
             var cost = $("#total_cost input").val();;
             var bonus = $("#total_bonus input").val();
             var grand = $("#grand_total input").val();
@@ -101,17 +98,17 @@ var invoice = function () {
             var store = $('#StoreId').val();
 
             var thisInvoice = JSON.stringify(
-             {
-                 'InvoiceNo': invoiceNo,
-                 'SubTotal': cost=='' ? '0.0' : cost,
-                 'TotalBonus': bonus == '' ? '0.0' : bonus,
-                 'GrandTotal': grand == '' ? '0.0' : grand,
-                 'StoreId': store,
-                 'Cashier': cashierId,
-                 'Appraiser': appraiser,
-                 'CustomerId': customer == '' ? 0 : customer,
-                 'AppraiserId': appraiserId == '' ? 0 : appraiserId
-             });
+            {
+                'InvoiceNo': invoiceNo,
+                'SubTotal': cost == '' ? '0.0' : cost,
+                'TotalBonus': bonus == '' ? '0.0' : bonus,
+                'GrandTotal': grand == '' ? '0.0' : grand,
+                'StoreId': store,
+                'Cashier': cashierId,
+                'Appraiser': appraiser,
+                'CustomerId': customer == '' ? 0 : customer,
+                'AppraiserId': appraiserId == '' ? 0 : appraiserId
+            });
 
             //disable button
             $(element).empty().append('Saving your invoice...');
@@ -124,36 +121,30 @@ var invoice = function () {
                 dataType: "json",
                 data: thisInvoice,
                 cache: false,
-                complete: function (data) {
+                complete: function(data) {
                 },
-                error: function (data, textStatus, jqXHR) { alert(textStatus) },
-                success: function (data) {
+                error: function(data, textStatus, jqXHR) { alert(textStatus); },
+                success: function(data) {
                     if (data.ModelState != null) {
                         $('#panel-status').removeClass().addClass('panel fade in panel-danger');
                         $('#general-status').empty();
                         $('#panel-status').find('em').addClass('warning');
-                        $.each(data.ModelState, function (i, item) {
+                        $.each(data.ModelState, function(i, item) {
                             $('#general-status').append(item[0] + '<br/>');
                         });
                         $('#alert').addClass('hide');
                         //enable button
                         $(element).empty().append('Save and Approve');
                         $(element).attr('disabled', false);
-                    }
-                    else {
+                    } else {
                         invoice.savePurchase(data);
                     }
-                
-                   
                 }
             });
-
-
-
         },
-        savePurchase: function (invoiceId) {
+        savePurchase: function(invoiceId) {
             var status;
-            $('#invoice tr.invoice-item').each(function () {
+            $('#invoice tr.invoice-item').each(function() {
                 var thisInvoice = invoiceId;
                 var quantity = $(this).find('td.quantity input').val();
                 var grams = $(this).find('td.grams input').val();
@@ -162,23 +153,21 @@ var invoice = function () {
                 var bonus = $(this).find('td.bonus input').val();
                 var total = $(this).find('td.total input').val();
                 var product = $(this).find('td.product select').select2('val');
-               
 
-                if (quantity != '' && grams != '' && grams > 0 && quantity > 0 && product!='') {
+                if (quantity != '' && grams != '' && grams > 0 && quantity > 0 && product != '') {
                     var purchase = JSON.stringify(
-                   {
-                       'Quantity': quantity,
-                       'Grams': grams,
-                       'Rate': rate,
-                       'Cost': cost,
-                       'Bonus': bonus,
-                       'Total': total,
-                       'Description': 'none',
-                       'ProductId': product,
-                       'InvoiceId': thisInvoice
-                   });
-                  
-                   
+                    {
+                        'Quantity': quantity,
+                        'Grams': grams,
+                        'Rate': rate,
+                        'Cost': cost,
+                        'Bonus': bonus,
+                        'Total': total,
+                        'Description': 'none',
+                        'ProductId': product,
+                        'InvoiceId': thisInvoice
+                    });
+
                     $.ajax({
                         url: invoice.getHost(window.location.origin) + '/api/purchase/PostPurchase/',
                         type: "post",
@@ -186,28 +175,24 @@ var invoice = function () {
                         dataType: "json",
                         data: purchase,
                         cache: false,
-                        complete: function (data) {                       
+                        complete: function(data) {
                         },
-                        error: function (data, textStatus, jqXHR) { },
-                        success: function (data) {
+                        error: function(data, textStatus, jqXHR) {},
+                        success: function(data) {
                             alert('success');
                             status = 'success';
                         }
                     });
-                }
-                else {
-                   
+                } else {
                 }
             });
 
             //redirect to view invoice
-            if (status = 'success')
-            {
+            if (status = 'success') {
                 window.location = '/buy/view/' + invoiceId;
             }
-            
         },
-        modifyInvoice: function (id) {
+        modifyInvoice: function(id) {
             var cost = $("#total_cost input").val();;
             var bonus = $("#total_bonus input").val();
             var grand = $("#grand_total input").val();
@@ -220,20 +205,17 @@ var invoice = function () {
             var store = $('#StoreId').val();
 
             var thisInvoice = JSON.stringify(
-             {
-                 'Id': id,
-                 'InvoiceNo': invoiceNo,
-                 'SubTotal': cost,
-                 'TotalBonus': bonus,
-                 'GrandTotal': grand,
-                 'StoreId': store,
-                 'Cashier': cashierId,
-                 'Appraiser': appraiserId,
-                 'CustomerId': customer
-
-             });
-
-          
+            {
+                'Id': id,
+                'InvoiceNo': invoiceNo,
+                'SubTotal': cost,
+                'TotalBonus': bonus,
+                'GrandTotal': grand,
+                'StoreId': store,
+                'Cashier': cashierId,
+                'Appraiser': appraiserId,
+                'CustomerId': customer
+            });
 
             $.ajax({
                 url: invoice.getHost(window.location.origin) + '/api/invoice/PutInvoice/',
@@ -242,62 +224,57 @@ var invoice = function () {
                 dataType: "json",
                 data: thisInvoice,
                 cache: false,
-                complete: function (data) {
+                complete: function(data) {
                 },
-                error: function (data, textStatus, jqXHR) { alert(textStatus) },
-                success: function (data) {
+                error: function(data, textStatus, jqXHR) { alert(textStatus); },
+                success: function(data) {
                     //remove purchases
                     //save purchases
                     invoice.savePurchase(data);
-
                 }
             });
-
-
-
         },
-        getRequest: function (url, title) {
-                $.ajax({
-                    url: url,
-                    context: document.body,
-                    cache: false,
-                    success: function (data) {
-                        $('#mainModal').modal('show');
-                        $('#mainModal .modal-body').html(data);
-                        $('#mainModal .modal-body .combobox').select2();
-                        $('#mainModal .modal-header .modal-title').empty().append(title);
-                    },
-                    error: function (err) {
-                        alert(err);
-                    }
-                });
-        },
-        getRequestWithParameter: function (url, title, index) {
+        getRequest: function(url, title) {
             $.ajax({
                 url: url,
                 context: document.body,
                 cache: false,
-                success: function (data) {
+                success: function(data) {
+                    $('#mainModal').modal('show');
+                    $('#mainModal .modal-body').html(data);
+                    $('#mainModal .modal-body .combobox').select2();
+                    $('#mainModal .modal-header .modal-title').empty().append(title);
+                },
+                error: function(err) {
+                    alert(err);
+                }
+            });
+        },
+        getRequestWithParameter: function(url, title, index) {
+            $.ajax({
+                url: url,
+                context: document.body,
+                cache: false,
+                success: function(data) {
                     $('#mainModal').modal('show');
                     $('#mainModal .modal-body').html(data);
                     $('#mainModal .modal-body .combobox').select2();
                     $('#mainModal .modal-header .modal-title').empty().append(title);
                     $('#mainModal .modal-body').attr('data-index', index);
-                  
                 },
-                error: function (err) {
+                error: function(err) {
                     alert(err);
                 }
             });
         },
-        searchEmployee: function (query, process) {
+        searchEmployee: function(query, process) {
             $.ajax({
                 url: 'buy/SearchEmployee',
                 dataType: "json",
                 data: { searchString: query },
-                dataFilter: function (data) { return data; },
-                success: function (data) {
-                    $.each(data, function (i, employee) {
+                dataFilter: function(data) { return data; },
+                success: function(data) {
+                    $.each(data, function(i, employee) {
                         search_employee_map[employee.name] = employee;
                         search_employee_names.push(employee.name);
                     });
@@ -305,14 +282,14 @@ var invoice = function () {
                 }
             });
         },
-        searchCustomer: function (query, process) {
+        searchCustomer: function(query, process) {
             $.ajax({
                 url: 'buy/SearchCustomer',
                 dataType: "json",
                 data: { searchString: query },
-                dataFilter: function (data) { return data; },
-                success: function (data) {
-                    $.each(data, function (i, customer) {
+                dataFilter: function(data) { return data; },
+                success: function(data) {
+                    $.each(data, function(i, customer) {
                         search_customer_map[customer.name] = customer;
                         search_customer_names.push(customer.name);
                     });
@@ -320,26 +297,23 @@ var invoice = function () {
                 }
             });
         },
-        serachPassCode: function (elment) {
+        serachPassCode: function(elment) {
             $.ajax({
                 url: 'buy/SearchPassCode',
                 dataType: "json",
                 data: { searchString: $('#PassCode').val() },
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#invoice-bonus form').validate().form();
                 },
-                error: function (data, textStatus, jqXHR) { alert(textStatus) },
-                success: function (data) {
+                error: function(data, textStatus, jqXHR) { alert(textStatus); },
+                success: function(data) {
                     if (data.code == '009') {
                         $('#alert').removeClass('hide');
                         $('#notification').addClass('validation-summary-errors');
-
                     }
                     if (data.code == '008') {
-
                         var index = $('#mainModal .modal-body').attr('data-index');
                         var cost = $('tr.invoice-item:eq' + '(' + index + ')').find('td.cost input').val();
-
 
                         var bonus = data.result.Bonus * 100;
                         var bonusCost = bonus * cost;
@@ -354,22 +328,16 @@ var invoice = function () {
                         $('#alert').removeClass('hide');
                         $('#notification').addClass('validation-summary-errors');
                         $('#notification').empty().append('<ul><li>Invalid passcode.</li></ul>');
-
                     }
                 }
             });
-        },     
-        popup: function () {
+        },
+        popup: function() {
             alert('teste');
         },
-        getHost: function (url) {
-                return url.toString().replace(/^(.*\/\/[^\/?#]*).*$/,"$1");
-       }
-
-
-
-
-
+        getHost: function(url) {
+            return url.toString().replace(/^(.*\/\/[^\/?#]*).*$/, "$1");
+        }
     };
 }();
 
@@ -378,59 +346,57 @@ var search_employee_map = {};
 var search_customer_names = [];
 var search_customer_map = {};
 
-$(function () {
-
-
+$(function() {
     //global settings
     //activate table sorting
     $("#invoice").tableDnD();
     //hover
-    $("#invoice tr").hover(function () {
+    $("#invoice tr").hover(function() {
         $(this.cells[7]).addClass('remove');
-    }, function () {
+    }, function() {
         $(this.cells[7]).removeClass('remove');
     });
     //pointer
-    $("#invoice tr").hover(function () {
+    $("#invoice tr").hover(function() {
         $(this.cells[5]).addClass('pointer');
-    }, function () {
+    }, function() {
         $(this.cells[5]).removeClass('pointer');
     });
     //none
-    $("#invoice tr").hover(function () {
+    $("#invoice tr").hover(function() {
         $(this.cells[0]).addClass('pointer');
-    }, function () {
+    }, function() {
         $(this.cells[0]).removeClass('pointer');
     });
     //allow only numbers
     $('#invoice input.number').numeric();
 
     //global variables
-    var inputs = $('#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input');
+    var inputs = $('#invoice tr td.quantity input, #invoice tr td.rate input, #invoice tr td.grams input');
     var cost_inputs = $('#invoice tr td.cost input');
     var bonus_inputs = $('#invoice tr td.bonus input');
     var total_inputs = $('#invoice tr td.total input');
     var remove = $('#invoice tr td.delete a');
     //calculate on key up
-    $(document).on("keyup change", '#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input,#invoice tr td.bonus input', function (e) {
+    $(document).on("keyup change", '#invoice tr td.quantity input, #invoice tr td.rate input,#invoice tr td.grams input,#invoice tr td.bonus input', function(e) {
         e.preventDefault();
         invoice.calculate(this);
         return false;
     });
     //remove item
-    $(document).on("click", "#invoice tr td.delete a", function (e) {
+    $(document).on("click", "#invoice tr td.delete a", function(e) {
         e.preventDefault();
         invoice.removeItem(this);
         return false;
     });
     //add blank row
-    $(document).on("click", "#main-invoice #btnAdd,#main-invoice-edit #btnAdd", function (e) {
+    $(document).on("click", "#main-invoice #btnAdd,#main-invoice-edit #btnAdd", function(e) {
         e.preventDefault();
         invoice.cloneItem();
         return false;
     });
     //populate product cost on add
-    $('#main-invoice .combobox').on("select2-selected", function (e, element) {        
+    $('#main-invoice .combobox').on("select2-selected", function(e, element) {
         //e.object.id
         //alert(e.val);
         var r = 0, q = 0, g = 0.0;
@@ -440,12 +406,12 @@ $(function () {
             type: "get",
             data: { id: e.val },
             cache: false,
-            complete: function (data) {
+            complete: function(data) {
             },
-            error: function (data) {
+            error: function(data) {
                 alert('error');
             },
-            success: function (data) {
+            success: function(data) {
                 r = data.Rate;
                 q = 1;
                 g = 0.0;
@@ -457,7 +423,7 @@ $(function () {
         });
     });
     //populate product cost on edit
-    $('#main-invoice-edit .combobox').on("select2-selected", function (e, element) {
+    $('#main-invoice-edit .combobox').on("select2-selected", function(e, element) {
         //e.object.id
         //alert(e.val);
         var r = 0, q = 0, g = 0.0;
@@ -467,12 +433,12 @@ $(function () {
             type: "get",
             data: { id: e.val },
             cache: false,
-            complete: function (data) {
+            complete: function(data) {
             },
-            error: function (data) {
+            error: function(data) {
                 alert('error');
             },
-            success: function (data) {
+            success: function(data) {
                 r = data.Rate;
                 q = 1;
                 $(element).closest('tr').find('td.rate input').val(r);
@@ -482,7 +448,7 @@ $(function () {
         });
     });
     //remove
-    $('#main-invoice .combobox,#main-invoice-edit .combobox').on("select2-removed", function (e) {
+    $('#main-invoice .combobox, #main-invoice-edit .combobox').on("select2-removed", function(e) {
         //e.object.id
         //alert(e.val);
         $(this).closest('tr').find('td.quantity input').val(0);
@@ -490,80 +456,74 @@ $(function () {
         invoice.calculate(this);
     });
     //add purchase
-    $('#btnDraft').on("click", function (e) {
+    $('#btnDraft').on("click", function(e) {
         e.preventDefault();
         invoice.savePurchase(22);
     });
     //pop up customer view
-    $('#customer').on("click", function (e) {
+    $('#customer').on("click", function(e) {
         e.preventDefault();
-        var url ='buy/customer';
+        var url = 'buy/customer';
         invoice.getRequest(url, "Customer Information");
         return false;
     });
     //pop up customer view
-    $('#btnAddBonus').on("click", function (e) {
+    $('#btnAddBonus').on("click", function(e) {
         e.preventDefault();
         var url = 'buy/bonus';
         var index = $(this).parents('tr').index();
-        invoice.getRequestWithParameter(url, "Bonus", index); 
+        invoice.getRequestWithParameter(url, "Bonus", index);
         return false;
     });
     //serach employee
     $('#Appraiser').typeahead({
-        source: function (query, process) {
+        source: function(query, process) {
             invoice.searchEmployee(query, process);
         },
-        updater: function (item) {
+        updater: function(item) {
             selectedId = search_employee_map[item].id;
             $('#AppraiserId').val(selectedId);
             return item;
         },
-        matcher: function (item) {
+        matcher: function(item) {
             if (item.toLowerCase().indexOf(this.query.trim().toLowerCase()) != -1) {
                 return true;
             }
- 
         },
-        sorter: function (items) {
+        sorter: function(items) {
             return items.sort();
         },
-        highlighter: function (item) {
+        highlighter: function(item) {
             var regex = new RegExp('(' + this.query + ')', 'gi');
             return item.replace(regex, "<strong>$1</strong>");
         }
-    }).blur(function () {
+    }).blur(function() {
         if (search_employee_names.indexOf($(this).val().trim()) == -1) {
             $('#Appraiser').val('');
             $('#AppraiserId').val('0');
         }
-
     });
     //save and approve invoice
-    $('#btnSaveAndApprove').on("click", function (e) {
-        e.preventDefault();    
+    $('#btnSaveAndApprove').on("click", function(e) {
+        e.preventDefault();
         invoice.saveInvoice(this);
         return false;
     });
     //save and approve invoice
-    $('#btnSaveChangesAndApprove').on("click", function (e) {
+    $('#btnSaveChangesAndApprove').on("click", function(e) {
         e.preventDefault();
         invoice.modifyInvoice();
         return false;
     });
 
     //print
-    $('#btnConfirmAndPrint').on("click", function (e) {
+    $('#btnConfirmAndPrint').on("click", function(e) {
         e.preventDefault();
-       window.location = '/buy/receipt/51'
+        window.location = '/buy/receipt/51';
         return false;
     });
-    $("#btnCancelInvoice").click(function (event) {
+    $("#btnCancelInvoice").click(function(event) {
         event.preventDefault();
         window.location = "/buy/";
     });
-
-
-
-   
 });

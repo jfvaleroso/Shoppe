@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Exchange.Helper.Transaction
+﻿namespace Exchange.Helper.Transaction
 {
     public class MessageCode
     {
         #region Message Code
+
         public static string saved = "Successfully saved!";
         public static string modified = "Successfully modified!";
         public static string deleted = "Successfully deleted!";
@@ -16,21 +12,24 @@ namespace Exchange.Helper.Transaction
         public static string valid = "Item is valid.";
         public static string empty = "Item is empty.";
         public static string unavailable = "Code is unavailable";
-        #endregion
+
+        #endregion Message Code
 
         #region Message
+
         public static string GetMessage(string code)
         {
             if (code.Equals(StatusCode.saved))
             {
-                return MessageCode.saved;
+                return saved;
             }
-            else if (code.Equals(StatusCode.modified))
+            if (code.Equals(StatusCode.modified))
             {
-                return MessageCode.modified;
+                return modified;
             }
             return string.Empty;
         }
-        #endregion
+
+        #endregion Message
     }
 }

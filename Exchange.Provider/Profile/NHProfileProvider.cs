@@ -78,14 +78,14 @@ namespace Exchange.Provider.Profile
                 {
                     Users usr = session.CreateCriteria(typeof(Users))
                                                 .Add(NHibernate.Criterion.Restrictions.Eq("Username", username))
-                                                .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                                .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                                 .UniqueResult<Users>();
 
                     if (usr != null)
                     {
 
                        profile= session.CreateCriteria(typeof(Profiles))
-                                        .Add(NHibernate.Criterion.Restrictions.Eq("Users_Id", usr.Id))
+                                        .Add(NHibernate.Criterion.Restrictions.Eq("UserId", usr.Id))
                                         .Add(NHibernate.Criterion.Restrictions.Eq("IsAnonymous", isAnonymous))
                                         .UniqueResult<Profiles>();
                     }
@@ -111,13 +111,13 @@ namespace Exchange.Provider.Profile
                 {
                     Users usr = session.CreateCriteria(typeof(Users))
                                                 .Add(NHibernate.Criterion.Restrictions.Eq("Username", username))
-                                                .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                                .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                                 .UniqueResult<Users>();
 
                     if (usr != null)
                     {
                         profile = session.CreateCriteria(typeof(Profiles))
-                                            .Add(NHibernate.Criterion.Restrictions.Eq("Users_Id", usr.Id))
+                                            .Add(NHibernate.Criterion.Restrictions.Eq("UserId", usr.Id))
                                             .UniqueResult<Profiles>();
                     }                    
                 }
@@ -142,13 +142,13 @@ namespace Exchange.Provider.Profile
                 {
                     Users usr = session.CreateCriteria(typeof(Users))
                                                 .Add(NHibernate.Criterion.Restrictions.Eq("Id", Id))
-                                                .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                                .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                                 .UniqueResult<Users>();
 
                     if (usr != null)
                     {
                         profile = session.CreateCriteria(typeof(Profiles))
-                                            .Add(NHibernate.Criterion.Restrictions.Eq("Users_Id", usr.Id))
+                                            .Add(NHibernate.Criterion.Restrictions.Eq("UserId", usr.Id))
                                             .UniqueResult<Profiles>();
                     }
                     else
@@ -180,7 +180,7 @@ namespace Exchange.Provider.Profile
                     {
                         Users usr = session.CreateCriteria(typeof(Users))
                                                     .Add(NHibernate.Criterion.Restrictions.Eq("Username", username))
-                                                    .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                                    .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                                     .UniqueResult<Users>();
 
                         if (usr != null) //membership user exits so create a profile
@@ -189,7 +189,7 @@ namespace Exchange.Provider.Profile
                             p.IsAnonymous = isAnonymous;
                             p.LastUpdatedDate = System.DateTime.Now;
                             p.LastActivityDate = System.DateTime.Now; 
-                            p.ApplicationName = this.ApplicationName;
+                            p.ApplicationName = ApplicationName;
                             p.BirthDate = DateTime.Now;
                             session.Save(p);
                             transaction.Commit();
@@ -229,7 +229,7 @@ namespace Exchange.Provider.Profile
                 {
                     Users usr = session.CreateCriteria(typeof(Users))
                                                 .Add(NHibernate.Criterion.Restrictions.Eq("Username", username))
-                                                .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                                .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                                 .UniqueResult<Users>();
 
                     if (usr != null) //membership user exits so create a profile
@@ -419,7 +419,7 @@ namespace Exchange.Provider.Profile
             {
                 usr = session.CreateCriteria(typeof(Users))
                                         .Add(NHibernate.Criterion.Restrictions.Eq("Id", p.Users_Id))
-                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                         .UniqueResult<Users>();
             }
             if (usr == null)
@@ -526,7 +526,7 @@ namespace Exchange.Provider.Profile
                     case "Position":
                         pv.PropertyValue = profile.Position;
                         break;
-                    case "Users_Id":
+                    case "UserId":
                         pv.PropertyValue = profile.Users_Id;
                         break;
 
@@ -599,7 +599,7 @@ namespace Exchange.Provider.Profile
                             case "Address":
                                 profile.Address = pv.PropertyValue.ToString();
                                 break;
-                            case "Users_Id":
+                            case "UserId":
                                 pv.PropertyValue = profile.Users_Id;
                                 break;
                             default:
@@ -685,7 +685,7 @@ namespace Exchange.Provider.Profile
                 try
                 {
                     IList<Profiles> profs = session.CreateCriteria(typeof(Profiles))
-                                                    .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                                    .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                                     .Add(NHibernate.Criterion.Restrictions.Le("LastActivityDate", userInactiveSinceDate))
                                                     .Add(NHibernate.Criterion.Restrictions.Eq("IsAnonymous", anaon))
                                                     .List<Profiles>();
@@ -800,7 +800,7 @@ namespace Exchange.Provider.Profile
                 try
                 {
                     ICriteria cprofiles = session.CreateCriteria(typeof(Profiles));
-                    cprofiles.Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName));
+                    cprofiles.Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName));
 
 
 

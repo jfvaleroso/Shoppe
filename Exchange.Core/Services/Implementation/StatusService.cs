@@ -1,114 +1,127 @@
-﻿using Exchange.Core.Services.IServices;
+﻿using Exchange.Core.Entities;
 using Exchange.Core.Repositories;
+using Exchange.Core.Services.IServices;
 using Exchange.Core.UnitOfWork;
-using Exchange.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Exchange.Core.Services.Implementation
 {
-    public class StatusService: IStatusService
+    public class StatusService : IStatusService
     {
-          #region Constructor
-        private readonly IStatusRepository statusRepository;
+        #region Constructor
+
+        private readonly IStatusRepository _statusRepository;
+
         public StatusService(IStatusRepository statusRepository)
         {
-            this.statusRepository = statusRepository;
+            _statusRepository = statusRepository;
         }
-       #endregion
+
+        #endregion Constructor
+
         #region CRUD
+
         public void Save(Status entity)
         {
-            this.statusRepository.Save(entity);
+            _statusRepository.Save(entity);
         }
+
         public Guid Create(Status entity)
         {
-           return this.statusRepository.Create(entity);
+            return _statusRepository.Create(entity);
         }
+
         public void SaveChanges(Status entity)
         {
-            this.statusRepository.SaveChanges(entity);
+            _statusRepository.SaveChanges(entity);
         }
+
         public void SaveOrUpdate(Status productType)
         {
-            this.statusRepository.SaveOrUpdate(productType);
+            _statusRepository.SaveOrUpdate(productType);
         }
+
         [UnitOfWork]
         public bool Delete(Guid id)
         {
             try
             {
-                this.statusRepository.Delete(id);
+                _statusRepository.Delete(id);
                 return true;
             }
             catch
             {
-                
                 return false;
             }
-            
         }
-        #endregion
+
+        #endregion CRUD
+
         #region Search and Filter
+
         public Status GetDataById(Guid id)
-       {
-           return this.statusRepository.Get(id);
-       }
-        public List<Status> GetDataListByStatus(bool active)
         {
-            return this.statusRepository.Get(x => x.Active.Equals(active)).ToList();
+            return _statusRepository.Get(id);
         }
+
         public Status GetByExpression(Status entity)
         {
-            return this.statusRepository.GetByExpression(x => x.Name.Equals(entity.Name));
+            return _statusRepository.GetByExpression(x => x.Name.Equals(entity.Name));
         }
+
         public List<Status> GetAllData()
         {
-            return this.statusRepository.GetAll().ToList();
+            return _statusRepository.GetAll().ToList();
         }
+
         [UnitOfWork]
         public List<Status> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {
-            return this.statusRepository.GetDataWithPaging(pageNumber, pageSize, out total);
+            return _statusRepository.GetDataWithPaging(pageNumber, pageSize, out total);
         }
+
         [UnitOfWork]
-        public List<Status> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
+        public List<Status> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize,
+            out long total)
         {
-            return this.statusRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+            return _statusRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
         }
-        #endregion
+
+        public List<Status> GetDataListByStatus(bool active)
+        {
+            return _statusRepository.Get(x => x.Active.Equals(active)).ToList();
+        }
+
+        #endregion Search and Filter
+
         #region Validator
+
         public bool CheckDataIfExists(Status entity)
         {
-            Dictionary<string, object> parameter = new Dictionary<string, object>();
-            parameter.Add("Name", entity.Name);
-            parameter.Add("Description", entity.Description);
-            parameter.Add("Active", entity.Active);
-            List<Status> process = this.statusRepository.CheckIfDataExists(parameter);
-            if (process.Count() > 0)
+            var parameter = new Dictionary<string, object>
             {
-                return true;
-            }
-            return false;
+                {"Name", entity.Name},
+                {"Description", entity.Description},
+                {"Active", entity.Active}
+            };
+            List<Status> process = _statusRepository.CheckIfDataExists(parameter);
+            return process.Any();
         }
+
         public bool CheckDataIfExists(string param)
         {
-            Dictionary<string, object> parameter = new Dictionary<string, object>();
-            parameter.Add("Name", param);
-            List<Status> process = this.statusRepository.CheckIfDataExists(parameter);
-            if (process.Count() > 0)
-            {
-                return true;
-            }
-            return false;
+            var parameter = new Dictionary<string, object> { { "Name", param } };
+            List<Status> process = _statusRepository.CheckIfDataExists(parameter);
+            return process.Any();
         }
-        #endregion
+
+        #endregion Validator
 
         public Status GetStatusByCode(string code)
         {
-            return this.statusRepository.GetByExpression(x => x.Code.Equals(code));
+            return _statusRepository.GetByExpression(x => x.Code.Equals(code));
         }
     }
 }

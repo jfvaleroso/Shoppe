@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Web.Configuration;
 
 namespace Exchange.Configuration
 {
     public class ExchangeConfig : ConfigurationSection
     {
-
         public static ExchangeConfig Section
         {
             get
@@ -23,46 +18,25 @@ namespace Exchange.Configuration
             }
         }
 
-
         [ConfigurationProperty("companyName", DefaultValue = "", IsRequired = false)]
         public string CompanyName
         {
-            get
-            {
-                return (string)base["companyName"];
-            }
-            set
-            {
-                base["companyName"] = value;
-            }
+            get { return (string)base["companyName"]; }
+            set { base["companyName"] = value; }
         }
 
         [ConfigurationProperty("owner", DefaultValue = "", IsRequired = false)]
         public string Owner
         {
-            get
-            {
-                return (string)base["owner"];
-            }
-            set
-            {
-                base["owner"] = value;
-            }
+            get { return (string)base["owner"]; }
+            set { base["owner"] = value; }
         }
 
         [ConfigurationProperty("applicationName", DefaultValue = "", IsRequired = false)]
         public string ApplicationName
         {
-            get
-            {
-                return (string)base["applicationName"];
-            }
-            set
-            {
-                base["applicationName"] = value;
-            }
+            get { return (string)base["applicationName"]; }
+            set { base["applicationName"] = value; }
         }
-
-
     }
 }

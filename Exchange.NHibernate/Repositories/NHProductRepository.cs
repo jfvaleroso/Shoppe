@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using Exchange.Core.Entities;
 using Exchange.Core.Repositories;
-using Exchange.Core.Entities;
-using NHibernate.Criterion;
-using Exchange.Helper;
-using Exchange.Helper.Common;
 using Exchange.NHibernateBase.Filters;
+using System;
+using System.Collections.Generic;
 
 namespace Exchange.NHibernateBase.Repositories
 {
@@ -16,15 +10,13 @@ namespace Exchange.NHibernateBase.Repositories
     {
         public List<Product> GetDataWithPagingAndSearch(string searchString, int pageIndex, int pageSize, out long total)
         {
-            return this.GetDataWithPagingAndSearch(ProductFilter.Search(searchString), searchString, pageIndex, pageSize, out total);
+            return GetDataWithPagingAndSearch(ProductFilter.Search(searchString), searchString, pageIndex, pageSize,
+                out total);
         }
 
         public List<Product> Test()
         {
-            return this.Test(ProductFilter.Test(),ProductFilter.AliasTest(), ProductFilter.OrdersTest());
+            return Test(ProductFilter.Test(), ProductFilter.AliasTest(), ProductFilter.OrdersTest());
         }
-
-
-
     }
 }

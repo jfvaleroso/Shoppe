@@ -1,144 +1,136 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Exchange.Core.Services.IServices;
 using System.Web.Mvc;
+using Exchange.Core.Entities;
+using Exchange.Core.Services.IServices;
 using Exchange.Helper.Common;
-
-
 
 namespace Exchange.Web.Helper
 {
     public class Service
     {
-        private readonly IProductTypeService productTypeService;
-        private readonly IProductService productService;
-        private readonly IStoreService storeService;
-        private readonly IRoleService roleService;
-        private readonly ICustomerService customerService;
+        private readonly ICustomerService _customerService;
+        private readonly IProductService _productService;
+        private readonly IProductTypeService _productTypeService;
+        private readonly IRoleService _roleService;
+        private readonly IStoreService _storeService;
+
         public Service(IProductTypeService productTypeService)
         {
-            this.productTypeService = productTypeService;
+            _productTypeService = productTypeService;
         }
+
         public Service(IProductService productService)
         {
-            this.productService = productService;
+            _productService = productService;
         }
-        public Service(IProductService productService,ICustomerService customerService)
+
+        public Service(IProductService productService, ICustomerService customerService)
         {
-            this.productService = productService;
-            this.customerService= customerService;
+            _productService = productService;
+            _customerService = customerService;
         }
+
         public Service(IStoreService storeService, IRoleService roleService)
         {
-            this.storeService = storeService;
-            this.roleService = roleService;
+            _storeService = storeService;
+            _roleService = roleService;
         }
 
         public List<SelectListItem> GetProductTypeList(Guid selectedValue)
         {
-
-            List<SelectListItem> source = new List<SelectListItem>();
-            var items = this.productTypeService.GetDataListByStatus(true);
-            if (items != null)
+            var source = new List<SelectListItem>();
+            var items = _productTypeService.GetDataListByStatus(true);
+            if (items == null) return source;
+            foreach (var item in items)
             {
-                foreach (var item in items)
+                if (string.IsNullOrEmpty(item.Code) || string.IsNullOrEmpty(item.Name)) continue;
+                var sourceItem = new SelectListItem
                 {
-                    if (!string.IsNullOrEmpty(item.Code) && !string.IsNullOrEmpty(item.Name))
-                    {
-                        SelectListItem sourceItem = new SelectListItem();
-                        sourceItem.Value = item.Id.ToString();
-                        sourceItem.Text = item.Name.ToString();
-                        sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
-                        source.Add(sourceItem);
-                    }
-                }
+                    Value = item.Id.ToString(),
+                    Text = item.Name,
+                    Selected = item.Id.Equals(selectedValue) ? true : false
+                };
+                source.Add(sourceItem);
             }
             return source;
         }
+
         public List<SelectListItem> GetProductList(Guid selectedValue)
         {
-
-            List<SelectListItem> source = new List<SelectListItem>();
-            var items = this.productService.GetDataListByStatus(true);
-            if (items != null)
+            var source = new List<SelectListItem>();
+            var items = _productService.GetDataListByStatus(true);
+            if (items == null) return source;
+            foreach (var item in items)
             {
-                foreach (var item in items)
+                if (string.IsNullOrEmpty(item.Code) || string.IsNullOrEmpty(item.Name)) continue;
+                var sourceItem = new SelectListItem
                 {
-                    if (!string.IsNullOrEmpty(item.Code) && !string.IsNullOrEmpty(item.Name))
-                    {
-                        SelectListItem sourceItem = new SelectListItem();
-                        sourceItem.Value = item.Id.ToString();
-                        sourceItem.Text = string.Format("{0} - {1}", item.ProductType.Name,item.Name);
-                        sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
-                        source.Add(sourceItem);
-                    }
-                }
+                    Value = item.Id.ToString(),
+                    Text = string.Format("{0} - {1}", item.ProductType.Name, item.Name),
+                    Selected = item.Id.Equals(selectedValue) ? true : false
+                };
+                source.Add(sourceItem);
             }
             return source;
         }
+
         public List<SelectListItem> GetStoreList(Guid selectedValue)
         {
-
-            List<SelectListItem> source = new List<SelectListItem>();
-            var items = this.storeService.GetDataListByStatus(true);
+            var source = new List<SelectListItem>();
+            var items = _storeService.GetDataListByStatus(true);
             if (items != null)
             {
                 foreach (var item in items)
                 {
-                    if (!string.IsNullOrEmpty(item.Code) && !string.IsNullOrEmpty(item.Name))
+                    if (string.IsNullOrEmpty(item.Code) || string.IsNullOrEmpty(item.Name)) continue;
+                    var sourceItem = new SelectListItem
                     {
-                        SelectListItem sourceItem = new SelectListItem();
-                        sourceItem.Value = item.Id.ToString();
-                        sourceItem.Text = item.Name.ToString();
-                        sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
-                        source.Add(sourceItem);
-                    }
+                        Value = item.Id.ToString(),
+                        Text = item.Name,
+                        Selected = item.Id.Equals(selectedValue) ? true : false
+                    };
+                    source.Add(sourceItem);
                 }
             }
             return source;
         }
+
         public List<SelectListItem> GetRoleList(Guid selectedValue)
         {
-
-            List<SelectListItem> source = new List<SelectListItem>();
-            var items = this.roleService.GetAllData();
-            if (items != null)
+            var source = new List<SelectListItem>();
+            var items = _roleService.GetAllData();
+            if (items == null) return source;
+            foreach (var item in items)
             {
-                foreach (var item in items)
+                if (string.IsNullOrEmpty(item.RoleName)) continue;
+                var sourceItem = new SelectListItem
                 {
-                    if (!string.IsNullOrEmpty(item.RoleName))
-                    {
-                        SelectListItem sourceItem = new SelectListItem();
-                        sourceItem.Value = item.RoleName.ToString();
-                        sourceItem.Text = item.RoleName.ToString();
-                        sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
-                        source.Add(sourceItem);
-                    }
-                }
+                    Value = item.RoleName,
+                    Text = item.RoleName,
+                    Selected = item.Id.Equals(selectedValue) ? true : false
+                };
+                source.Add(sourceItem);
             }
             return source;
         }
+
         public List<SelectListItem> GetCustomerList(Guid selectedValue)
         {
-
-            List<SelectListItem> source = new List<SelectListItem>();
-            var items = this.customerService.GetAllData();
-            if (items != null)
+            var source = new List<SelectListItem>();
+            var items = _customerService.GetAllData();
+            if (items == null) return source;
+            foreach (var item in items)
             {
-                foreach (var item in items)
+                var sourceItem = new SelectListItem
                 {
-                        SelectListItem sourceItem = new SelectListItem();
-                        sourceItem.Value = item.Id.ToString();
-                        sourceItem.Text = Base.GenerateFullName(item.FirstName, item.MiddleName, item.LastName);
-                        sourceItem.Selected = item.Id.Equals(selectedValue) ? true : false;
-                        source.Add(sourceItem);
-                    
-                }
+                    Value = item.Id.ToString(),
+                    Text = Base.GenerateFullName(item.FirstName, item.MiddleName, item.LastName),
+                    Selected = item.Id.Equals(selectedValue) ? true : false
+                };
+                source.Add(sourceItem);
             }
             return source;
         }
-
     }
 }

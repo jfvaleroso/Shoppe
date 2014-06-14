@@ -3,15 +3,14 @@
             xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
-  <mvcSiteMapNode title="DASHBOARD" controller="Dashboard" action="Index"  >
-    <mvcSiteMapNode title="BUY" controller="Buy" action="Index"/>
-    <mvcSiteMapNode title="EXCHANGE RATE" controller="Exchange" action="Index"/>
-    <!--<mvcSiteMapNode title="HISTORY" controller="History" action="Index"/>-->
-    <mvcSiteMapNode title="CUSTOMERS" controller="Customer" action="Index"/>
-   
-    <mvcSiteMapNode title="REPORTS" controller="Admin" area="Report" action="Index"/>
-    <mvcSiteMapNode title="ADMIN" controller="Maintenance" area="Admin" action="Index"/>
-    <mvcSiteMapNode title="HELP" controller="Help" action="Index"/>
-  </mvcSiteMapNode>
+  <mvcSiteMapNode title="DASHBOARD" controller="Dashboard" action="Index">
+    <mvcSiteMapNode title="BUY" controller="Buy" action="Index" />
+    <mvcSiteMapNode title="EXCHANGE RATE" controller="Exchange" action="Index" />
+    <!--<mvcSiteMapNode title="HISTORY" controller="History" action="Index" />-->
+    <mvcSiteMapNode title="CUSTOMERS" controller="Customer" action="Index" />
 
+    <mvcSiteMapNode title="REPORTS" controller="Admin" area="Report" action="Index" />
+    <mvcSiteMapNode title="ADMIN" controller="Maintenance" area="Admin" action="Index" />
+    <mvcSiteMapNode title="HELP" controller="Help" action="Index" />
+  </mvcSiteMapNode>
 </mvcSiteMap>

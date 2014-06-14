@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
+﻿using Exchange.Core.Entities;
+using System;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IProductTypeService : IService<ProductType, Guid>, IValidateService<ProductType>, IFilterService<ProductType>
+    public interface IProductTypeService : IService<ProductType, Guid>, IValidateService<ProductType>,
+        IFilterService<ProductType>
     {
-        
     }
 }

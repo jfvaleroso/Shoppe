@@ -2,7 +2,7 @@
     jTable localization file for 'Vietnamese' language.
     Author: Lê Hoàng Hiếu
 */
-(function ($) {
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Có Lỗi Khi Giao Tiếp Với Máy Chủ.',
         loadingMessage: 'Đang Tải Dữ Liệu...',

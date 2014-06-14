@@ -2,8 +2,7 @@
     jTable localization file for 'Italian' language.
     Author: Mauro Rulli
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Si è verificato un errore di comunicazione con il server.',
         loadingMessage: 'Caricamento dei record...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Righe per pagina',
         gotoPageLabel: 'Vai alla pagina'
     });
-
 })(jQuery);

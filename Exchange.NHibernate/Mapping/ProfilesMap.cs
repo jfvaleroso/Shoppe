@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Exchange.NHibernateBase.Mapping
@@ -13,7 +9,7 @@ namespace Exchange.NHibernateBase.Mapping
         {
             Table("Profiles");
             Id(x => x.Id);
-            Map(x => x.Users_Id);
+            Map(x => x.UserId).Column("Users_Id");
             Map(x => x.ApplicationName);
             Map(x => x.LastActivityDate);
             Map(x => x.LastUpdatedDate);
@@ -26,8 +22,7 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.IsAnonymous);
             Map(x => x.Position);
             Map(x => x.Address);
-            Map(x => x.BirthDate); 
-           
+            Map(x => x.BirthDate);
         }
     }
 }

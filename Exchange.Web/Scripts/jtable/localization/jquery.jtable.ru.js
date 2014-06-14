@@ -2,8 +2,7 @@
    jTable localization file for 'Russian' language.
    Author: Stanislav Reznikov
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Ошибка связи с сервером.',
         loadingMessage: 'Загрузка...',
@@ -24,5 +23,4 @@
         canNotDeletedRecords: 'Невозможно удалить записи: {0} из {1}!',
         deleteProggress: 'Удаление {0} из {1} записей...'
     });
-
 })(jQuery);

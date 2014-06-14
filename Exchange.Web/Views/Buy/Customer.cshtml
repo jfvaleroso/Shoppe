@@ -3,214 +3,196 @@
     Layout = null;
 }
 
-
-
-
 @Html.Partial("ModalTemplates/_Status")
 
 <div id="invoice-customer">
     @using (Html.BeginForm())
     {
         @Html.Partial("ModalTemplates/_Alert")
-        
-        
+
         <!-- Nav tabs -->
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#new" data-toggle="tab"><strong>New Customer</strong></a></li>
-  <li><a href="#old" data-toggle="tab"><strong>Existing Customer</strong></a></li>
-</ul>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#new" data-toggle="tab"><strong>New Customer</strong></a></li>
+            <li><a href="#old" data-toggle="tab"><strong>Existing Customer</strong></a></li>
+        </ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-    <div class="tab-pane fade in active" id="new">
-        <br/>
-        <div class="form-group">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="new">
+                <br />
+                <div class="form-group">
 
-            <div class="row">
-                <div class="col-xs-4">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.FirstName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.FirstName, new {@class = "form-control"})
+                                <p class="small">Please indicate the firstname.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.MiddleName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.MiddleName, new {@class = "form-control"})
+                                <p class="small">Please indicate the middle name.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.LastName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.LastName, new {@class = "form-control"})
+                                <p class="small">Please indicate the lastname.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Gender)
+                            </div>
+                            <div class="editor-field">
+
+                                @Html.DropDownListFor(model => model.Gender, new SelectList(
+                                    new List<Object>
+                                    {
+                                        new {value = "M", text = "Male"},
+                                        new {value = "F", text = "Female"}
+                                    },
+                                    "value",
+                                    "text",
+                                    2), string.Empty, new {@class = "combobox combobox-medium"})
+
+                                <p class="small">Please indicate the gender.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.BirthDate)
+                            </div>
+                            <div class="editor-field form-inline" id="birthdate-field">
+                                @Html.TextBoxFor(model => model.BirthDate, new {@class = "form-control"})
+                                <span class="add-on">
+                                    <span class="glyphicon glyphicon-th-list">
+                                    </span>
+                                </span>
+                                <p class="small">Please indicate the birth date.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.CellphoneNo)
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.CellphoneNo, new {@class = "form-control"})
+                                <p class="small">Please indicate the position.</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.FirstName)
+                        @Html.LabelFor(model => model.Email)
                     </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
-                        <p class="small">Please indicate the firstname.</p>
+                        @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})
+                        <p class="small">Please indicate the email address.</p>
                     </div>
-                </div>
-                <div class="col-xs-4">
+
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.MiddleName)
+                        <label>Residential Address</label>
                     </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })
-                        <p class="small">Please indicate the middle name.</p>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.LastName)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
-                        <p class="small">Please indicate the lastname.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-4">
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.Gender)
-                    </div>
-                    <div class="editor-field">
-
-                        @Html.DropDownListFor(model => model.Gender, new SelectList(
-                                                                           new List<Object>{
-                                                                           new { value = "M" , text = "Male"  },
-                                                                           new { value = "F" , text = "Female" }
-                                                                        },
-                                                                         "value",
-                                                                          "text",
-                                                                       2), string.Empty, new { @class = "combobox combobox-medium" })
-
-                        <p class="small">Please indicate the gender.</p>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.BirthDate)
-                    </div>
-                    <div class="editor-field form-inline" id="birthdate-field">
-                        @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control" })
-                        <span class="add-on">
-                            <span class="glyphicon glyphicon-th-list">
-
-                            </span>
-                        </span>
-                        <p class="small">Please indicate the birth date.</p>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.CellphoneNo)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.CellphoneNo, new { @class = "form-control" })
-                        <p class="small">Please indicate the position.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Email)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                <p class="small">Please indicate the email address.</p>
-            </div>
-
-            <div class="editor-label">
-                <label>Residential Address</label>
-            </div>
-            <div class="editor-field">
-                @Html.TextAreaFor(model => model.ResidentialAddress, new { @class = "form-control" })
-                <p class="small">Please indicate the address.</p>
-            </div>
-            <div class="page-header-title"><strong>ID Presented</strong></div>
-            <div class="row">
-                <div class="col-xs-9">
-                    <div class="editor-label">
-                        <label>Type of ID</label>
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(model => model.TypeOfID, new SelectList(
-                                                                           new List<Object>{
-                                                                           new { value = "COMPID" , text = "Company ID"  },
-                                                                           new { value = "PHk" , text = "Phil health" }
-                                                                        },
-                                                                         "value",
-                                                                          "text",
-                                                                       2), string.Empty, new { @class = "combobox combobox-medium" })
+                        @Html.TextAreaFor(model => model.ResidentialAddress, new {@class = "form-control"})
                         <p class="small">Please indicate the address.</p>
                     </div>
-
+                    <div class="page-header-title"><strong>ID Presented</strong></div>
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <div class="editor-label">
+                                <label>Type of ID</label>
+                            </div>
+                            <div class="editor-field">
+                                @Html.DropDownListFor(model => model.TypeOfID, new SelectList(
+                                    new List<Object>
+                                    {
+                                        new {value = "COMPID", text = "Company ID"},
+                                        new {value = "PHk", text = "Phil health"}
+                                    },
+                                    "value",
+                                    "text",
+                                    2), string.Empty, new {@class = "combobox combobox-medium"})
+                                <p class="small">Please indicate the address.</p>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="editor-label">
+                                <label>ID No</label>
+                            </div>
+                            <div class="editor-field">
+                                @Html.TextBoxFor(model => model.IDNo, new {@class = "form-control"})
+                                <p class="small">Please indicate the address.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-3">
+                <div class="right">
+                    <button id="btnSaveCustomer" class="btn btn-large btn-success" type="button">
+                        Save
+                    </button>
+                    <button id="btnCancel" class="btn btn-large btn-success" type="button" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="old">
+                <br />
+                <div class="form-group">
+
                     <div class="editor-label">
-                        <label>ID No</label>
+                        <label>Search Name</label>
                     </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.IDNo, new { @class = "form-control" })
-                        <p class="small">Please indicate the address.</p>
+                        <input type="text" id="txtSearchName" data-id="" placeholder="Search existing customer" class="form-control typeahead" data-provide="typeahead" />
+                        <p class="small">Search the name.</p>
                     </div>
-
                 </div>
-
+                <div class="right">
+                    <button id="btnSaveSearch" class="btn btn-large btn-success" type="button">
+                        Save
+                    </button>
+                    <button id="btnCancel" class="btn btn-large btn-success" type="button" data-dismiss="modal">
+                        Cancel
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="right">
-            <button id="btnSaveCustomer" class="btn btn-large btn-success" type="button">
-                Save
-            </button>
-            <button id="btnCancel" class="btn btn-large btn-success" type="button" data-dismiss="modal">
-                Cancel
-            </button>
-        </div>
-
-
-    </div>
-    <div class="tab-pane fade" id="old">
-        <br/>
-        <div class="form-group">
-
-           
-            <div class="editor-label">
-              <label>Search Name</label>
-            </div>
-            <div class="editor-field">
-              <input type="text" id="txtSearchName" data-id="" class="form-control"/>
-                <p class="small">Search the name.</p>
-            </div>
-        </div>
-        <div class="right">
-            <button id="btnSaveSearch" class="btn btn-large btn-success" type="button">
-                Save
-            </button>
-            <button id="btnCancel" class="btn btn-large btn-success" type="button" data-dismiss="modal">
-                Cancel
-            </button>
-        </div>
-    </div>   
-</div>
-        
-        
-        
-        
-
-        
-
-
-      
     }
 </div>
 @Scripts.Render("~/bundles/jquery.validate")
 <script>
-    $(function () {
-        $('#btnSaveCustomer').click(function (e) {
+    $(function() {
+        $('#btnSaveCustomer').click(function(e) {
             e.preventDefault();
             $.ajax({
                 url: 'buy/addcustomer',
                 type: "post",
                 cache: false,
                 data: $('form').serialize(),
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#invoice-customer form').validate().form();
                 },
-                complete: function (data) {
+                complete: function(data) {
                 },
-                error: function (data) {
+                error: function(data) {
                     alert('error');
                 },
-                success: function (data) {
+                success: function(data) {
                     //saved
                     if (data.code == '000') {
                         $('#mainModal').modal('hide');
@@ -222,19 +204,19 @@
                         $('#customer input[type=text]').val(data.content);
                         $('#customer input[type=text]').attr('data-id', data.result);
                     }
-                        //invalid
+                    //invalid
                     else if (data.code == "007") {
                         $('#alert').removeClass('hide');
-                        
+
                     }
-                        //existed
+                    //existed
                     else if (data.code == "003") {
                         $('#alert').removeClass('hide');
                         $('#notification').addClass('validation-summary-errors');
                         $('#notification').empty().append('<ul><li>Code or Item already exists!</li></ul>');
                         $('div.validation-summary-errors').addClass('hide');
                     }
-                        //error
+                    //error
                     else if (data.code == "005") {
                         $('#alert').removeClass('hide');
                         $('#notification').empty().append('Error has occured!' + data.message);
@@ -243,47 +225,43 @@
 
                 }
             });
-           
+
         });
 
-
-
-        $('#myTab a').click(function (e) {
-            e.preventDefault()
-            $(this).tab('show')
-        })
-
-
+        $('#myTab a').click(function(e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
         $('#txtSearchName').typeahead({
-            source: function (query, process) {
+            source: function(query, process) {
                 invoice.searchCustomer(query, process);
             },
-            updater: function (item) {
+            updater: function(item) {
                 selectedId = search_customer_map[item].id;
                 $('#txtSearchName').attr('data-id', selectedId);
                 return item;
             },
-            matcher: function (item) {
-                if (item.toLowerCase().indexOf(this.query.trim().toLowerCase()) != -1) {
-                    return true;
+            matcher: function(item) {
+                 if (item.toLowerCase().indexOf(this.query.trim().toLowerCase()) != -1) {
+                return true;
                 }
             },
-            sorter: function (items) {
+            sorter: function(items) {
                 return items.sort();
             },
-            highlighter: function (item) {
-                var regex = new RegExp('(' + this.query + ')', 'gi');
-                return item.replace(regex, "<strong>$1</strong>");
+            highlighter: function(item) {
+                 var regex = new RegExp('(' + this.query + ')', 'gi');
+                 return item.replace(regex, "<strong>$1</strong>");
             }
-        }).blur(function () {
+        }).blur(function() {
             if (search_customer_names.indexOf($(this).val().trim()) == -1) {
                 $(this).val('');
             }
 
         });
 
-        $('#btnSaveSearch').click(function (e) {
-            e.preventDefault()
+        $('#btnSaveSearch').click(function(e) {
+            e.preventDefault();
             var id = $('#txtSearchName').attr('data-id');
             var name = $('#txtSearchName').val();
 
@@ -291,18 +269,6 @@
             $('#customer input[type=text]').attr('data-id', id);
             $('#mainModal').modal('hide');
 
-        })
-
-
-
+        });
     });
-
-
 </script>
-
-
-
-
-
-
-

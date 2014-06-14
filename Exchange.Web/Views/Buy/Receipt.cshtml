@@ -1,154 +1,147 @@
-﻿@model Exchange.Web.Models.BuyModel
+﻿@using Exchange.Core.Entities
+@model Exchange.Web.Models.BuyModel
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
 <html>
-<head>
-</head>
-<body>
+    <head>
+    </head>
+    <body>
 
-    <div>
+        <div>
 
-        <table font="8Pin Matrix" size="9" width="300" cellpadding="0.5">
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">PURCHASE RECEIPT</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">Name : @Model.CompanyName</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">Branch : @Model.StoreName</p>
-                    @*<p font="8Pin Matrix" size="9">Telephone NO : @Model.TelephoneNo</p>*@
-                </td>
-            </tr>
-           
-
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">Name : @Model.Customer</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">Invoice No : @Model.InvoiceNo</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">Date Issued : @DateTime.Now.ToString("MM/dd/yyyy HH:ss")</p>
-                </td>
-            </tr>
-        </table>
-
-
-        <table font="8Pin Matrix" size="9" width="300" vertical-align="left" widths="5;2;2;2;2" cellpadding="0.5">
-            <tr>
-                <td><p font="8Pin Matrix" size="9">ITEM</p></td>
-                <td><p font="8Pin Matrix" size="9">QTY</p></td>
-                <td><p font="8Pin Matrix" size="9">GRAMS</p></td>
-                <td><p font="8Pin Matrix" size="9">RATE</p></td>
-                <td><p font="8Pin Matrix" size="9">COST</p></td>
-            </tr>
-            <tr>
-                <td colspan="5">--------------------------------------------------------------------------</td>
-            </tr>
-
-            @foreach (var purchase in Model.Purchases)
-            {
+            <table font="8Pin Matrix" size="9" width="300" cellpadding="0.5">
                 <tr>
-                    <td><p font="8Pin Matrix" size="9">@purchase.Product.Code : @purchase.Product.Name</p></td>
-                    <td><p font="8Pin Matrix" size="9">@purchase.Quantity</p></td>
-                    <td><p font="8Pin Matrix" size="9">@purchase.Grams</p></td>
-                    <td><p font="8Pin Matrix" size="9">@purchase.Rate</p></td>
-                    <td><p font="8Pin Matrix" size="9">@purchase.Cost</p></td>
+                    <td>
+                        <p font="8Pin Matrix" size="9">PURCHASE RECEIPT</p>
+                    </td>
                 </tr>
-            }
-            <tr>
-                <td colspan="5">--------------------------------------------------------------------------</td>
-            </tr>
-            <tr>
-                <td><p font="8Pin Matrix" size="9"></p></td>
-                <td><p font="8Pin Matrix" size="9"></p></td>
-                <td><p font="8Pin Matrix" size="9"></p></td>
-                <td>
-                    <p font="8Pin Matrix" size="9">Sub Total</p>
-                    <p font="8Pin Matrix" size="9">Bonus</p>
-                    <p font="8Pin Matrix" size="9">Total</p>
-                </td>
-                <td>
-                    <p font="8Pin Matrix" size="9">@Model.SubTotal</p>
-                    <p font="8Pin Matrix" size="9">@Model.TotalBonus</p>
-                    <p font="8Pin Matrix" size="9">@Model.GrandTotal</p>
-                </td>
-            </tr>
-        </table>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Name : @Model.CompanyName</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Branch : @Model.StoreName</p>
+                        @*<p font="8Pin Matrix" size="9">Telephone NO : @Model.TelephoneNo</p>*@
+                    </td>
+                </tr>
 
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Name : @Model.Customer</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Invoice No : @Model.InvoiceNo</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Date Issued : @DateTime.Now.ToString("MM/dd/yyyy HH:ss")</p>
+                    </td>
+                </tr>
+            </table>
 
-        <table font="8Pin Matrix" size="9" width="300" cellpadding="0.5">
-            <tr>              
-                <td>
-                    <p font="8Pin Matrix" size="9">@Model.Customer</p>
-                </td>
-            </tr>
-            <tr>        
-                <td>
-                    <p font="8Pin Matrix" size="9">Customer</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">@Model.Cashier</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">Cashier</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">@Model.Appraiser</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p font="8Pin Matrix" size="9">Appraiser</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div>
-                        <p font="8Pin Matrix" size="9" align="center" style="vertical-align:central">
-                            NO RETURN POLICY
-                        </p>
-                        <p font="8Pin Matrix" size="9">
-                            DISCLAIMER:
-                        </p>
-                        <p font="8Pin Matrix" size="9">
-                            By signing this document, I declare that I am legally entitled to sell the item/s described above on my own free will. I further agree to the cash value appraised and acknowledge to have received the full amount from The Gold Exchange. Ownership have been fully transferred to the Gold Exchange and I waive all my rights and claims to the item/s above.
-                        </p>
-                        <p font="8Pin Matrix" size="9">
-                            PAGTATATUWA:
-                        </p>
-                        <p font="8Pin Matrix" size="9">
-                            Sa paglagda ko sa dokumentong ito, ipinapatunay ko na ako ay my legal na karapatan na ipagbili ang mga kalakal na nakalista sa ibabaw. Ang aking karapatan sa mga kalakal na nakasaad ay ipinapasa ko na sa The Gold Exchange kapalit ng katumbas na halagang salapi na ibinayad sa akin. Ang pagmamay-ari at karapatan sa mga kalakal na ito ay ipinapasa ko na sa The Gold Exchange.
-                        </p>
-                    </div>
-                </td>
-            </tr>
-        </table>
+            <table font="8Pin Matrix" size="9" width="300" vertical-align="left" widths="5;2;2;2;2" cellpadding="0.5">
+                <tr>
+                    <td><p font="8Pin Matrix" size="9">ITEM</p></td>
+                    <td><p font="8Pin Matrix" size="9">QTY</p></td>
+                    <td><p font="8Pin Matrix" size="9">GRAMS</p></td>
+                    <td><p font="8Pin Matrix" size="9">RATE</p></td>
+                    <td><p font="8Pin Matrix" size="9">COST</p></td>
+                </tr>
+                <tr>
+                    <td colspan="5">--------------------------------------------------------------------------</td>
+                </tr>
 
+                @foreach (Purchase purchase in Model.Purchases)
+                {
+                    <tr>
+                        <td><p font="8Pin Matrix" size="9">@purchase.Product.Code : @purchase.Product.Name</p></td>
+                        <td><p font="8Pin Matrix" size="9">@purchase.Quantity</p></td>
+                        <td><p font="8Pin Matrix" size="9">@purchase.Grams</p></td>
+                        <td><p font="8Pin Matrix" size="9">@purchase.Rate</p></td>
+                        <td><p font="8Pin Matrix" size="9">@purchase.Cost</p></td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="5">--------------------------------------------------------------------------</td>
+                </tr>
+                <tr>
+                    <td><p font="8Pin Matrix" size="9"></p></td>
+                    <td><p font="8Pin Matrix" size="9"></p></td>
+                    <td><p font="8Pin Matrix" size="9"></p></td>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Sub Total</p>
+                        <p font="8Pin Matrix" size="9">Bonus</p>
+                        <p font="8Pin Matrix" size="9">Total</p>
+                    </td>
+                    <td>
+                        <p font="8Pin Matrix" size="9">@Model.SubTotal</p>
+                        <p font="8Pin Matrix" size="9">@Model.TotalBonus</p>
+                        <p font="8Pin Matrix" size="9">@Model.GrandTotal</p>
+                    </td>
+                </tr>
+            </table>
 
-    </div>
-</body>
+            <table font="8Pin Matrix" size="9" width="300" cellpadding="0.5">
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">@Model.Customer</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Customer</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">@Model.Cashier</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Cashier</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">@Model.Appraiser</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p font="8Pin Matrix" size="9">Appraiser</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <p font="8Pin Matrix" size="9" align="center" style="vertical-align: central">
+                                NO RETURN POLICY
+                            </p>
+                            <p font="8Pin Matrix" size="9">
+                                DISCLAIMER:
+                            </p>
+                            <p font="8Pin Matrix" size="9">
+                                By signing this document, I declare that I am legally entitled to sell the item/s described above on my own free will. I further agree to the cash value appraised and acknowledge to have received the full amount from The Gold Exchange. Ownership have been fully transferred to the Gold Exchange and I waive all my rights and claims to the item/s above.
+                            </p>
+                            <p font="8Pin Matrix" size="9">
+                                PAGTATATUWA:
+                            </p>
+                            <p font="8Pin Matrix" size="9">
+                                Sa paglagda ko sa dokumentong ito, ipinapatunay ko na ako ay my legal na karapatan na ipagbili ang mga kalakal na nakalista sa ibabaw. Ang aking karapatan sa mga kalakal na nakasaad ay ipinapasa ko na sa The Gold Exchange kapalit ng katumbas na halagang salapi na ibinayad sa akin. Ang pagmamay-ari at karapatan sa mga kalakal na ito ay ipinapasa ko na sa The Gold Exchange.
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
 </html>
-
-
-

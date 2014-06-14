@@ -1,23 +1,22 @@
-﻿var shoppe = function () {
+﻿var shoppe = function() {
     return {
-        create: function (url) {
+        create: function(url) {
             window.location = url;
         },
-        manage: function (url) {
+        manage: function(url) {
             window.location = url;
         },
-        remove: function(id, action)
-        {
+        remove: function(id, action) {
             $.ajax({
                 url: action,
                 type: "post",
                 data: { id: id },
-                complete: function (data) {
+                complete: function(data) {
                 },
-                error: function (data) {
+                error: function(data) {
                     alert('error');
                 },
-                success: function (data) {
+                success: function(data) {
                     //deleted
                     if (data.code == '002') {
                         $('#mainModal').modal('hide');
@@ -29,7 +28,7 @@
                         $("#modalConfirmation").modal('hide');
                         $("#panel-status").delay(20000).fadeOut('slow');
                     }
-                        //error
+                    //error
                     else {
                         $('#alert').removeClass('hide');
                         $('#notification').empty().append('Error has occured!' + data.message);
@@ -37,22 +36,22 @@
                 }
             });
         },
-        save: function (action) {
+        save: function(action) {
             $.ajax({
                 url: action,
                 type: "post",
                 cache: false,
                 data: $('#transaction form').serialize(),
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#transaction form').validate().form();
                 },
-                complete: function (data) {
+                complete: function(data) {
                 },
-                error: function (data) {
+                error: function(data) {
                     $('#alert').removeClass('hide');
                     $('#notification').empty().append('Error has occured!' + data.message);
                 },
-                success: function (data) {
+                success: function(data) {
                     //saved
                     if (data.code == '000') {
                         $('#mainModal').modal('hide');
@@ -62,61 +61,57 @@
                         $('#general-status').empty().append(data.message + data.content);
                         $('#alert').addClass('hide');
                     }
-                        //invalid
+                    //invalid
                     else if (data.code == "007") {
                         $('#alert').removeClass('hide');
                     }
-                        //existed
+                    //existed
                     else if (data.code == "003") {
                         $('#alert').removeClass('hide');
                         $('#notification').empty().append('Item already exists!');
                     }
-                        //error
+                    //error
                     else if (data.code == "005") {
                         $('#alert').removeClass('hide');
                         $('#notification').empty().append('Error has occured!' + data.message);
                     }
-
                 }
             });
         },
-        saveChanges: function (action) {
+        saveChanges: function(action) {
             $.ajax({
                 url: action,
                 type: "post",
                 data: $('#transaction form').serialize(),
-                beforeSend: function () {
+                beforeSend: function() {
                     $('#transaction form').validate().form();
                 },
-                complete: function (data) {
+                complete: function(data) {
                 },
-                error: function (data) {
+                error: function(data) {
                     $('#alert').removeClass('hide');
                     $('#notification').empty().append('Error has occured!' + data.message);
                 },
-                success: function (data) {
+                success: function(data) {
                     //modified
                     if (data.code == '001') {
                         //add notification
                         $('#panel-status').removeClass().addClass('panel fade in panel-warning');
                         $('#general-status').empty().append(data.message + data.content);
-                        $('#alert').addClass('hide')
-                 
+                        $('#alert').addClass('hide');
                     }
-                        //invalid
+                    //invalid
                     else if (data.code == "007") {
                         $('#alert').removeClass('hide').removeClass('alert-warning').fadeIn().addClass('alert-danger');
                         $('#alert span').remove();
-                     
-                     
                     }
-                        //existed
+                    //existed
                     else if (data.code == "003") {
                         $('#alert').removeClass('hide').removeClass('alert-danger').addClass('alert-warning');
                         $('#notification').addClass('small alert-warning').empty().append('<ul><li>No changes made.</li></ul>');
-                        $('#panel-status').addClass('hide')
+                        $('#panel-status').addClass('hide');
                     }
-                        //error
+                    //error
                     else if (data.code == "005") {
                         $('#alert').removeClass('hide');
                         $('#notification').empty().append('Error has occured!');
@@ -124,122 +119,105 @@
                 }
             });
         },
-        valdiateCode: function (param,action) {
+        valdiateCode: function(param, action) {
             $.ajax({
                 url: action,
                 type: "post",
                 data: { param: param },
-                complete: function (data) {
+                complete: function(data) {
                 },
-                error: function (data) {
+                error: function(data) {
                     alert(data.code);
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data.code == '008') {
                         $('#status').empty().append('Code is available!');
                         $('#status').addClass('alert').removeClass('alert-warning').addClass('alert-success').addClass('fade-in');
-                    }
-                    else if (data.code == '003') {
+                    } else if (data.code == '003') {
                         $('#status').empty().append('Code already exists!');
                         $('#status').addClass('alert').removeClass('alert-success').addClass('alert-warning').addClass('fade-in');
-                    }
-                    else {
+                    } else {
                         $('#status').empty().append('Verify if Code exists.!');
                         $('#status').removeClass('alert').removeClass('alert-warning').removeClass('alert-success').removeClass('fade-in');
                     }
                 }
             });
         },
-        searchDataTable: function(param){
+        searchDataTable: function(param) {
             $('#DataTable').jtable('load', {
                 searchString: param
             });
         },
-        searchDatTableById: function(id){
+        searchDatTableById: function(id) {
             $('#DataTable').jtable('load', {
                 id: id != "" ? id : "0"
             });
         },
-        goBack: function ()
-        {
+        goBack: function() {
             window.history.back();
         }
-
-
     };
 }();
 
-
-
-$(function () {
-
-
-    
+$(function() {
     var create = $("#New").val();
     var manage = $("#Manage").val();
 
     $('#DataTable').tooltip({
         selector: "[data-toggle=tooltip]",
         container: "body"
-    })
-   
+    });
     $(".combobox").select2({
         placeholder: "Select one",
         allowClear: true
     });
     //search
-    $('#btnSearch').click(function (e) {
+    $('#btnSearch').click(function(e) {
         e.preventDefault();
         shoppe.searchDataTable($('#searchString').val());
         return false;
     });
     //search
-    $('div.alphabet ul li a').click(function (e) {
+    $('div.alphabet ul li a').click(function(e) {
         e.preventDefault();
-        shoppe.searchDataTable($(this).attr('id'))
+        shoppe.searchDataTable($(this).attr('id'));
         return false;
     });
     //activate search
     $('#btnSearch').click();
     //new page for new
-    $("#btnNew").click(function () {
+    $("#btnNew").click(function() {
         shoppe.create(create);
         return false;
     });
     //manage
-    $("#btnManage").click(function () {
+    $("#btnManage").click(function() {
         shoppe.create(manage);
         return false;
     });
     //delete
-    $("#btnDelete").click(function (event) {
+    $("#btnDelete").click(function(event) {
         event.preventDefault();
         shoppe.remove($('#Id').val(), $('#Delete').val());
     });
     //save
-    $("#btnSave").click(function (event) {
+    $("#btnSave").click(function(event) {
         event.preventDefault();
         shoppe.save($('#New').val());
     });
     //save changes
-    $("#btnSaveChanges").click(function (event) {
+    $("#btnSaveChanges").click(function(event) {
         event.preventDefault();
         shoppe.saveChanges($('#Manage').val());
     });
     //check code if exists
-    $("#Code").focusout(function () {
+    $("#Code").focusout(function() {
         event.preventDefault();
-        shoppe.valdiateCode($("#Code").val(),$("#CheckAvailability").val());
+        shoppe.valdiateCode($("#Code").val(), $("#CheckAvailability").val());
     });
     //cancel
-    $("#btnCancel").click(function (event) {
+    $("#btnCancel").click(function(event) {
         event.preventDefault();
         shoppe.goBack();
     });
-
-
-
-
-
-   
 });

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Exchange.NHibernateBase.Mapping
 {
-    public class PurchaseMap: ClassMap<Purchase>
+    public class PurchaseMap : ClassMap<Purchase>
     {
-        public PurchaseMap ()
+        public PurchaseMap()
         {
             Table("Purchase");
             Id(x => x.Id);
@@ -21,16 +17,15 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.Bonus);
             Map(x => x.Total);
             Map(x => x.Description);
-          
+
             Map(x => x.DateCreated);
             Map(x => x.DateModified);
             Map(x => x.CreatedBy);
             Map(x => x.ModifiedBy);
-      
+
             References(x => x.Invoice, "Invoice_Id");
             References(x => x.Product, "Product_Id");
             References(x => x.SecurityCode, "SecurityCode_Id");
-	    }
-        
+        }
     }
 }

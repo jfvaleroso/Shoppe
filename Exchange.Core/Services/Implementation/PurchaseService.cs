@@ -1,85 +1,90 @@
-﻿using System;
+﻿using Exchange.Core.Entities;
+using Exchange.Core.Repositories;
+using Exchange.Core.Services.IServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Exchange.Core.Services.IServices;
-using Exchange.Core.Entities;
-using Exchange.Core.Repositories;
 
 namespace Exchange.Core.Services.Implementation
 {
-    public class PurchaseService: IPurchaseService
+    public class PurchaseService : IPurchaseService
     {
         #region Constructor
-        private readonly IPurchaseRepository purchaseRepository;
+
+        private readonly IPurchaseRepository _purchaseRepository;
+
         public PurchaseService(IPurchaseRepository purchaseRepository)
         {
-            this.purchaseRepository = purchaseRepository;
+            _purchaseRepository = purchaseRepository;
         }
-        #endregion
+
+        #endregion Constructor
+
         #region CRUD
+
         public void Save(Purchase entity)
         {
-            this.purchaseRepository.Save(entity);
+            _purchaseRepository.Save(entity);
         }
 
         public Guid Create(Purchase entity)
         {
-            return this.purchaseRepository.Create(entity);
+            return _purchaseRepository.Create(entity);
         }
 
         public void SaveChanges(Purchase entity)
         {
-            this.purchaseRepository.Create(entity);
+            _purchaseRepository.Create(entity);
         }
 
         public void SaveOrUpdate(Purchase entity)
         {
-            this.purchaseRepository.SaveOrUpdate(entity);
+            _purchaseRepository.SaveOrUpdate(entity);
         }
 
         public bool Delete(Guid id)
         {
             try
             {
-                this.purchaseRepository.Delete(id);
+                _purchaseRepository.Delete(id);
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
-        #endregion
+
+        #endregion CRUD
+
         #region Search and Filter
+
         public Purchase GetDataById(Guid id)
         {
-            return this.purchaseRepository.Get(id);
+            return _purchaseRepository.Get(id);
         }
 
         public Purchase GetByExpression(Purchase entity)
         {
-            return this.purchaseRepository.GetByExpression(x => x.Product.Equals(entity.Product));
+            return _purchaseRepository.GetByExpression(x => x.Product.Equals(entity.Product));
         }
+
         public List<Purchase> GetAllData()
         {
-            return this.purchaseRepository.GetAll().ToList();
+            return _purchaseRepository.GetAll().ToList();
         }
+
         public List<Purchase> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {
-            return this.purchaseRepository.GetDataWithPaging(pageNumber, pageSize, out total);
+            return _purchaseRepository.GetDataWithPaging(pageNumber, pageSize, out total);
         }
 
-        public List<Purchase> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
+        public List<Purchase> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize,
+            out long total)
         {
-            return this.purchaseRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+            return _purchaseRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
         }
-        #endregion
 
-
-      
-
-       
+        #endregion Search and Filter
     }
 }

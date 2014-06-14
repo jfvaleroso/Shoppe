@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Exchange.Web.Controllers
 {
@@ -15,22 +11,25 @@ namespace Exchange.Web.Controllers
         {
             return View();
         }
+
         public ActionResult GenericError()
         {
             return View();
         }
+
         public ActionResult AccessDenied()
         {
             return View();
         }
+
         public ActionResult Forbidden()
         {
             return View();
         }
+
         public ActionResult InternalServerError()
         {
             return View();
         }
-
     }
 }

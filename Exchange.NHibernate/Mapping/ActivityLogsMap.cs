@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Exchange.NHibernateBase.Mapping
@@ -17,9 +13,6 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.Description);
             Map(x => x.ExecutedBy);
             Map(x => x.Timestamp);
-
         }
-
-
     }
 }

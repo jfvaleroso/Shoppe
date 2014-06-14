@@ -12,9 +12,9 @@
         <div class="panel-body">
 
             <div class="form-group">
-              
+
                 <div class="row">
-                    
+
                     <div class="col-xs-3">
                         <div class="editor-label">
                             <label>Customer Name</label>
@@ -29,7 +29,7 @@
                             <label>Invoice Number</label>
                         </div>
                         <div class="editor-field" id="invoiceNo">
-                            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.InvoiceNo, new {@class = "form-control", @readonly = "readonly"})
                             <p class="small">Invoice number.</p>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             <label>Appraiser</label>
                         </div>
                         <div class="editor-field" id="appraiser">
-                            @Html.TextBoxFor(model => model.Appraiser, new { @class = "form-control typeahead", @placeholder = "Search appraiser", @data_provide = "typeahead", @autocomplete = "off" })
+                            @Html.TextBoxFor(model => model.Appraiser, new {@class = "form-control typeahead", @placeholder = "Search appraiser", @data_provide = "typeahead", @autocomplete = "off"})
                             @Html.HiddenFor(model => model.AppraiserId)
                             <p class="small">Appraiser</p>
                         </div>
@@ -50,15 +50,12 @@
                         <div class="editor-field" id="cashier">
                             @Html.HiddenFor(model => model.StoreId)
                             @Html.HiddenFor(model => model.CashierId)
-                            @Html.TextBoxFor(model => model.Cashier, new { @class = "form-control", @readonly="readonly" })
+                            @Html.TextBoxFor(model => model.Cashier, new {@class = "form-control", @readonly = "readonly"})
                             <p class="small">Cashier.</p>
                         </div>
                     </div>
-                
                 </div>
             </div>
-
-
 
             <table id="invoice" class="table table-responsive table-condensed small">
                 <thead>
@@ -75,22 +72,22 @@
                 </thead>
                 <tr class="invoice-item">
                     <td><span class="glyphicon glyphicon-align-justify"></span></td>
-                    <td class="product" style="width:180px;padding-right:5px" >
-                        @Html.DropDownListFor(model => model.ProductId, Model.ProductList, string.Empty, new { @class = "combobox combobox-medium" })
+                    <td class="product" style="padding-right: 5px; width: 180px;">
+                        @Html.DropDownListFor(model => model.ProductId, Model.ProductList, string.Empty, new {@class = "combobox combobox-medium"})
                     </td>
-                    <td class="quantity"><input class="number" data-toggle="tooltip" title="modify quantity" type="text" /></td>
+                    <td class="quantity"><input class="number" data-toggle="tooltip" title="modify quantity" type="text" readonly="readonly" /></td>
                     <td class="grams"><input class="number" data-toggle="tooltip" title="modify quantity" type="text" /></td>
                     <td class="rate"><input class="number" data-toggle="tooltip" title="modify rate" type="text" readonly="readonly" /></td>
                     <td class="cost"><input class="number" type="text" readonly="readonly" /></td>
-                    <td class="bonus">                   
+                    <td class="bonus">
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <button class="btn btn-success" type="submit" id="btnAddBonus">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </button>
                             </span>
-                            <input type="text" class="form-control number" readonly="readonly">       
-                            <span class="percent" style="padding:0px 5px"> 0% </span>               
+                            <input type="text" class="form-control number" readonly="readonly">
+                            <span class="percent" style="padding: 0px 5px"> 0% </span>
                         </div>
                     </td>
                     <td class="total"><input class="number" type="text" readonly="readonly" /></td>
@@ -117,25 +114,19 @@
                         <div id="grand_total"><h3><input type="text" readonly="readonly" /></h3><span>Grand Total:</span></div>
                     </td>
                 </tr>
-
-
             </table>
-           <button class="btn btn-success" id="btnAdd"><span class="glyphicon glyphicon-plus"></span> New line</button>
-
+            <button class="btn btn-success" id="btnAdd"><span class="glyphicon glyphicon-plus"></span> New line</button>
         </div>
-
     </div>
     <div class="right">
-        
+
         <button id="btnSaveAndApprove" class="btn btn-large btn-success" type="button">
             Save and Approve
         </button>
         <button id="btnCancelInvoice" class="btn btn-large btn-danger" type="button">
             Cancel
         </button>
-        </div>
+    </div>
 </div>
-
-
 
 @Html.Hidden("AddCustomer", Url.Action("AddCustomer"))

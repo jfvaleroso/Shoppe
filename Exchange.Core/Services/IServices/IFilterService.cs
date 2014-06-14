@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Exchange.Core.Services.IServices
 {
-    public interface IFilterService<TEntity> 
+    public interface IFilterService<TEntity>
     {
         List<TEntity> GetDataListByStatus(bool active);
     }

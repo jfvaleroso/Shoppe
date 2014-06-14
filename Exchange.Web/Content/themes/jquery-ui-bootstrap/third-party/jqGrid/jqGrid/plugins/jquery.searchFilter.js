@@ -93,7 +93,7 @@
  *             search:       $("#mySearch").searchFilter().search();  // invokes onSearch, passing it a ruleGroup object
  *             reset:        $("#mySearch").searchFilter().reset();   // resets rules and invokes onReset
  *             close:        $("#mySearch").searchFilter().close();   // without an onClose handler, equivalent to $("#mySearch").hide();
- * 
+ *
  * NOTE: You can get the jQuery object back from the SearchFilter object by chaining .$
  *     Example
  *         $("#mySearch").searchFilter().add().add().reset().$.hide();
@@ -108,58 +108,50 @@
  */
 
 jQuery.fn.searchFilter = function(fields, options) {
-
     function SearchFilter(jQ, fields, options) {
-
-
         //---------------------------------------------------------------
         // PUBLIC VARS
         //---------------------------------------------------------------
 
-        this.$ = jQ; // makes the jQuery object available as .$ from the return value
-
+        $ = jQ; // makes the jQuery object available as .$ from the return value
 
         //---------------------------------------------------------------
         // PUBLIC FUNCTIONS
         //---------------------------------------------------------------
 
-        this.add = function(i) {
+        add = function(i) {
             if (i == null) jQ.find(".ui-add-last").click();
             else jQ.find(".sf:eq(" + i + ") .ui-add").click();
             return this;
         };
 
-        this.del = function(i) {
+        del = function(i) {
             if (i == null) jQ.find(".sf:last .ui-del").click();
             else jQ.find(".sf:eq(" + i + ") .ui-del").click();
             return this;
         };
 
-        this.search = function(e) {
+        search = function(e) {
             jQ.find(".ui-search").click();
             return this;
         };
 
-        this.reset = function(o) {
-            if(o===undefined) o = false;
-            jQ.find(".ui-reset").trigger('click',[o]);
+        reset = function(o) {
+            if (o === undefined) o = false;
+            jQ.find(".ui-reset").trigger('click', [o]);
             return this;
         };
 
-        this.close = function() {
+        close = function() {
             jQ.find(".ui-closer").click();
             return this;
         };
 
-
-
-        //---------------------------------------------------------------
+//---------------------------------------------------------------
         // "CONSTRUCTOR" (in air quotes)
         //---------------------------------------------------------------
 
         if (fields != null) { // type coercion matches undefined as well as null
-
-
             //---------------------------------------------------------------
             // UTILITY FUNCTIONS
             //---------------------------------------------------------------
@@ -192,14 +184,13 @@ jQuery.fn.searchFilter = function(fields, options) {
                 var jElem = jQ.find("tr.sf td.data " + selector);
                 if (jElem[0] != null) {
                     jQuery.each(events, function() {
-                        if (this.data != null)
-                            jElem.bind(this.type, this.data, this.fn);
+                        if (data != null)
+                            jElem.bind(type, data, fn);
                         else
-                            jElem.bind(this.type, this.fn);
+                            jElem.bind(type, fn);
                     });
                 }
             }
-
 
             //---------------------------------------------------------------
             // SUPER IMPORTANT PRIVATE VARS
@@ -211,14 +202,13 @@ jQuery.fn.searchFilter = function(fields, options) {
             // this is keeps track of the last asynchronous setup
             var highest_late_setup = -1;
 
-
             //---------------------------------------------------------------
             // CREATION PROCESS STARTS
             //---------------------------------------------------------------
 
             // generate the global ops
             var gOps_html = "";
-            jQuery.each(opts.groupOps, function() { gOps_html += buildOpt(this.op, this.text); });
+            jQuery.each(opts.groupOps, function() { gOps_html += buildOpt(op, text); });
             gOps_html = "<select name='groupOp'>" + gOps_html + "</select>";
 
             /* original content - doesn't minify very well
@@ -278,7 +268,7 @@ jQuery.fn.searchFilter = function(fields, options) {
 
             // generate the defaults
             var default_ops_html = "";
-            jQuery.each(opts.operators, function() { default_ops_html += buildOpt(this.op, this.text); });
+            jQuery.each(opts.operators, function() { default_ops_html += buildOpt(op, text); });
             default_ops_html = buildSel("default", default_ops_html, true);
             jOps.append(default_ops_html);
             var default_data_html = "<input type='text' class='default' style='display:none;' />";
@@ -290,27 +280,27 @@ jQuery.fn.searchFilter = function(fields, options) {
             var has_custom_data = false;
             jQuery.each(fields, function(i) {
                 var field_num = i;
-                fields_html += buildOpt(this.itemval, this.text);
+                fields_html += buildOpt(itemval, text);
                 // add custom ops if they exist
-                if (this.ops != null) {
+                if (ops != null) {
                     has_custom_ops = true;
                     var custom_ops = "";
-                    jQuery.each(this.ops, function() { custom_ops += buildOpt(this.op, this.text); });
+                    jQuery.each(ops, function() { custom_ops += buildOpt(op, text); });
                     custom_ops = buildSel("field" + field_num, custom_ops, true);
                     jOps.append(custom_ops);
                 }
                 // add custom data if it is given
-                if (this.dataUrl != null) {
+                if (dataUrl != null) {
                     if (i > highest_late_setup) highest_late_setup = i;
                     has_custom_data = true;
-                    var dEvents = this.dataEvents;
-                    var iEvent = this.dataInit;
-                    var bs = this.buildSelect;
+                    var dEvents = dataEvents;
+                    var iEvent = dataInit;
+                    var bs = buildSelect;
                     jQuery.ajax(jQuery.extend({
-                        url : this.dataUrl,
+                        url: dataUrl,
                         complete: function(data) {
                             var $d;
-                            if(bs != null) $d =jQuery("<div />").append(bs(data));
+                            if (bs != null) $d = jQuery("<div />").append(bs(data));
                             else $d = jQuery("<div />").append(data.responseText);
                             $d.find("select").addClass("field" + field_num).hide();
                             jData.append($d.html());
@@ -320,48 +310,50 @@ jQuery.fn.searchFilter = function(fields, options) {
                                 jQ.find("tr.sf td.fields select[name='field']").change();
                             }
                         }
-                    },opts.ajaxSelectOptions));
-                } else if (this.dataValues != null) {
+                    }, opts.ajaxSelectOptions));
+                } else if (dataValues != null) {
                     has_custom_data = true;
                     var custom_data = "";
-                    jQuery.each(this.dataValues, function() { custom_data += buildOpt(this.value, this.text); });
+                    jQuery.each(dataValues, function() { custom_data += buildOpt(value, text); });
                     custom_data = buildSel("field" + field_num, custom_data, true);
                     jData.append(custom_data);
-                } else if (this.dataEvents != null || this.dataInit != null) {
+                } else if (dataEvents != null || dataInit != null) {
                     has_custom_data = true;
                     var custom_data = "<input type='text' class='field" + field_num + "' />";
                     jData.append(custom_data);
                 }
                 // attach events to data if they exist
-                if (this.dataInit != null && i != highest_late_setup)
-                    initData(".field" + i, this.dataInit);
-                if (this.dataEvents != null && i != highest_late_setup)
-                    bindDataEvents(".field" + i, this.dataEvents);
+                if (dataInit != null && i != highest_late_setup)
+                    initData(".field" + i, dataInit);
+                if (dataEvents != null && i != highest_late_setup)
+                    bindDataEvents(".field" + i, dataEvents);
             });
             fields_html = "<select name='field'>" + fields_html + "</select>";
             jFields.append(fields_html);
 
             // setup the field select with an on-change event if there are custom ops or data
             var jFSelect = jFields.find("select[name='field']");
-            if (has_custom_ops) jFSelect.change(function(e) {
-                var index = e.target.selectedIndex;
-                var td = jQuery(e.target).parents("tr.sf").find("td.ops");
-                td.find("select").removeAttr("name").hide(); // disown and hide all elements
-                var jElem = td.find(".field" + index);
-                if (jElem[0] == null) jElem = td.find(".default"); // if there's not an element for that field, use the default one
-                jElem.attr("name", "op").show();
-                return false;
-            });
+            if (has_custom_ops)
+                jFSelect.change(function(e) {
+                    var index = e.target.selectedIndex;
+                    var td = jQuery(e.target).parents("tr.sf").find("td.ops");
+                    td.find("select").removeAttr("name").hide(); // disown and hide all elements
+                    var jElem = td.find(".field" + index);
+                    if (jElem[0] == null) jElem = td.find(".default"); // if there's not an element for that field, use the default one
+                    jElem.attr("name", "op").show();
+                    return false;
+                });
             else jOps.find(".default").attr("name", "op").show();
-            if (has_custom_data) jFSelect.change(function(e) {
-                var index = e.target.selectedIndex;
-                var td = jQuery(e.target).parents("tr.sf").find("td.data");
-                td.find("select,input").removeClass("vdata").hide(); // disown and hide all elements
-                var jElem = td.find(".field" + index);
-                if (jElem[0] == null) jElem = td.find(".default"); // if there's not an element for that field, use the default one
-                jElem.show().addClass("vdata");
-                return false;
-            });
+            if (has_custom_data)
+                jFSelect.change(function(e) {
+                    var index = e.target.selectedIndex;
+                    var td = jQuery(e.target).parents("tr.sf").find("td.data");
+                    td.find("select, input").removeClass("vdata").hide(); // disown and hide all elements
+                    var jElem = td.find(".field" + index);
+                    if (jElem[0] == null) jElem = td.find(".default"); // if there's not an element for that field, use the default one
+                    jElem.show().addClass("vdata");
+                    return false;
+                });
             else jData.find(".default").show().addClass("vdata");
             // go ahead and call the change event and setup the ops and data values
             if (has_custom_ops || has_custom_data) jFSelect.change();
@@ -382,8 +374,8 @@ jQuery.fn.searchFilter = function(fields, options) {
                     row.find("select[name='field']")[0].selectedIndex = 0;
                     row.find("select[name='op']")[0].selectedIndex = 0;
                     row.find(".data input").val(""); // blank all input values
-                    row.find(".data select").each(function() { this.selectedIndex = 0; }); // select first option on all selects
-                    row.find("select[name='field']").change(function(event){event.stopPropagation();}); // trigger any change events
+                    row.find(".data select").each(function() { selectedIndex = 0; }); // select first option on all selects
+                    row.find("select[name='field']").change(function(event) { event.stopPropagation(); }); // trigger any change events
                 }
                 return false;
             });
@@ -406,10 +398,10 @@ jQuery.fn.searchFilter = function(fields, options) {
                 if (opts.datepickerFix === true && jQuery.fn.datepicker !== undefined) { // using $.data to associate data with document elements is Not Good
                     row.find(".hasDatepicker").each(function() {
                         var settings = jQuery.data(this, "datepicker").settings;
-                        newRow.find("#" + this.id).unbind().removeAttr("id").removeClass("hasDatepicker").datepicker(settings);
+                        newRow.find("#" + id).unbind().removeAttr("id").removeClass("hasDatepicker").datepicker(settings);
                     });
                 }
-                newRow.find("select[name='field']").change(function(event){event.stopPropagation();} );
+                newRow.find("select[name='field']").change(function(event) { event.stopPropagation(); });
                 return false;
             });
             jQ.find(".ui-search").click(function(e) {
@@ -427,7 +419,7 @@ jQuery.fn.searchFilter = function(fields, options) {
                 ui.find(".sf").each(function(i) {
                     var tField = jQuery(this).find("select[name='field'] :selected").val();
                     var tOp = jQuery(this).find("select[name='op'] :selected").val();
-                    var tData = jQuery(this).find("input.vdata,select.vdata :selected").val();
+                    var tData = jQuery(this).find("input.vdata, select.vdata :selected").val();
                     tData += "";
                     if (!opts.stringResult) {
                         ruleGroup.rules.push({
@@ -436,7 +428,7 @@ jQuery.fn.searchFilter = function(fields, options) {
                             data: tData
                         });
                     } else {
-						tData = tData.replace(/\\/g,'\\\\').replace(/\"/g,'\\"');
+                        tData = tData.replace(/\\/g, '\\\\').replace(/\"/g, '\\"');
                         if (i > 0) ruleGroup += ",";
                         ruleGroup += "{\"field\":\"" + tField + "\",";
                         ruleGroup += "\"op\":\"" + tOp + "\",";
@@ -447,7 +439,7 @@ jQuery.fn.searchFilter = function(fields, options) {
                 opts.onSearch(ruleGroup);
                 return false;
             });
-            jQ.find(".ui-reset").click(function(e,op) {
+            jQ.find(".ui-reset").click(function(e, op) {
                 var ui = jQuery(jQ.selector);
                 ui.find(".ui-del").click(); // removes all filters, resets the last one
                 ui.find("select[name='groupOp']")[0].selectedIndex = 0; // changes the op back to the default one
@@ -463,14 +455,14 @@ jQuery.fn.searchFilter = function(fields, options) {
                 if (opts.datepickerFix === true && jQuery.fn.datepicker !== undefined) { // using $.data to associate data with document elements is Not Good
                     row.find(".hasDatepicker").each(function() {
                         var settings = jQuery.data(this, "datepicker").settings;
-                        newRow.find("#" + this.id).unbind().removeAttr("id").removeClass("hasDatepicker").datepicker(settings);
+                        newRow.find("#" + id).unbind().removeAttr("id").removeClass("hasDatepicker").datepicker(settings);
                     });
                 }
-                newRow.find("select[name='field']").change(function(event){event.stopPropagation();});
+                newRow.find("select[name='field']").change(function(event) { event.stopPropagation(); });
                 return false;
             });
 
-            this.setGroupOp = function(setting) {
+            setGroupOp = function(setting) {
                 /* a "setter" for groupping argument.
                  *  ("AND" or "OR")
                  *
@@ -484,14 +476,14 @@ jQuery.fn.searchFilter = function(fields, options) {
                  */
                 selDOMobj = jQ.find("select[name='groupOp']")[0];
                 var indexmap = {}, l = selDOMobj.options.length, i;
-                for (i=0; i<l; i++) {
+                for (i = 0; i < l; i++) {
                     indexmap[selDOMobj.options[i].value] = i;
                 }
                 selDOMobj.selectedIndex = indexmap[setting];
-                jQuery(selDOMobj).change(function(event){event.stopPropagation();});
+                jQuery(selDOMobj).change(function(event) { event.stopPropagation(); });
             };
 
-            this.setFilter = function(settings) {
+            setFilter = function(settings) {
                 /* a "setter" for an arbitrary SearchFilter's filter line.
                  * designed to abstract the DOM manipulations required to infer
                  * a particular filter is a fit to the search box.
@@ -512,29 +504,34 @@ jQuery.fn.searchFilter = function(fields, options) {
                  */
 
                 var o = settings['sfref'], filter = settings['filter'];
-                
+
                 // setting up valueindexmap that we will need to manipulate SELECT elements.
-                var fields = [], i, j , l, lj, li,
+                var fields = [],
+                    i,
+                    j,
+                    l,
+                    lj,
+                    li,
                     valueindexmap = {};
-                    // example of valueindexmap:
-                    // {'field1':{'index':0,'ops':{'eq':0,'ne':1}},'fieldX':{'index':1,'ops':{'eq':0,'ne':1},'data':{'true':0,'false':1}}},
-                    // if data is undefined it's a INPUT field. If defined, it's SELECT
+                // example of valueindexmap:
+                // {'field1':{'index':0,'ops':{'eq':0,'ne':1}},'fieldX':{'index':1,'ops':{'eq':0,'ne':1},'data':{'true':0,'false':1}}},
+                // if data is undefined it's a INPUT field. If defined, it's SELECT
                 selDOMobj = o.find("select[name='field']")[0];
-                for (i=0, l=selDOMobj.options.length; i<l; i++) {
-                    valueindexmap[selDOMobj.options[i].value] = {'index':i,'ops':{}};
+                for (i = 0, l = selDOMobj.options.length; i < l; i++) {
+                    valueindexmap[selDOMobj.options[i].value] = { 'index': i, 'ops': {} };
                     fields.push(selDOMobj.options[i].value);
                 }
-                for (i=0, li=fields.length; i < li; i++) {
-                    selDOMobj = o.find(".ops > select[class='field"+i+"']")[0];
+                for (i = 0, li = fields.length; i < li; i++) {
+                    selDOMobj = o.find(".ops > select[class='field" + i + "']")[0];
                     if (selDOMobj) {
-                        for (j=0, lj=selDOMobj.options.length; j<lj; j++) {
+                        for (j = 0, lj = selDOMobj.options.length; j < lj; j++) {
                             valueindexmap[fields[i]]['ops'][selDOMobj.options[j].value] = j;
                         }
                     }
-                    selDOMobj = o.find(".data > select[class='field"+i+"']")[0];
+                    selDOMobj = o.find(".data > select[class='field" + i + "']")[0];
                     if (selDOMobj) {
                         valueindexmap[fields[i]]['data'] = {}; // this setting is the flag that 'data' is contained in a SELECT
-                        for (j=0, lj=selDOMobj.options.length; j<lj; j++) {
+                        for (j = 0, lj = selDOMobj.options.length; j < lj; j++) {
                             valueindexmap[fields[i]]['data'][selDOMobj.options[j].value] = j;
                         }
                     }
@@ -543,14 +540,14 @@ jQuery.fn.searchFilter = function(fields, options) {
                 // preparsing the index values for SELECT elements.
                 var fieldvalue, fieldindex, opindex, datavalue, dataindex;
                 fieldvalue = filter['field'];
-				if (valueindexmap[fieldvalue]) {
-					fieldindex = valueindexmap[fieldvalue]['index'];
-				}
+                if (valueindexmap[fieldvalue]) {
+                    fieldindex = valueindexmap[fieldvalue]['index'];
+                }
                 if (fieldindex != null) {
                     opindex = valueindexmap[fieldvalue]['ops'][filter['op']];
-                    if(opindex === undefined) {
-                        for(i=0,li=options.operators.length; i<li;i++) {
-                            if(options.operators[i].op == filter.op ){
+                    if (opindex === undefined) {
+                        for (i = 0, li = options.operators.length; i < li; i++) {
+                            if (options.operators[i].op == filter.op) {
                                 opindex = i;
                                 break;
                             }
@@ -573,13 +570,14 @@ jQuery.fn.searchFilter = function(fields, options) {
                     if (o) {
                         o.selectedIndex = dataindex;
                     }
-					return true
+                    return true;
                 } else {
-					return false
-				}
-            }; // end of this.setFilter fn
+                    return false;
+                }
+            }; // end of setFilter fn
         } // end of if fields != null
     }
+
     return new SearchFilter(this, fields, options);
 };
 
@@ -587,10 +585,9 @@ jQuery.fn.searchFilter.version = '1.2.9';
 
 /* This property contains the default options */
 jQuery.fn.searchFilter.defaults = {
-
     /*
      * PROPERTY
-     * TYPE:        boolean 
+     * TYPE:        boolean
      * DESCRIPTION: clone a row if it is added from an existing row
      *              when false, any new added rows will be blank.
      */
@@ -598,7 +595,7 @@ jQuery.fn.searchFilter.defaults = {
 
     /*
      * PROPERTY
-     * TYPE:        boolean 
+     * TYPE:        boolean
      * DESCRIPTION: current version of datepicker uses a data store,
      *              which is incompatible with $().clone(true)
      */
@@ -609,14 +606,14 @@ jQuery.fn.searchFilter.defaults = {
      * DESCRIPTION: the function that will be called when the user clicks Reset
      * INPUT TYPE:  JS object if stringResult is false, otherwise is JSON string
      */
-    onReset: function(data) { alert("Reset Clicked. Data Returned: " + data) },
+    onReset: function(data) { alert("Reset Clicked. Data Returned: " + data); },
 
     /*
      * FUNCTION
      * DESCRIPTION: the function that will be called when the user clicks Search
      * INPUT TYPE:  JS object if stringResult is false, otherwise is JSON string
      */
-    onSearch: function(data) { alert("Search Clicked. Data Returned: " + data) },
+    onSearch: function(data) { alert("Search Clicked. Data Returned: " + data); },
 
     /*
      * FUNCTION
@@ -627,9 +624,9 @@ jQuery.fn.searchFilter.defaults = {
      */
     onClose: function(jElem) { jElem.hide(); },
 
-    /* 
+    /*
      * PROPERTY
-     * TYPE:        array of objects, each object has the properties op and text 
+     * TYPE:        array of objects, each object has the properties op and text
      * DESCRIPTION: the selectable operators that are applied between rules
      *              e.g. for {op:"AND", text:"all"}
      *                  the search filter box will say: match all rules
@@ -639,13 +636,12 @@ jQuery.fn.searchFilter.defaults = {
      */
     groupOps: [
         { op: "AND", text: "all" },
-        { op: "OR",  text: "any" }
+        { op: "OR", text: "any" }
     ],
 
-
-    /* 
+    /*
      * PROPERTY
-     * TYPE:        array of objects, each object has the properties op and text 
+     * TYPE:        array of objects, each object has the properties op and text
      * DESCRIPTION: the operators that will appear as drop-down options
      *              text will be the option text, and op will be the option value
      */
@@ -686,21 +682,21 @@ jQuery.fn.searchFilter.defaults = {
      * DESCRIPTION: the text that will be displayed in the reset button
      */
     resetText: "Reset",
-    
+
     /*
      * PROPERTY
      * TYPE:        string
      * DESCRIPTION: the text that will be displayed in the search button
      */
     searchText: "Search",
-    
+
     /*
      * PROPERTY
      * TYPE:        boolean
      * DESCRIPTION: a flag that, when set, will make the onSearch and onReset return strings instead of objects
      */
-    stringResult: true,    
-    
+    stringResult: true,
+
     /*
      * PROPERTY
      * TYPE:        string
@@ -712,5 +708,5 @@ jQuery.fn.searchFilter.defaults = {
      * TYPE:        object
      * DESCRIPTION: options to extend the ajax request
      */
-    ajaxSelectOptions : {}
+    ajaxSelectOptions: {}
 }; /* end of searchFilter */

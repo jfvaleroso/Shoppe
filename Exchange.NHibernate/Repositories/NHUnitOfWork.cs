@@ -1,47 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.UnitOfWork;
+﻿using Exchange.Core.UnitOfWork;
 using NHibernate;
+using System;
 
 namespace Exchange.NHibernateBase.Repositories
 {
     public class NHUnitOfWork : IUnitOfWork
     {
         /// <summary>
-        /// Gets current instance of the NhUnitOfWork.
-        /// It gets the right instance that is related to current thread.
+        ///     Gets current instance of the NhUnitOfWork.
+        ///     It gets the right instance that is related to current thread.
         /// </summary>
-        /// 
         [ThreadStatic]
         private static NHUnitOfWork _current;
-        public static NHUnitOfWork Current
-        {
-            get { return _current; }
-            set { _current = value; }
-        }
-
 
         /// <summary>
-        /// Gets Nhibernate session object to perform queries.
-        /// </summary>
-        public ISession Session { get; private set; }
-
-
-
-        /// <summary>
-        /// Reference to the session factory.
+        ///     Reference to the session factory.
         /// </summary>
         private readonly ISessionFactory _sessionFactory;
 
         /// <summary>
-        /// Reference to the currently running transcation.
+        ///     Reference to the currently running transcation.
         /// </summary>
         private ITransaction _transaction;
 
         /// <summary>
-        /// Creates a new instance of NhUnitOfWork.
+        ///     Creates a new instance of NhUnitOfWork.
         /// </summary>
         /// <param name="sessionFactory"></param>
         public NHUnitOfWork(ISessionFactory sessionFactory)
@@ -50,8 +33,19 @@ namespace Exchange.NHibernateBase.Repositories
             Session = _sessionFactory.OpenSession();
         }
 
+        public static NHUnitOfWork Current
+        {
+            get { return _current; }
+            set { _current = value; }
+        }
+
         /// <summary>
-        /// Opens database connection and begins transaction.
+        ///     Gets Nhibernate session object to perform queries.
+        /// </summary>
+        public ISession Session { get; private set; }
+
+        /// <summary>
+        ///     Opens database connection and begins transaction.
         /// </summary>
         public void BeginTransaction()
         {
@@ -69,7 +63,7 @@ namespace Exchange.NHibernateBase.Repositories
         }
 
         /// <summary>
-        /// Commits transaction and closes database connection.
+        ///     Commits transaction and closes database connection.
         /// </summary>
         public void Commit()
         {
@@ -77,18 +71,14 @@ namespace Exchange.NHibernateBase.Repositories
             {
                 if (_transaction.IsActive)
                     _transaction.Commit();
-
             }
             finally
             {
-
             }
         }
 
-
-
         /// <summary>
-        /// Rollbacks transaction and closes database connection.
+        ///     Rollbacks transaction and closes database connection.
         /// </summary>
         public void Rollback()
         {
@@ -99,7 +89,6 @@ namespace Exchange.NHibernateBase.Repositories
             }
             finally
             {
-
             }
         }
 
@@ -107,10 +96,5 @@ namespace Exchange.NHibernateBase.Repositories
         {
             Session.Close();
         }
-
-
     }
-
-
- 
 }

@@ -5,7 +5,7 @@
 }
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $('#DataTable').jtable({
             title: '',
             paging: true,
@@ -21,10 +21,10 @@
                     key: true,
                     list: false
                 },
-                 View: {
+                View: {
                     title: '',
                     width: '1.3%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = '<a data-toggle="tooltip" title="Click to manage." href=@Url.Action("Manage")/' + data.record.Id + '><span class="glyphicon glyphicon-th-list"></span></a>';
                         return $img;
                     }
@@ -44,18 +44,16 @@
 
             toolbar: {
                 items: [
-
-                    ]
+                ]
             }
 
         });
 
     });
-
 </script>
 @using (Html.BeginForm())
-{ 
-   <div class="row">
+{
+    <div class="row">
         <div class="col-lg-6">
             <div class="input-group">
                 <span class="input-group-btn">
@@ -82,7 +80,6 @@
     <div id="DataTable" class="small">
     </div>
 </div>
-
 
 @Html.Hidden("Id")
 @Html.Hidden("Item")

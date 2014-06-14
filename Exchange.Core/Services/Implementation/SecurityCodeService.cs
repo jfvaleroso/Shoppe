@@ -1,90 +1,100 @@
-﻿using System;
+﻿using Exchange.Core.Entities;
+using Exchange.Core.Repositories;
+using Exchange.Core.Services.IServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Exchange.Core.Services.IServices;
-using Exchange.Core.Entities;
-using Exchange.Core.Repositories;
 
 namespace Exchange.Core.Services.Implementation
 {
     public class SecurityCodeService : ISecurityCodeService
     {
         #region Constructor
-        private readonly ISecurityCodeRepository securityCodeRepository;
+
+        private readonly ISecurityCodeRepository _securityCodeRepository;
+
         public SecurityCodeService(ISecurityCodeRepository securityCodeRepository)
         {
-            this.securityCodeRepository = securityCodeRepository;
+            _securityCodeRepository = securityCodeRepository;
         }
-        #endregion
+
+        #endregion Constructor
+
         #region CRUD
+
         public void Save(SecurityCode entity)
         {
-            this.securityCodeRepository.Save(entity);
+            _securityCodeRepository.Save(entity);
         }
+
         public Guid Create(SecurityCode entity)
         {
-
-            return this.securityCodeRepository.Create(entity);
+            return _securityCodeRepository.Create(entity);
         }
+
         public void SaveChanges(SecurityCode entity)
         {
-            this.securityCodeRepository.SaveChanges(entity);
+            _securityCodeRepository.SaveChanges(entity);
         }
+
         public void SaveOrUpdate(SecurityCode entity)
         {
-            this.securityCodeRepository.SaveOrUpdate(entity);
+            _securityCodeRepository.SaveOrUpdate(entity);
         }
 
         public bool Delete(Guid productId)
         {
             try
             {
-                this.securityCodeRepository.Delete(productId);
+                _securityCodeRepository.Delete(productId);
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
-
-
         }
-        #endregion
+
+        #endregion CRUD
+
         #region Seach and Filter
-        public List<SecurityCode> GetDataListByStatus(bool isUsed)
-        {
-            return this.securityCodeRepository.Get(x => x.IsUsed.Equals(isUsed)).ToList();
-        }
+
         public SecurityCode GetDataById(Guid id)
         {
-            return this.securityCodeRepository.Get(id);
+            return _securityCodeRepository.Get(id);
         }
+
         public SecurityCode GetByExpression(SecurityCode entity)
         {
-            return this.securityCodeRepository.GetByExpression(x => x.PassCode.Equals(entity.PassCode));
+            return _securityCodeRepository.GetByExpression(x => x.PassCode.Equals(entity.PassCode));
         }
+
         public List<SecurityCode> GetAllData()
         {
-            return this.securityCodeRepository.GetAll().ToList();
+            return _securityCodeRepository.GetAll().ToList();
         }
-     
+
         public List<SecurityCode> GetDataListWithPaging(int pageNumber, int pageSize, out long total)
         {
-            return this.securityCodeRepository.GetDataWithPaging(pageNumber, pageSize, out total);
-        } 
-        public List<SecurityCode> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize, out long total)
-        {
-            return this.securityCodeRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+            return _securityCodeRepository.GetDataWithPaging(pageNumber, pageSize, out total);
         }
 
-        #endregion
+        public List<SecurityCode> GetDataListWithPagingAndSearch(string searchString, int pageNumber, int pageSize,
+            out long total)
+        {
+            return _securityCodeRepository.GetDataWithPagingAndSearch(searchString, pageNumber, pageSize, out total);
+        }
 
+        public List<SecurityCode> GetDataListByStatus(bool isUsed)
+        {
+            return _securityCodeRepository.Get(x => x.IsUsed.Equals(isUsed)).ToList();
+        }
+
+        #endregion Seach and Filter
 
         public SecurityCode GetDataByCode(string searchString)
         {
-            return this.securityCodeRepository.GetDataByCode(searchString);
+            return _securityCodeRepository.GetDataByCode(searchString);
         }
     }
 }

@@ -6,7 +6,7 @@
             <ul class="dropdown-menu normal" role="menu" aria-labelledby="drop3">
                 @foreach (string role in Roles.GetRolesForUser())
                 {
-                    <li role="presentation"><a class="normal" role="menuitem" tabindex="-1">@role.ToString()</a></li>
+                    <li role="presentation"><a class="normal" role="menuitem" tabindex="-1">@role</a></li>
                 }
                 <li role="presentation" class="divider"></li>
                 @*<li role="presentation">
@@ -16,9 +16,6 @@
                         }
                     </li>*@
                 <li role="presentation">@Html.ActionLink("Logout", "LogOff", "Account")</li>
-
-
-
             </ul>
         </li>
     </ul>

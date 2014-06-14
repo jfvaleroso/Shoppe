@@ -9,7 +9,7 @@ using System.Web.Security;
 
 namespace Exchange.Provider.Profile
 {
-    public class UserProfileBase : System.Web.Profile.ProfileBase
+    public class UserProfileBase : ProfileBase
     {
         
       
@@ -17,7 +17,7 @@ namespace Exchange.Provider.Profile
 
         public static UserProfileBase GetUserProfile(string username)
         {
-            UserProfileBase userProfile = (UserProfileBase)Create(username, true);
+            var userProfile = (UserProfileBase)Create(username, true);
             return userProfile;
         }
         public static UserProfileBase GetUserProfile()
@@ -100,12 +100,12 @@ namespace Exchange.Provider.Profile
 
         }
         [SettingsAllowAnonymous(false)]
-        public int Users_Id
+        public Guid Users_Id
         {
 
-            get { return Convert.ToInt32(base["Users_Id"]); }
+            get { return new Guid((string) base["UserId"]); }
 
-            set { base["Users_Id"] = value; }
+            set { base["UserId"] = value; }
 
         }
 

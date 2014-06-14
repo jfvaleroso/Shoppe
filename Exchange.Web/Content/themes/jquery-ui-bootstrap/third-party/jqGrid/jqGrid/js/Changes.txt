@@ -389,7 +389,7 @@ Fixes
 This parameter is no longer valid in 3.5
 - Replace $ with jQuery in grid.Base.js which causes problems when used with
 other librariers like prototype.
-- removed a checking e.srcElement from base module. jQuery allready fix this.
+- removed a checking e.srcElement from base module. jQuery allready fix 
 - fixing the size option in select when using ajax to load selects.
 - Fixed bug in IE browsers, when clicked on href tag with child nodes,
 IE incorrect report in all cases that this is a href element. This couses

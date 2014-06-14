@@ -1,6 +1,7 @@
-﻿@model Exchange.Web.Models.BuyModel
+﻿@using Exchange.Core.Entities
+@model Exchange.Web.Models.BuyModel
 @{
-    ViewBag.Title = string.Format("{0} : {1}", Html.DisplayFor(model => model.Customer),Html.DisplayFor(model => model.InvoiceNo)); 
+    ViewBag.Title = string.Format("{0} : {1}", Html.DisplayFor(model => model.Customer), Html.DisplayFor(model => model.InvoiceNo));
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -18,7 +19,7 @@
                             <label>Customer Name</label>
                         </div>
                         <div class="editor-field" id="customer-view">
-                            @Html.TextBoxFor(model => model.Customer, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.Customer, new {@class = "form-control", @readonly = "readonly"})
                             <p class="small">Customer name.</p>
                         </div>
                     </div>
@@ -27,7 +28,7 @@
                             <label>Invoice Number</label>
                         </div>
                         <div class="editor-field" id="invoiceNo">
-                            @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.InvoiceNo, new {@class = "form-control", @readonly = "readonly"})
                             <p class="small">Invoice number.</p>
                         </div>
                     </div>
@@ -36,7 +37,7 @@
                             <label>Appraiser</label>
                         </div>
                         <div class="editor-field" id="appraiser">
-                            @Html.TextBoxFor(model => model.Appraiser, new { @class = "form-control typeahead", @placeholder = "Search appraiser", @data_provide = "typeahead", @autocomplete = "off", @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.Appraiser, new {@class = "form-control typeahead", @placeholder = "Search appraiser", @data_provide = "typeahead", @autocomplete = "off", @readonly = "readonly"})
                             <p class="small">Appraiser</p>
                         </div>
                     </div>
@@ -47,15 +48,12 @@
                         <div class="editor-field" id="cashier">
                             @Html.HiddenFor(model => model.StoreId)
                             @Html.HiddenFor(model => model.CashierId)
-                            @Html.TextBoxFor(model => model.Cashier, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.Cashier, new {@class = "form-control", @readonly = "readonly"})
                             <p class="small">Cashier.</p>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-
 
             <table id="invoice" class="table table-responsive table-condensed small">
                 <thead>
@@ -71,29 +69,27 @@
                     </tr>
                 </thead>
 
-                @foreach (var purchase in Model.Purchases)
+                @foreach (Purchase purchase in Model.Purchases)
                 {
-                   <tr class="invoice-item">
-                    <td><span class="glyphicon glyphicon-align-justify"></span></td>
-                    <td class="product" style="width:180px;padding-right:5px">
-                       <span>@purchase.Product.Code : @purchase.Product.Name</span>
-                    </td>
-                    <td class="quantity"><span>@purchase.Quantity</span></td>
-                    <td class="grams"><span>@purchase.Grams</span></td>
-                    <td class="rate"><span>@purchase.Rate</span></td>
-                    <td class="cost"><span>@purchase.Cost</span></td>
-                    <td class="bonus">
-                        <div class="input-group">              
-                            <span>@purchase.Bonus</span>
-                            <span class="percent" style="padding:0px 5px"> 0% </span>
-                        </div>
-                    </td>
-                    <td class="total"><span>@purchase.Total</span></td>
-                    <td></td>
-                </tr>
+                    <tr class="invoice-item">
+                        <td><span class="glyphicon glyphicon-align-justify"></span></td>
+                        <td class="product" style="padding-right: 5px; width: 180px;">
+                            <span>@purchase.Product.Code : @purchase.Product.Name</span>
+                        </td>
+                        <td class="quantity"><span>@purchase.Quantity</span></td>
+                        <td class="grams"><span>@purchase.Grams</span></td>
+                        <td class="rate"><span>@purchase.Rate</span></td>
+                        <td class="cost"><span>@purchase.Cost</span></td>
+                        <td class="bonus">
+                            <div class="input-group">
+                                <span>@purchase.Bonus</span>
+                                <span class="percent" style="padding: 0px 5px"> 0% </span>
+                            </div>
+                        </td>
+                        <td class="total"><span>@purchase.Total</span></td>
+                        <td></td>
+                    </tr>
                 }
-
-                
             </table>
             <table id="invoice-summary" class="right small">
 
@@ -115,13 +111,8 @@
                         <div id="grand_total"><h3><span>@Html.DisplayFor(model => model.GrandTotal)</span></h3><span>Grand Total:</span></div>
                     </td>
                 </tr>
-
-
             </table>
-           
-
         </div>
-
     </div>
     <div class="right">
 

@@ -1,48 +1,41 @@
-﻿using System;
+﻿using Exchange.Helper.Common;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Exchange.Helper;
-using System.Globalization;
-using Exchange.Helper.Common;
 
 namespace Exchange.Web.Helper
 {
     public class CryptoProvider : IValueProvider
     {
-       RouteData routeData = null;
-        Dictionary<string, string> dictionary = new Dictionary<string,string>();
+        private readonly Dictionary<string, string> dictionary = new Dictionary<string, string>();
+        private readonly RouteData routeData;
 
         public CryptoProvider(RouteData routeData)
         {
-            this.routeData = routeData;
+            routeData = routeData;
         }
 
         public bool ContainsPrefix(string prefix)
         {
-            var data = this.routeData.Values[prefix];
+            object data = routeData.Values[prefix];
             if (data == null)
             {
                 return false;
             }
-            else
-            {
-                this.dictionary.Add(prefix, Base.Decrypt(data.ToString()));
-            }
-            return this.dictionary.ContainsKey(prefix);
+            dictionary.Add(prefix, Base.Decrypt(data.ToString()));
+            return dictionary.ContainsKey(prefix);
         }
 
         public ValueProviderResult GetValue(string key)
         {
-            ValueProviderResult result=null;
-            if (this.dictionary.ContainsKey(key))
+            ValueProviderResult result = null;
+            if (dictionary.ContainsKey(key))
             {
-                result = new ValueProviderResult(this.dictionary[key],
-                this.dictionary[key], CultureInfo.CurrentCulture);
+                result = new ValueProviderResult(dictionary[key],
+                    dictionary[key], CultureInfo.CurrentCulture);
             }
-                   
+
             return result;
         }
     }

@@ -1,12 +1,12 @@
-function selectCity(index, updateAccordion) {
+﻿function selectCity(index, updateAccordion) {
     if (updateAccordion) {
-        $( "#accordion-map" ).accordion("option", "active", index);
+        $("#accordion-map").accordion("option", "active", index);
     }
     $('#gmap3').gmap3({
         exec: {
             name: "marker",
-            all:"true",
-            func: function(value){
+            all: "true",
+            func: function(value) {
                 // data.object is the google.maps.Marker object
                 if (value.data.index === index) {
                     value.object.setIcon("http://maps.google.com/mapfiles/marker_green.png");
@@ -18,10 +18,10 @@ function selectCity(index, updateAccordion) {
     });
 }
 
-$(function(){
+$(function() {
     //##### Accordion with gmap3
 
-    $( "#accordion-map" ).accordion({
+    $("#accordion-map").accordion({
         header: "h3",
         activate: function(event, ui) {
             // index / 2 because of the 2 elements by set (h3 + div)
@@ -30,25 +30,27 @@ $(function(){
     });
 
     $('#gmap3').gmap3({
-        map:{
-            options:{
-                center:[46.578498,2.457275],
+        map: {
+            options: {
+                center: [46.578498, 2.457275],
                 zoom: 5
             }
         },
-        marker:{
-            values:[
-                {latLng:[48.8620722, 2.352047], data: {index: 0},
-                    options:{icon: "http://maps.google.com/mapfiles/marker_green.png"}
+        marker: {
+            values: [
+                {
+                    latLng: [48.8620722, 2.352047],
+                    data: { index: 0 },
+                    options: { icon: "http://maps.google.com/mapfiles/marker_green.png" }
                 },
-                {address:"86000 Poitiers, France", data: {index: 1}},
-                {address:"66000 Perpignan, France", data: {index: 2}}
+                { address: "86000 Poitiers, France", data: { index: 1 } },
+                { address: "66000 Perpignan, France", data: { index: 2 } }
             ],
-            options:{
+            options: {
                 draggable: false
             },
-            events:{
-                click: function (marker, event, context) {
+            events: {
+                click: function(marker, event, context) {
                     selectCity(context.data.index, true);
                 }
             }
@@ -77,12 +79,11 @@ $(function(){
     var cloudLayer = new google.maps.weather.CloudLayer();
     cloudLayer.setMap(map);
 
-
     // force maps to refresh on show
     $("#tabs").tabs({
         activate: function(event, ui) {
             if (ui.newPanel.hasClass("gmap3")) {
-                ui.newPanel.gmap3({trigger: "resize"});
+                ui.newPanel.gmap3({ trigger: "resize" });
             }
         }
     });

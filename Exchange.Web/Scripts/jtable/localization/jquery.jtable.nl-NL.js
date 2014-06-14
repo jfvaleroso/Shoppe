@@ -2,8 +2,7 @@
    jTable localization file for 'Dutch - The Netherlands' language.
    Author: Bert Janssen
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Fout bij het communiceren met de server',
         loadingMessage: 'Laden...',
@@ -25,6 +24,5 @@
         deleteProggress: 'Gegevens {0} van {1} wissen...',
         pageSizeChangeLabel: 'Row count', //New. Must be localized.
         gotoPageLabel: 'Go to page' //New. Must be localized.
-});
-
+    });
 })(jQuery);

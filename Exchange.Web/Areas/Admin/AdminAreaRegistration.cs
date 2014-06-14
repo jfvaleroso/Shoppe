@@ -6,10 +6,7 @@ namespace Exchange.Web.Areas.Admin
     {
         public override string AreaName
         {
-            get
-            {
-                return "Admin";
-            }
+            get { return "Admin"; }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
@@ -18,7 +15,7 @@ namespace Exchange.Web.Areas.Admin
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
-            );
+                );
         }
     }
 }

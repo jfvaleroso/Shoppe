@@ -5,25 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-
-
 <div class="row">
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><strong>Register</strong></h3>
-
             </div>
             <div class="panel-body small">
                 Instructions here...
-
-
             </div>
-
         </div>
-
     </div>
     <div class="col-md-7">
 
@@ -43,7 +34,7 @@
                                 @Html.LabelFor(model => model.FirstName)
                             </div>
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.FirstName, new {@class = "form-control"})
                                 <p class="small">Please indicate the firstname.</p>
                             </div>
                         </div>
@@ -52,7 +43,7 @@
                                 @Html.LabelFor(model => model.MiddleName)
                             </div>
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.MiddleName, new {@class = "form-control"})
                                 <p class="small">Please indicate the middle name.</p>
                             </div>
                         </div>
@@ -61,13 +52,11 @@
                                 @Html.LabelFor(model => model.LastName)
                             </div>
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.LastName, new {@class = "form-control"})
                                 <p class="small">Please indicate the lastname.</p>
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="row">
                         <div class="col-xs-4">
@@ -78,13 +67,14 @@
                             <div class="editor-field">
 
                                 @Html.DropDownListFor(model => model.Gender, new SelectList(
-                                                                           new List<Object>{
-                                                                           new { value = "M" , text = "Male"  },
-                                                                           new { value = "F" , text = "Female" }
-                                                                        },
-                                                                         "value",
-                                                                          "text",
-                                                                       2), string.Empty, new { @class = "combobox combobox-medium" })
+                                    new List<Object>
+                                    {
+                                        new {value = "M", text = "Male"},
+                                        new {value = "F", text = "Female"}
+                                    },
+                                    "value",
+                                    "text",
+                                    2), string.Empty, new {@class = "combobox combobox-medium"})
 
                                 <p class="small">Please indicate the gender.</p>
                             </div>
@@ -94,30 +84,20 @@
                                 @Html.LabelFor(model => model.BirthDate)
                             </div>
                             <div class="editor-field form-inline" id="birthdate-field">
-                                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.BirthDate, new {@class = "form-control"})
                                 <span class="add-on">
                                     <span class="glyphicon glyphicon-th-list">
-
                                     </span>
                                 </span>
                                 <p class="small">Please indicate the birth date.</p>
-
-
-
-
                             </div>
-
-
-
-
-
                         </div>
                         <div class="col-xs-4">
                             <div class="editor-label">
                                 @Html.LabelFor(model => model.Position)
                             </div>
                             <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Position, new { @class = "form-control" })
+                                @Html.TextBoxFor(model => model.Position, new {@class = "form-control"})
                                 <p class="small">Please indicate the position.</p>
                             </div>
                         </div>
@@ -127,7 +107,7 @@
                         @Html.LabelFor(model => model.Email)
                     </div>
                     <div class="editor-field">
-                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})
                         <p class="small">Please indicate the email address.</p>
                     </div>
 
@@ -135,34 +115,28 @@
                         <label>Residential Address</label>
                     </div>
                     <div class="editor-field">
-                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control" })
+                        @Html.TextAreaFor(model => model.Address, new {@class = "form-control"})
                         <p class="small">Please indicate the address.</p>
                     </div>
-
 
                     <div class="page-header-title"><strong>Role Assignment</strong></div>
                     @*<div class="editor-label">
                           <label>Role Name</label>
                         </div>*@
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model.RoleName, Model.RoleList, string.Empty, new { @class = "combobox combobox-medium" })
+                        @Html.DropDownListFor(model => model.RoleName, Model.RoleList, string.Empty, new {@class = "combobox combobox-medium"})
                         <p class="small">Please indicate the rolename.</p>
                     </div>
-
 
                     <div class="page-header-title"><strong>Branch/Store Assignment</strong></div>
                     @*<div class="editor-label">
                             <label>Store Name</label>
                         </div>*@
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model.StoreId, Model.StoreList, string.Empty, new { @class = "combobox combobox-medium" })
+                        @Html.DropDownListFor(model => model.StoreId, Model.StoreList, string.Empty, new {@class = "combobox combobox-medium"})
                         <p class="small">Please indicate the store name.</p>
                     </div>
-
-
-
                 </div>
-
 
                 <div class="right">
                     <button id="btnSave" class="btn btn-large btn-success" type="button">
@@ -174,19 +148,14 @@
                 </div>
             }
         </div>
-
     </div>
 </div>
-
-
-
 
 @Html.Hidden("Item", Url.Action("Item"))
 @Html.Hidden("New", Url.Action("Register"))
 
-
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $('#birthdate-field').datetimepicker({
             pickTime: false
         });

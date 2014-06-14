@@ -5,7 +5,7 @@
 }
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $('#DataTable').jtable({
             title: '',
             paging: true,
@@ -26,29 +26,29 @@
                 View: {
                     title: '',
                     width: '.03%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = '<a href=@Url.Action("Item")/' + data.record.Id + '><i class="glyphicon glyphicon-align-justify"></i></a>';
                         return $img;
                     }
                 },
                 LastName: {
                     title: 'Name',
-                    display: function (data) {
-                        var $name = data.record.LastName + ", " + data.record.FirstName + " " + data.record.MiddleName ;
+                    display: function(data) {
+                        var $name = data.record.LastName + ", " + data.record.FirstName + " " + data.record.MiddleName;
                         return $name;
                     }
 
                 },
                 CellphoneNo: {
                     title: 'CellphoneNo',
-                    display: function (data) {
+                    display: function(data) {
                         var $name = '<span class="small-light">' + data.record.CellphoneNo + '</span>';
                         return $name;
                     }
                 },
                 Transaction: {
                     title: 'Transaction History',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = '<a href=@Url.Action("Item")/' + data.record.Id + '>transaction details...</a>';
                         return $img;
                     }
@@ -57,21 +57,15 @@
 
             toolbar: {
                 items: [
-
-                    ]
+                ]
             }
 
         });
 
-     
-
     });
-   
 </script>
 @using (Html.BeginForm())
-{ 
-   
-    
+{
     <div class="row">
         <div class="col-lg-6">
             <div class="input-group">
@@ -81,7 +75,7 @@
         <div class="col-lg-6">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search here..." autocomplete="off"
-                    name="searchString" id="searchString">
+                       name="searchString" id="searchString">
                 <span class="input-group-btn">
                     <button class="btn btn-success" type="submit" id="btnSearch">
                         Search</button>
@@ -89,15 +83,10 @@
             </div>
         </div>
     </div>
-    
- @Html.Partial("General/_Alphabet")
-    
-   
+
+    @Html.Partial("General/_Alphabet")
 }
 <div class="table-wrapper">
-
-
-   
 
     <div id="DataTable" class="small">
     </div>

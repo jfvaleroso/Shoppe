@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Exchange.NHibernateBase.Mapping
 {
-    public class CustomerMap: ClassMap<Customer>
+    public class CustomerMap : ClassMap<Customer>
     {
         public CustomerMap()
         {
-
             Table("Customer");
             Id(x => x.Id);
             Map(x => x.LastName);
@@ -37,9 +32,6 @@ namespace Exchange.NHibernateBase.Mapping
             HasMany(x => x.Invoices)
                 .Inverse()
                 .Cascade.All();
-          
-            
-         
         }
     }
 }

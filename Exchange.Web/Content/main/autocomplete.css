@@ -1,65 +1,54 @@
 ﻿* AUTOCOMPLETE */
 
-.umbracoSearchHolder #umbSearchField
-{
-    width: 250px;
+.umbracoSearchHolder #umbSearchField {
     color: #999;
     padding: 2px;
+    width: 250px;
 }
-.ac_results
-{
-    padding: 3px;
-    border: 1px solid #979797;
+
+.ac_results {
     background-color: #f0f0f0;
+    border: 1px solid #979797;
     border-top: none;
     overflow: hidden;
+    padding: 3px;
     z-index: 99999;
 }
 
-.ac_results ul
-{
-    width: 100%;
-    list-style-position: outside;
+.ac_results ul {
     list-style: none;
-    padding: 0;
+    list-style-position: outside;
     margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
-.ac_results li
-{
-    display: block;
-    padding: 2px;
-    padding-left: 5px; /*  	it is very important, if line-height not setted or setted  	in relative units scroll will be broken in firefox 	*/
-    line-height: 20px;
-    overflow: hidden;
-    font-family: Arial,Lucida Grande;
-    font-size: 11px;
-    height: 20px;
+.ac_results li {
     color: #1a1818;
     cursor: pointer;
+    display: block;
+    font-family: Arial, Lucida Grande;
+    font-size: 11px;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 2px;
+    padding-left: 5px; /*  	it is very important, if line-height not setted or setted  	in relative units scroll will be broken in firefox 	*/
 }
 
-.ac_results .ac_odd
-{
-}
+.ac_results .ac_odd { }
 
-.ac_results .ac_over
-{
+.ac_results .ac_over {
     background-color: #D5EFFC;
     border: 1px solid #a8d8eb;
     padding: 1px !important;
     padding-left: 4px !important;
 }
 
-.ac_results span.nodeId
-{
-    font-size: smaller;
-}
+.ac_results span.nodeId { font-size: smaller; }
 
-.ac_loading
-{
+.ac_loading {
     background-image: url('../images/throbber.gif');
     background-position: right;
     background-repeat: no-repeat;
 }
-

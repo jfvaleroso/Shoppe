@@ -1,9 +1,8 @@
-/*
+﻿/*
     jTable localization file for 'German' language.
     Author: Max Grass
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Bei der Verbindung mit dem Server ist ein Fehler aufgetreten.',
         loadingMessage: 'Wird geladen...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Anzahl der Einträge',
         gotoPageLabel: 'Auf der Seite'
     });
-
 })(jQuery);

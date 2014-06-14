@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Exchange.NHibernateBase.Mapping
 {
-    public class NoteMap: ClassMap<Note>
+    public class NoteMap : ClassMap<Note>
     {
         public NoteMap()
         {

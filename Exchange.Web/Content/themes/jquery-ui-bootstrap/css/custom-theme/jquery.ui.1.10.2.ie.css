@@ -1,5 +1,5 @@
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-left, .ui-corner-bottom { border-radius: 0px; }
 
-.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-left, .ui-corner-bottom{ border-radius:0px;}
 /*
  * jQuery UI Tabs 1.10.0
  *
@@ -10,14 +10,15 @@
  * http://jqueryui.com/tabs/
  */
 
-.ui-state-active,.ui-tabs-selected { border-radius:0px;}
-.ui-tabs-selected { border-radius:0px;}
-.ui-tabs .ui-tabs-nav li{ filter:none;}
-.ui-tabs .ui-tabs-nav li a { border-radius:0px; }
+.ui-state-active, .ui-tabs-selected { border-radius: 0px; }
 
-.ui-button .ui-button-text {
-	display: block;
-}
+.ui-tabs-selected { border-radius: 0px; }
+
+.ui-tabs .ui-tabs-nav li { filter: none; }
+
+.ui-tabs .ui-tabs-nav li a { border-radius: 0px; }
+
+.ui-button .ui-button-text { display: block; }
 
 /*
  * jQuery UI Button 1.10.2
@@ -29,27 +30,27 @@
  * http://jqueryui.com/button/
  */
 
-.ui-button-text-icon-primary{}
+.ui-button-text-icon-primary { }
 
 .ui-button-text-icon-primary .ui-button-text,
-.ui-button-text-icons .ui-button-text {}
+.ui-button-text-icons .ui-button-text { }
 
-.ui-button-text-icon-primary .ui-icon{
-	top:50%;
-	margin-top: 5px;
-	margin-bottom:-26px;
+.ui-button-text-icon-primary .ui-icon {
+    margin-bottom: -26px;
+    margin-top: 5px;
+    top: 50%;
 }
 
-.ui-button-icons-only .ui-icon {}
+.ui-button-icons-only .ui-icon { }
 
-.ui-button-icon-only .ui-icon{
-	top:50%;
-	margin-top: 0px;
-	margin-bottom:-28px;
+.ui-button-icon-only .ui-icon {
+    margin-bottom: -28px;
+    margin-top: 0px;
+    top: 50%;
 }
 
 .ui-menu li {
-  list-style-type: none;
-  display: inline;
-  line-height: 0;
+    display: inline;
+    line-height: 0;
+    list-style-type: none;
 }

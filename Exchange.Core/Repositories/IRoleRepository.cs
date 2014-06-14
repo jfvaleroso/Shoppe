@@ -1,19 +1,17 @@
-﻿using System;
+﻿using Exchange.Core.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
 
 namespace Exchange.Core.Repositories
 {
     public interface IRoleRepository : IRepository<Roles, Guid>, ISearchRepository<Roles>, IValidateRepository<Roles>
     {
         #region Roles
+
         Roles GetRoleByRoleNameApplicationName(string roleName, string applicationName);
+
         IList<Roles> GetRolesByApplicationName(string applicationName);
-        #endregion
 
-        
-
+        #endregion Roles
     }
 }

@@ -9,69 +9,66 @@ using RazorPDF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Exchange.Web.Controllers
 {
     public class BuyController : Controller
     {
-
         #region Constructor
-        private readonly Service service;
-        private readonly IProductService productService;
-        private readonly ICustomerService customerService;
-        private readonly IProfileService profileService;
-        private readonly IUserService userService;
-        private readonly IInvoiceService invoiceService;
-        private readonly ISecurityCodeService securityCodeService;
-        private readonly Common common;
 
-        public BuyController(IProductService productService, ICustomerService customerService, IProfileService profileService, IUserService userService, IInvoiceService invoiceService, ISecurityCodeService securityCodeService)
+        private readonly Common _common;
+        private readonly ICustomerService _customerService;
+        private readonly IInvoiceService _invoiceService;
+        private readonly IProfileService _profileService;
+        private readonly ISecurityCodeService _securityCodeService;
+        private readonly Service _service;
+
+        public BuyController(IProductService productService, ICustomerService customerService,
+            IProfileService profileService, IUserService userService, IInvoiceService invoiceService,
+            ISecurityCodeService securityCodeService)
         {
-            this.productService = productService;
-            this.customerService = customerService;
-            this.profileService = profileService;
-            this.userService = userService;
-            this.invoiceService = invoiceService;
-            this.securityCodeService = securityCodeService;
-            this.service = new Service(this.productService);
-            this.common = new Common(this.userService);
+            _customerService = customerService;
+            _profileService = profileService;
+            _invoiceService = invoiceService;
+            _securityCodeService = securityCodeService;
+            _service = new Service(productService);
+            _common = new Common(userService);
         }
-        #endregion
 
+        #endregion Constructor
 
         #region Index
+
         public ActionResult Index()
         {
-            BuyModel model = new BuyModel();
-            StoreModel store = new StoreModel();
-            ProfileModel profile = new ProfileModel();
-            store = this.common.GetCurrentUserStoreAccess();
-            profile = this.common.GetCurrentUserProfile();
+            var model = new BuyModel();
+            var store = _common.GetCurrentUserStoreAccess();
+            var profile = _common.GetCurrentUserProfile();
 
-            model.ProductList = this.service.GetProductList(new Guid());
+            model.ProductList = _service.GetProductList(new Guid());
             model.StoreId = store.Id;
             model.StoreName = store.StoreName;
-            model.InvoiceNo = Base.GenerateInvoiceNumber("INV", store.StoreCode, this.invoiceService.GetTotalInvoiceBySTore(new Guid(store.Id)));
+            model.InvoiceNo = Base.GenerateInvoiceNumber("INV", store.StoreCode,
+                _invoiceService.GetTotalInvoiceBySTore(new Guid(store.Id)));
             model.Cashier = profile.Name;
             model.CashierId = profile.UserId;
             return View(model);
         }
+
         public ActionResult View(string id)
         {
+            var invoice = new Invoice();
+            invoice = _invoiceService.GetDataById(new Guid(id));
 
-            Invoice invoice = new Invoice();
-            invoice = this.invoiceService.GetDataById(new Guid(id));
-
-            BuyModel model = new BuyModel();
-            StoreModel store = new StoreModel();
-            Profiles cashier = new Profiles();
-            Profiles appraiser = new Profiles();
-            Customer customer = new Customer();
-            cashier = this.profileService.GetProfileByUserId(invoice.Cashier.Id);
-            appraiser = this.profileService.GetProfileByUserId(invoice.Appraiser.Id);
-            customer = this.customerService.GetDataById(invoice.Customer.Id);
+            var model = new BuyModel();
+            var store = new StoreModel();
+            var cashier = new Profiles();
+            var appraiser = new Profiles();
+            var customer = new Customer();
+            cashier = _profileService.GetProfileByUserId(invoice.Cashier.Id);
+            appraiser = _profileService.GetProfileByUserId(invoice.Appraiser.Id);
+            customer = _customerService.GetDataById(invoice.Customer.Id);
 
             model.StoreId = invoice.Store.Id.ToString();
             model.StoreName = invoice.Store.Name;
@@ -91,25 +88,24 @@ namespace Exchange.Web.Controllers
             //company
             model.CompanyName = ConfigManager.Exchange.CompanyName;
 
-
             TempData["Invoice"] = model;
-            
+
             return View(model);
         }
+
         public ActionResult Edit(string id)
         {
+            var invoice = new Invoice();
+            invoice = _invoiceService.GetDataById(new Guid(id));
 
-            Invoice invoice = new Invoice();
-            invoice = this.invoiceService.GetDataById(new Guid(id));
-
-            BuyModel model = new BuyModel();
-            StoreModel store = new StoreModel();
-            Profiles cashier = new Profiles();
-            Profiles appraiser = new Profiles();
-            Customer customer = new Customer();
-            cashier = this.profileService.GetProfileByUserId(invoice.Cashier.Id);
-            appraiser = this.profileService.GetProfileByUserId(invoice.Appraiser.Id);
-            customer = this.customerService.GetDataById(invoice.Customer.Id);
+            var model = new BuyModel();
+            var store = new StoreModel();
+            var cashier = new Profiles();
+            var appraiser = new Profiles();
+            var customer = new Customer();
+            cashier = _profileService.GetProfileByUserId(invoice.Cashier.Id);
+            appraiser = _profileService.GetProfileByUserId(invoice.Appraiser.Id);
+            customer = _customerService.GetDataById(invoice.Customer.Id);
 
             model.StoreId = invoice.Store.Id.ToString();
             model.StoreName = invoice.Store.Name;
@@ -128,24 +124,26 @@ namespace Exchange.Web.Controllers
             model.Purchases = invoice.Purchases;
             //company
             model.CompanyName = ConfigManager.Exchange.CompanyName;
-            model.ProductList = this.service.GetProductList(new Guid());
-
+            model.ProductList = _service.GetProductList(new Guid());
 
             TempData["Invoice"] = model;
 
             return View(model);
         }
-        #endregion
+
+        #endregion Index
+
         #region Customer
+
         public ActionResult Customer()
         {
-            CustomerModel model = new CustomerModel();
+            var model = new CustomerModel();
             return View(model);
         }
+
         [HttpPost]
         public JsonResult AddCustomer(CustomerModel model)
         {
-
             try
             {
                 if (ModelState.IsValid)
@@ -153,7 +151,7 @@ namespace Exchange.Web.Controllers
                     bool ifExists = false;
                     if (!ifExists)
                     {
-                        Customer customer = new Customer();
+                        var customer = new Customer();
                         customer.LastName = model.LastName;
                         customer.MiddleName = model.MiddleName;
                         customer.FirstName = model.FirstName;
@@ -169,74 +167,99 @@ namespace Exchange.Web.Controllers
                         customer.DateCreated = DateTime.Now;
                         customer.CreatedBy = User.Identity.Name;
 
-                        this.customerService.Create(customer);
+                        _customerService.Create(customer);
 
-                        return Json(new { result = customer.Id.ToString(), message = MessageCode.saved, code = StatusCode.saved, content = Base.GenerateFullName(customer.FirstName, customer.MiddleName, customer.LastName) });
-
+                        return
+                            Json(
+                                new
+                                {
+                                    result = customer.Id.ToString(),
+                                    message = MessageCode.saved,
+                                    code = StatusCode.saved,
+                                    content =
+                                        Base.GenerateFullName(customer.FirstName, customer.MiddleName, customer.LastName)
+                                });
                     }
-                    return Json(new { result = StatusCode.existed, message = MessageCode.existed, code = StatusCode.existed });
+                    return
+                        Json(new { result = StatusCode.existed, message = MessageCode.existed, code = StatusCode.existed });
                 }
                 return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid });
             }
             catch (Exception ex)
             {
-                return Json(new { result = StatusCode.failed, message = ex.Message.ToString(), code = StatusCode.failed, content =ex.Message.ToString() });
+                return
+                    Json(
+                        new
+                        {
+                            result = StatusCode.failed,
+                            message = ex.Message,
+                            code = StatusCode.failed,
+                            content = ex.Message
+                        });
             }
-
-
         }
-        #endregion
+
+        #endregion Customer
+
         #region Bonus
-         public ActionResult Bonus()
+
+        public ActionResult Bonus()
         {
-          
             return View();
         }
-        #endregion     
+
+        #endregion Bonus
+
         #region Search and Auto complete
+
         public JsonResult SearchEmployee(string searchString)
         {
             long total = 0;
-            var employeeList = this.profileService.GetDataWithPagingAndSearch(searchString, 1, 20, out total);
+            List<Profiles> employeeList = _profileService.GetDataWithPagingAndSearch(searchString, 1, 20, out total);
             var data = employeeList.Select(x => new
             {
-                name = string.Format("{0}, {1}", x.LastName, x.FirstName),      
-                id = x.Users_Id.ToString()           
-            });
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult SearchCustomer(string searchString)
-        {
-            long total = 0;
-            var customerList = this.customerService.GetDataListWithPagingAndSearch(searchString, 1, 20, out total);
-            var data = customerList.Select(x => new
-            {
                 name = string.Format("{0}, {1}", x.LastName, x.FirstName),
-                id= x.Id.ToString()
+                id = x.UserId.ToString()
             });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-     
+        public JsonResult SearchCustomer(string searchString)
+        {
+            long total = 0;
+            List<Customer> customerList = _customerService.GetDataListWithPagingAndSearch(searchString, 1, 20, out total);
+            var data = customerList.Select(x => new
+            {
+                name = string.Format("{0}, {1}", x.LastName, x.FirstName),
+                id = x.Id.ToString()
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult SearchPassCode(string searchString)
         {
-            if(ModelState.IsValid)
-            { 
-                SecurityCode data = this.securityCodeService.GetDataByCode(searchString);
-                if(data!=null)
+            if (ModelState.IsValid)
+            {
+                SecurityCode data = _securityCodeService.GetDataByCode(searchString);
+                if (data != null)
                 {
-                    return Json(new { result = data, message = MessageCode.valid, code = StatusCode.valid }, JsonRequestBehavior.AllowGet);
+                    return Json(new { result = data, message = MessageCode.valid, code = StatusCode.valid },
+                        JsonRequestBehavior.AllowGet);
                 }
-               return Json(new { result = StatusCode.empty, message = MessageCode.empty, code = StatusCode.empty }, JsonRequestBehavior.AllowGet);
+                return Json(new { result = StatusCode.empty, message = MessageCode.empty, code = StatusCode.empty },
+                    JsonRequestBehavior.AllowGet);
             }
-            return Json(new { result = StatusCode.invalid, message = MessageCode.error, code = StatusCode.invalid }, JsonRequestBehavior.AllowGet);
+            return Json(new { result = StatusCode.invalid, message = MessageCode.error, code = StatusCode.invalid },
+                JsonRequestBehavior.AllowGet);
         }
-        
-        #endregion
+
+        #endregion Search and Auto complete
+
         #region Receipt
+
         public ActionResult Receipt()
         {
-            BuyModel model = new BuyModel();
+            var model = new BuyModel();
             if (TempData["Invoice"] != null)
             {
                 model = (BuyModel)TempData["Invoice"];
@@ -244,8 +267,7 @@ namespace Exchange.Web.Controllers
             var pdf = new PdfResult(model, "Receipt");
             return pdf;
         }
-        #endregion
 
-
+        #endregion Receipt
     }
 }

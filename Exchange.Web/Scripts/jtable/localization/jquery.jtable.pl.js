@@ -2,8 +2,7 @@
     jTable localization file for 'Polish' language.
     Author: Grzegorz Zbucki
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Wystąpił błąd komunikacji z serwerem.',
         loadingMessage: 'Ładowanie...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Liczba rekordów',
         gotoPageLabel: 'Idź do strony'
     });
-
 })(jQuery);

@@ -19,3 +19,7 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\bin\Debug\Exchange.Helper.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\bin\Debug\Exchange.Helper.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\obj\Debug\Exchange.Helper.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Helper\obj\Debug\Exchange.Helper.pdb
+C:\Users\JFValeroso\Documents\GITREPOSITORY\PERSONAL\SHOPPE\Exchange.Helper\bin\Debug\Exchange.Helper.dll
+C:\Users\JFValeroso\Documents\GITREPOSITORY\PERSONAL\SHOPPE\Exchange.Helper\bin\Debug\Exchange.Helper.pdb
+C:\Users\JFValeroso\Documents\GITREPOSITORY\PERSONAL\SHOPPE\Exchange.Helper\obj\Debug\Exchange.Helper.dll
+C:\Users\JFValeroso\Documents\GITREPOSITORY\PERSONAL\SHOPPE\Exchange.Helper\obj\Debug\Exchange.Helper.pdb

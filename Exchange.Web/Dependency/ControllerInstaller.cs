@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using System.Web.Mvc;
-using System.Reflection;
 using System.Web.Http;
+using System.Web.Mvc;
+
 //using InfoSMS.adre.directory;
 
 namespace Exchange.Web.Dependency
@@ -17,7 +13,6 @@ namespace Exchange.Web.Dependency
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-
                 //All MVC controllers
                 Classes.FromThisAssembly().BasedOn<IController>().LifestyleTransient(),
                 Classes.FromAssemblyNamed("Elmah.Mvc").BasedOn<IController>().LifestyleTransient(),
@@ -25,15 +20,7 @@ namespace Exchange.Web.Dependency
                 AllTypes.FromThisAssembly().BasedOn<ApiController>().LifestyleScoped(),
                 //all action filter
                 AllTypes.FromThisAssembly().BasedOn<ActionFilterAttribute>().LifestyleScoped()
-              
-              
-
                 );
-
-
-          
-           
-
         }
     }
 }

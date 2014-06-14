@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Common\Base.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\Settings.cs" />
     <Compile Include="Transaction\MessageCode.cs" />
     <Compile Include="Transaction\StatusCode.cs" />
   </ItemGroup>

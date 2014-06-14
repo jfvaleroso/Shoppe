@@ -1,217 +1,229 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Exchange.Core.Services.IServices;
+﻿using Exchange.Configuration;
 using Exchange.Core.Entities;
-using Exchange.Web.Areas.Admin.Models;
-using Exchange.Helper.Transaction;
-using Exchange.Provider.Profile;
+using Exchange.Core.Services.IServices;
 using Exchange.Helper.Common;
-using Exchange.Web.Helper;
-
-using System.Web.Security;
-using Exchange.Configuration;
+using Exchange.Helper.Transaction;
+using Exchange.Providers;
+using Exchange.Web.Areas.Admin.Models;
 using Exchange.Web.Filters;
+using Exchange.Web.Helper;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
+using Roles = System.Web.Security.Roles;
 
 namespace Exchange.Web.Areas.Admin.Controllers
 {
-  
     public class EmployeeController : Controller
     {
         #region Constructor
-        private readonly IStoreService storeService;
-        private readonly IUserService userService;
-        private readonly IProfileService profileService;
-        private readonly IRoleService roleService;
-        private readonly Service service;
-        public EmployeeController(IUserService userService, IStoreService storeService, IProfileService profileService, IRoleService roleService)
+
+        private readonly IProfileService _profileService;
+        private readonly IRoleService _roleService;
+        private readonly Service _service;
+        private readonly IStoreService _storeService;
+        private readonly IUserService _userService;
+
+        public EmployeeController(IUserService userService, IStoreService storeService, IProfileService profileService,
+            IRoleService roleService)
         {
-            this.userService = userService;
-            this.storeService = storeService;
-            this.profileService = profileService;
-            this.roleService= roleService;
-            this.service = new Service(storeService, roleService);
+            _userService = userService;
+            _storeService = storeService;
+            _profileService = profileService;
+            _roleService = roleService;
+            _service = new Service(storeService, roleService);
         }
-        #endregion
+
+        #endregion Constructor
+
         #region Index
+
         public ActionResult Index()
         {
-
             return View();
         }
+
         public JsonResult EmployeeListWithPaging(string searchString = "", int jtStartIndex = 1, int jtPageSize = 15)
         {
             try
             {
                 long total = 0;
-                var employeeList = this.profileService.GetDataWithPagingAndSearch(searchString, jtStartIndex, jtPageSize, out total);
+                List<Profiles> employeeList = _profileService.GetDataWithPagingAndSearch(searchString, jtStartIndex,
+                    jtPageSize, out total);
                 var collection = employeeList.Select(x => new
                 {
-                    Name = string.Format("{0}, {1}",x.LastName,x.FirstName),
-                    Position = x.Position,
-                    Address =x.Address,
-                    Id=  x.Users_Id.ToString(),
-                    SecuredId= Base.Encrypt(x.Users_Id.ToString())
+                    Name = string.Format("{0}, {1}", x.LastName, x.FirstName),
+                    x.Position,
+                    x.Address,
+                    Id = x.UserId.ToString(),
+                    SecuredId = Base.Encrypt(x.UserId.ToString())
                 });
-                return Json(new { Result = "OK", Records = collection, TotalRecordCount = total }, JsonRequestBehavior.AllowGet);
+                return Json(new { Result = "OK", Records = collection, TotalRecordCount = total },
+                    JsonRequestBehavior.AllowGet);
             }
             catch
             {
                 return Json(new { Result = "ERROR", Message = "Web service is currently unavailable." });
-
             }
         }
 
-        #endregion
+        #endregion Index
+
         #region Register
+
         public ActionResult Register()
         {
-            RegisterModel model = new RegisterModel();
-            model.StoreList = this.service.GetStoreList(new Guid());
-            model.RoleList = this.service.GetRoleList(new Guid());
+            var model = new RegisterModel
+            {
+                StoreList = _service.GetStoreList(new Guid()),
+                RoleList = _service.GetRoleList(new Guid())
+            };
             return View(model);
         }
+
         [Audit]
         [HttpPost]
         public JsonResult Register(RegisterModel model)
         {
-
-
             if (ModelState.IsValid)
             {
-                string fullName = Base.GenerateFullName(model.FirstName, model.MiddleName, model.LastName);
+                var fullName = Base.GenerateFullName(model.FirstName, model.MiddleName, model.LastName);
                 try
                 {
-                    // List<Users> users = userService.GetAll().ToList();
                     string password = Base.GenearateKey(8);
-                   
+
                     MembershipCreateStatus status;
                     model.UserName = Base.GenerateUsername(model.FirstName, model.MiddleName, model.LastName);
                     Membership.CreateUser(model.UserName, password, model.Email, "na", "na", true, null, out status);
-                  
-                    MembershipUser user = Membership.GetUser(model.UserName, false);
-                        //user.Email = "test@gmail.com";
-                        //Membership.UpdateUser(user);
-                        //create Profile
+
+                    var user = Membership.GetUser(model.UserName, false);
+                    //create Profile
                     CreateProfile(model);
                     //Add user to Role
-                    if (!System.Web.Security.Roles.IsUserInRole(model.UserName,model.RoleName))
-                    { 
-                       System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
+                    if (!Roles.IsUserInRole(model.UserName, model.RoleName))
+                    {
+                        Roles.AddUserToRole(model.UserName, model.RoleName);
                     }
 
-                     Users employee = this.userService.GetUserByUsernameApplicationName(user.UserName, ConfigManager.Exchange.ApplicationName);
-                     Store store= this.storeService.GetDataById(new Guid(model.StoreId));
+                    Users employee = _userService.GetUserByUsernameApplicationName(user.UserName,
+                        ConfigManager.Exchange.ApplicationName);
+                    Store store = _storeService.GetDataById(new Guid(model.StoreId));
 
-                     AddUserIsInStore(employee, store);
+                    AddUserIsInStore(employee, store);
 
-
-                     return Json(new { result = "", message = MessageCode.saved, code = StatusCode.saved, content = fullName });
+                    return
+                        Json(new { result = "", message = MessageCode.saved, code = StatusCode.saved, content = fullName });
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-
-                    return Json(new { result = StatusCode.failed, message = ex.Message, code = StatusCode.invalid, content = fullName });
+                    return
+                        Json(
+                            new
+                            {
+                                result = StatusCode.failed,
+                                message = ex.Message,
+                                code = StatusCode.invalid,
+                                content = fullName
+                            });
                 }
             }
-            return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid});
-
-            
-          
-
+            return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid });
         }
 
-    
-        #endregion
+        #endregion Register
+
         #region Manage
-        
+
         public ActionResult Manage(string id)
         {
-            RegisterModel model = new RegisterModel();
-            Profiles profile = this.profileService.GetProfileByUserId(new Guid(id));
-            Users user = this.userService.GetUserById(new Guid(id));
+            var model = new RegisterModel();
+            Profiles profile = _profileService.GetProfileByUserId(new Guid(id));
+            Users user = _userService.GetUserById(new Guid(id));
             //get roles
             string[] roles = Access.GetUserRoles(user.Username);
-            Exchange.Core.Entities.Roles role= this.roleService.GetDataByName(roles[0].ToString());
+            Core.Entities.Roles role = _roleService.GetDataByName(roles[0]);
             //get store
-            Guid storeId = user.Stores.Count() > 0  ? user.Stores.FirstOrDefault().Id : new Guid();
+            Guid storeId = user.Stores.Any() ? user.Stores.First().Id : new Guid();
 
             if (profile != null)
             {
                 model.Address = profile.Address;
-                model.BirthDate = profile.BirthDate.ToString();
+                model.BirthDate = profile.BirthDate.ToString(CultureInfo.InvariantCulture);
+                model.BirthDay = profile.BirthDate.Day.ToString(CultureInfo.InvariantCulture);
+                model.BirthMonth = profile.BirthDate.Month.ToString(CultureInfo.InvariantCulture);
+                model.BirthYear = profile.BirthDate.Year.ToString(CultureInfo.InvariantCulture);
                 model.Email = user.Email;
                 model.FirstName = profile.FirstName;
                 model.Gender = profile.Gender;
                 model.LastName = profile.LastName;
                 model.MiddleName = profile.MiddleName;
                 model.Position = profile.Position;
-                model.StoreList =this.service.GetStoreList(storeId);
-                model.RoleList = this.service.GetRoleList(role.Id);
+                model.StoreList = _service.GetStoreList(storeId);
+                model.RoleList = _service.GetRoleList(role.Id);
                 model.UserName = user.Username;
             }
-          
+
             return View(model);
         }
+
         [HttpPost]
         public JsonResult Manage(RegisterModel model)
         {
-
-
             if (ModelState.IsValid)
             {
-
                 try
                 {
-                    Users employee = this.userService.GetUserByUsernameApplicationName(model.UserName, ConfigManager.Exchange.ApplicationName);             
+                    Users employee = _userService.GetUserByUsernameApplicationName(model.UserName,
+                        ConfigManager.Exchange.ApplicationName);
                     MembershipUser user = Membership.GetUser(model.UserName, false);
-                    Store store = this.storeService.GetDataById(new Guid(model.StoreId));
+                    Store store = _storeService.GetDataById(new Guid(model.StoreId));
 
                     employee.Roles.Clear();
                     employee.Stores.Clear();
-                    this.userService.SaveOrUpdate(employee);
+                    _userService.SaveOrUpdate(employee);
                     //add roles and store
-                    System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
+                    Roles.AddUserToRole(model.UserName, model.RoleName);
                     AddUserIsInStore(employee, store);
 
                     return Json(new { result = "", message = MessageCode.saved, code = StatusCode.saved, content = "" });
                 }
                 catch (Exception ex)
                 {
-
                     return Json(new { result = StatusCode.failed, message = ex.Message, code = StatusCode.invalid });
                 }
             }
             return Json(new { result = StatusCode.failed, message = MessageCode.error, code = StatusCode.invalid });
-
-
-
-
         }
-        #endregion
+
+        #endregion Manage
+
         #region Profile Private Method
-        private void CreateProfile(RegisterModel model)
+
+        private static void CreateProfile(RegisterModel model)
         {
             UserProfileBase profile = UserProfileBase.GetUserProfile(model.UserName);
-            if (profile != null)
-            {
-                profile.FirstName = model.FirstName;
-                profile.MiddleName = model.MiddleName;
-                profile.LastName = model.LastName;
-                profile.Address = model.Address;
-                profile.Gender = model.Gender;
-                profile.Language = model.Language;
-                profile.Position = model.Position;
-                profile.Subscription = !string.IsNullOrEmpty(model.Subscription) ? model.Subscription : string.Empty;
-                profile.Language = !string.IsNullOrEmpty(model.Language) ? model.Language : string.Empty;
-                profile.Save();
-            }       
+            if (profile == null) return;
+            profile.FirstName = model.FirstName;
+            profile.LastName = model.LastName;
+            profile.MiddleName = model.MiddleName;
+            profile.Address = model.Address;
+            profile.Gender = model.Gender;
+            profile.Language = model.Language;
+            profile.Position = model.Position;
+            profile.BirthDate = Convert.ToDateTime(model.BirthDate);
+            profile.Subscription = !string.IsNullOrEmpty(model.Subscription) ? model.Subscription : string.Empty;
+            profile.Language = !string.IsNullOrEmpty(model.Language) ? model.Language : string.Empty;
+            profile.Save();
         }
-	#endregion
+
+        #endregion Profile Private Method
+
         #region Helpers
-         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+
+        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
             // See http://go.microsoft.com/fwlink/?LinkID=177550 for
             // a full list of status codes.
@@ -221,7 +233,8 @@ namespace Exchange.Web.Areas.Admin.Controllers
                     return "User name already exists. Please enter a different user name.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return
+                        "A user name for that e-mail address already exists. Please enter a different e-mail address.";
 
                 case MembershipCreateStatus.InvalidPassword:
                     return "The password provided is invalid. Please enter a valid password value.";
@@ -239,49 +252,47 @@ namespace Exchange.Web.Areas.Admin.Controllers
                     return "The user name provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return
+                        "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
                 case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return
+                        "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
                 default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return
+                        "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
-        #endregion
+
+        #endregion Helpers
 
         #region Test
-     
 
-         bool CheckIfUserIsInStore(Users user, Store store)
-         {
-             bool userIsInStore = false;
-             List<Store> stores = user.Stores.ToList();
-             foreach (var item in stores)
-             {
-                 if (item.Equals(store))
-                 {
-                     userIsInStore = true;
-                     break;
-                 }
-             }
-             return userIsInStore;
-         }
+        private bool CheckIfUserIsInStore(Users user, Store store)
+        {
+            bool userIsInStore = false;
+            List<Store> stores = user.Stores.ToList();
+            foreach (Store item in stores)
+            {
+                if (item.Equals(store))
+                {
+                    userIsInStore = true;
+                    break;
+                }
+            }
+            return userIsInStore;
+        }
 
-         void AddUserIsInStore(Users user, Store store)
-         {
-             if (!CheckIfUserIsInStore(user, store))
-             {
-                 store.AddUser(user);
-                 this.storeService.SaveOrUpdate(store);
-             }
-         }
+        private void AddUserIsInStore(Users user, Store store)
+        {
+            if (!CheckIfUserIsInStore(user, store))
+            {
+                store.AddUser(user);
+                _storeService.SaveOrUpdate(store);
+            }
+        }
 
-
-        #endregion
-
-
-
-
+        #endregion Test
     }
 }

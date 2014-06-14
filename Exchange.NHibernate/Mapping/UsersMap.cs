@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
-using Exchange.Core.Entities;
 
 namespace Exchange.NHibernateBase.Mapping
 {
@@ -33,12 +29,12 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.FailedPasswordAttemptWindowStart);
             Map(x => x.FailedPasswordAnswerAttemptWindowStart);
             HasManyToMany(x => x.Roles)
-                   .Cascade.All()
-                   .Table("UsersInRoles");
+                .Cascade.All()
+                .Table("UsersInRoles");
             HasManyToMany(x => x.Stores)
-                  .Cascade.All()
-                  .Table("UsersInStore");
-          
+                .Cascade.All()
+                .Table("UsersInStore");
+
             //HasManyToMany(x => x.Roles)
             //        .Cascade.All()
             //        .Table("UsersInRoles");
@@ -47,6 +43,5 @@ namespace Exchange.NHibernateBase.Mapping
             //       .Cascade.All()
             //       .Table("UsersInStore");
         }
-
     }
 }

@@ -24,7 +24,7 @@
 
 	<xs:complexType name="mvcSiteMapType">
 		<xs:choice minOccurs="0" maxOccurs="1">
-			<xs:element name="mvcSiteMapNode" type="mvcSiteMapNodeType"/>
+			<xs:element name="mvcSiteMapNode" type="mvcSiteMapNodeType" />
 		</xs:choice>
 		<xs:attributeGroup ref="siteMapAttributes" />
 	</xs:complexType>
@@ -116,14 +116,14 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="dynamicNodeProvider" type="xs:string" use="optional" >
+		<xs:attribute name="dynamicNodeProvider" type="xs:string" use="optional">
 			<xs:annotation>
 				<xs:documentation>
 					A class name implementing MvcSiteMapProvider.IDynamicNodeProvider and providing dynamic nodes for the site map.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="urlResolver" type="xs:string" use="optional" >
+		<xs:attribute name="urlResolver" type="xs:string" use="optional">
 			<xs:annotation>
 				<xs:documentation>
 					Class that will be used to generate URLs for sitemap nodes.
@@ -137,7 +137,7 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="visibility" type="xs:string" use="optional" >
+		<xs:attribute name="visibility" type="xs:string" use="optional">
 			<xs:annotation>
 				<xs:documentation>
 					Example from demo: visibility="SiteMapPathHelper,!*"
@@ -145,7 +145,7 @@
 			</xs:annotation>
 		</xs:attribute>
 
-		<xs:attribute name="visibilityProvider" type="xs:string" use="optional" >
+		<xs:attribute name="visibilityProvider" type="xs:string" use="optional">
 			<xs:annotation>
 				<xs:documentation>
 					Class that will be used to determine visibility for a sitemap node.
@@ -179,7 +179,7 @@
 		<xs:attribute name="canonicalUrl" type="xs:string" use="optional">
 			<xs:annotation>
 				<xs:documentation>
-					Optional. The primary URL for what is completely or mostly duplicated content on the current node. 
+					Optional. The primary URL for what is completely or mostly duplicated content on the current node.
 					The value may be an absolute URL (in the current site or in an external site), a rooted URL starting with '~/', or a relative URL.
 				</xs:documentation>
 			</xs:annotation>
@@ -234,7 +234,7 @@
 			</xs:annotation>
 		</xs:attribute>
 
-		<xs:attribute name="changeFrequency" type="changefrequency_type" use="optional" default="Undefined" >
+		<xs:attribute name="changeFrequency" type="changefrequency_type" use="optional" default="Undefined">
 			<xs:annotation>
 				<xs:documentation>
 					Change frequency for the node. Will be output to sitemaps XML for search engines.
@@ -301,17 +301,17 @@
 		<xs:list>
 			<xs:simpleType>
 				<xs:restriction base="xs:token">
-					<xs:enumeration value="index"/>
-					<xs:enumeration value="noindex"/>
-					<xs:enumeration value="follow"/>
-					<xs:enumeration value="nofollow"/>
-					<xs:enumeration value="none"/>
-					<xs:enumeration value="noarchive"/>
-					<xs:enumeration value="nocache"/>
-					<xs:enumeration value="nosnippet"/>
-					<xs:enumeration value="nopreview"/>
-					<xs:enumeration value="noodp"/>
-					<xs:enumeration value="noydir"/>
+					<xs:enumeration value="index" />
+					<xs:enumeration value="noindex" />
+					<xs:enumeration value="follow" />
+					<xs:enumeration value="nofollow" />
+					<xs:enumeration value="none" />
+					<xs:enumeration value="noarchive" />
+					<xs:enumeration value="nocache" />
+					<xs:enumeration value="nosnippet" />
+					<xs:enumeration value="nopreview" />
+					<xs:enumeration value="noodp" />
+					<xs:enumeration value="noydir" />
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:list>

@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*
 
 ASP.NET WEB FORMS PAGE METHODS EXTENSION FOR JTABLE
 http://www.jtable.org
@@ -26,16 +26,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
-(function ($) {
-
+(function($) {
     //extension members
     $.extend(true, $.hik.jtable.prototype, {
-
         /* OVERRIDES BASE METHOD.
         * THIS METHOD IS DEPRECATED AND WILL BE REMOVED FROM FEATURE RELEASES.
         * USE _ajax METHOD.
         *************************************************************************/
-        _performAjaxCall: function (url, postData, async, success, error) {
+        _performAjaxCall: function(url, postData, async, success, error) {
             this._ajax({
                 url: url,
                 data: postData,
@@ -46,7 +44,7 @@ THE SOFTWARE.
         },
 
         /* OVERRIDES BASE METHOD */
-        _ajax: function (options) {
+        _ajax: function(options) {
             var self = this;
 
             var opts = $.extend({}, this.options.ajaxSettings, options);
@@ -66,7 +64,7 @@ THE SOFTWARE.
             opts.contentType = 'application/json; charset=utf-8';
 
             //Override success
-            opts.success = function (data) {
+            opts.success = function(data) {
                 data = self._normalizeJSONReturnData(data);
                 if (options.success) {
                     options.success(data);
@@ -74,14 +72,14 @@ THE SOFTWARE.
             };
 
             //Override error
-            opts.error = function () {
+            opts.error = function() {
                 if (options.error) {
                     options.error();
                 }
             };
 
             //Override complete
-            opts.complete = function () {
+            opts.complete = function() {
                 if (options.complete) {
                     options.complete();
                 }
@@ -91,7 +89,7 @@ THE SOFTWARE.
         },
 
         /* OVERRIDES BASE METHOD */
-        _submitFormUsingAjax: function (url, formData, success, error) {
+        _submitFormUsingAjax: function(url, formData, success, error) {
             var self = this;
 
             formData = {
@@ -111,22 +109,22 @@ THE SOFTWARE.
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 data: postData,
-                success: function (data) {
+                success: function(data) {
                     data = self._normalizeJSONReturnData(data);
                     success(data);
                 },
-                error: function () {
+                error: function() {
                     error();
                 }
             });
         },
 
-        _convertQueryStringToObject: function (queryString) {
+        _convertQueryStringToObject: function(queryString) {
             var jsonObj = {};
             var e,
                 a = /\+/g,
                 r = /([^&=]+)=?([^&]*)/g,
-                d = function (s) { return decodeURIComponent(s.replace(a, " ")); };
+                d = function(s) { return decodeURIComponent(s.replace(a, " ")); };
 
             while (e = r.exec(queryString)) {
                 jsonObj[d(e[1])] = d(e[2]);
@@ -137,7 +135,7 @@ THE SOFTWARE.
 
         /* Normalizes JSON data that is returned from server.
         *************************************************************************/
-        _normalizeJSONReturnData: function (data) {
+        _normalizeJSONReturnData: function(data) {
             //JSON Normalization for ASP.NET
             if (data.hasOwnProperty('d')) {
                 return data.d;
@@ -146,5 +144,4 @@ THE SOFTWARE.
             return data;
         }
     });
-
 })(jQuery);

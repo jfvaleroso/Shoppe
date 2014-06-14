@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Exchange.Core.Entities;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
 
 namespace Exchange.NHibernateBase.Mapping
@@ -17,9 +13,9 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.ApplicationName);
             Map(x => x.Description);
             HasManyToMany(x => x.UsersInRole)
-            .Cascade.All()
-            .Inverse()
-            .Table("UsersInRoles");
+                .Cascade.All()
+                .Inverse()
+                .Table("UsersInRoles");
         }
     }
 }

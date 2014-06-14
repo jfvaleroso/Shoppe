@@ -1,9 +1,5 @@
 ﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Exchange.NHibernateBase.Mapping
 {
@@ -17,7 +13,6 @@ namespace Exchange.NHibernateBase.Mapping
             References(x => x.Product, "Product_Id");
             Map(x => x.DateModified);
             Map(x => x.ModifiedBy);
-
         }
     }
 }

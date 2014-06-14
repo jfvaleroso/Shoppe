@@ -5,7 +5,7 @@
 }
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $('#DataTable').jtable({
             title: '',
             paging: true,
@@ -24,7 +24,7 @@
                 View: {
                     title: '',
                     width: '1.3%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = '<a data-toggle="tooltip" title="Click to manage."  href=@Url.Action("Manage")/' + data.record.Id + '><span class="glyphicon glyphicon-th-list"></span></a>';
                         return $img;
                     }
@@ -43,12 +43,11 @@
                 Active: {
                     title: 'Active',
                     width: '1.3%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img;
                         if (data.record.Active) {
                             $img = '<img class="center" src="@Url.Content("~/Content/images/active.png")" />';
-                        }
-                        else {
+                        } else {
                             $img = '<img class="center" src="@Url.Content("~/Content/images/inactive.png")" />';
                         }
                         return $img;
@@ -57,9 +56,9 @@
                 Delete: {
                     title: '',
                     width: '1.1%',
-                    display: function (data) {
+                    display: function(data) {
                         var $img = $('<a data-toggle="tooltip" title="remove this item" class="glyphicon glyphicon-trash pointer" ' + '></a>');
-                        $img.on('click', function (event) {
+                        $img.on('click', function(event) {
                             event.preventDefault();
                             $('#modalConfirmation #item').empty().append(data.record.Name);
                             $('#modalConfirmation').modal('show');
@@ -74,24 +73,19 @@
 
             toolbar: {
                 items: [
-
-                    ]
+                ]
             }
 
         });
-      
 
-       
     });
-   
 </script>
 @using (Html.BeginForm())
-{ 
-    
-       @Html.Partial("ModalTemplates/_Confirmation")
-        @Html.Partial("ModalTemplates/_Status")
-    
-      <div class="row">
+{
+    @Html.Partial("ModalTemplates/_Confirmation")
+    @Html.Partial("ModalTemplates/_Status")
+
+    <div class="row">
         <div class="col-lg-6">
             <div class="input-group">
                 <span class="input-group-btn">
@@ -117,12 +111,8 @@
     </div>
 </div>
 
-
 @Html.Hidden("Id")
 @Html.Hidden("Item")
 @Html.Hidden("New", Url.Action("New"))
 @Html.Hidden("Manage", Url.Action("Manage"))
 @Html.Hidden("Delete", Url.Action("Delete"))
-
-
-

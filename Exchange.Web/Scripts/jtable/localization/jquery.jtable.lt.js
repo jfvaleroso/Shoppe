@@ -2,8 +2,7 @@
     jTable localization file for 'Lithuanian' language.
     Author: Vygandas Šimkus
 */
-(function ($) {
-
+(function($) {
     $.extend(true, $.hik.jtable.prototype.options.messages, {
         serverCommunicationError: 'Klaida bandant susisiekti su serveriu.',
         loadingMessage: 'Informacija kraunama...',
@@ -26,5 +25,4 @@
         pageSizeChangeLabel: 'Row count', //New. Must be localized.
         gotoPageLabel: 'Go to page' //New. Must be localized.
     });
-
 })(jQuery);

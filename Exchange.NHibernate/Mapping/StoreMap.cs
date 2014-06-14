@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Exchange.Core.Entities;
 using FluentNHibernate.Mapping;
-using Exchange.Core.Entities;
 
 namespace Exchange.NHibernateBase.Mapping
 {
-    public class StoreMap: ClassMap<Store>
+    public class StoreMap : ClassMap<Store>
     {
         public StoreMap()
         {
@@ -25,15 +21,11 @@ namespace Exchange.NHibernateBase.Mapping
             Map(x => x.ModifiedBy);
             Map(x => x.DateModified);
             HasMany(x => x.Invoices)
-            .Inverse()
-            .Cascade.All();
+                .Inverse()
+                .Cascade.All();
             HasManyToMany(x => x.UsersInStore)
-           .Cascade.All()
-           .Table("UsersInStore");
-         
-
+                .Cascade.All()
+                .Table("UsersInStore");
         }
-
-       
     }
 }

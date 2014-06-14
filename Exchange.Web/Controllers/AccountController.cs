@@ -1,31 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Exchange.Core.Entities;
+using Exchange.Core.Services.IServices;
+using Exchange.Helper.Common;
+using Exchange.Providers;
+using Exchange.Web.Models;
+using Microsoft.Web.WebPages.OAuth;
+using System;
 using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using DotNetOpenAuth.AspNet;
-using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using Exchange.Web.Models;
-using Exchange.Core.Services.IServices;
-using Exchange.Helper;
-using Exchange.Core.Entities;
-using System.Web.Profile;
-using Exchange.Core.Services.Implementation;
-using Exchange.Provider.Profile;
-using Exchange.Helper.Common;
-
-
+using Roles = System.Web.Security.Roles;
 
 namespace Exchange.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-
-
         //private readonly IUserService userService;
         //private readonly IProfileService profileService;
         //private readonly IRoleService roleService;
@@ -34,22 +24,23 @@ namespace Exchange.Web.Controllers
         //private readonly NHRoleProvider roleProvider;
         //private readonly UserProfileBase userProfileBase;
         private readonly IStoreService storeService;
-        private readonly IUserService userService;
-        public AccountController(IStoreService storeService, IUserService userService)//(IUserService userService, IProfileService profileService, IRoleService roleService)
-        {
-            //this.profileService = profileService;
-            //this.userService = userService;
-            //this.roleService = roleService;
-            //this.membershipProvider = Exchange.Web.Helper.Provider.membershipProvider;
-            //this.profileProvider = Exchange.Web.Helper.Provider.profileProvider;
-            //this.userProfileBase = Exchange.Web.Helper.Provider.userProfileBase;
-            //this.roleProvider = Exchange.Web.Helper.Provider.roleProvider; //new NHRoleProvider(this.userService, this.roleService);
 
-            this.storeService = storeService;
-            this.userService= userService;
+        private readonly IUserService userService;
+
+        public AccountController(IStoreService storeService, IUserService userService)
+        //(IUserService userService, IProfileService profileService, IRoleService roleService)
+        {
+            //profileService = profileService;
+            //userService = userService;
+            //roleService = roleService;
+            //membershipProvider = Exchange.Web.Helper.Provider.membershipProvider;
+            //profileProvider = Exchange.Web.Helper.Provider.profileProvider;
+            //userProfileBase = Exchange.Web.Helper.Provider.userProfileBase;
+            //roleProvider = Exchange.Web.Helper.Provider.roleProvider; //new NHRoleProvider(userService, roleService);
+
+            storeService = storeService;
+            userService = userService;
         }
-       
-       
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -77,7 +68,6 @@ namespace Exchange.Web.Controllers
             return View(model);
         }
 
-
         public ActionResult Index()
         {
             return View();
@@ -93,8 +83,7 @@ namespace Exchange.Web.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }
-
-
+       
         //
         // GET: /Account/Register
 
@@ -118,7 +107,6 @@ namespace Exchange.Web.Controllers
             //    })
             //};
             return View(model);
-
         }
 
         //
@@ -134,47 +122,41 @@ namespace Exchange.Web.Controllers
                 // Attempt to register the user
                 try
                 {
-                   // List<Users> users = userService.GetAll().ToList();
+                    // List<Users> users = userService.GetAll().ToList();
                     string password = Base.GenearateKey(8);
-                    MembershipCreateStatus status = MembershipCreateStatus.UserRejected;
-                    Membership.CreateUser(model.UserName, password, model.UserName + "@gmail.com","what is","yes",true,null, out status);
+                    var status = MembershipCreateStatus.UserRejected;
+                    Membership.CreateUser(model.UserName, password, model.UserName + "@gmail.com", "what is", "yes",
+                        true, null, out status);
                     MembershipUser user = Membership.GetUser(model.UserName, false);
                     user.Email = "test@gmail.com";
                     Membership.UpdateUser(user);
 
+                    // Profiles profile = profileProvider.CreateProfile(model.UserName, true);
 
-
-
-                  // Profiles profile = this.profileProvider.CreateProfile(model.UserName, true);
-                    
-                   UserProfileBase profile = UserProfileBase.GetUserProfile(model.UserName);
-
-                   
+                    UserProfileBase profile = UserProfileBase.GetUserProfile(model.UserName);
 
                     if (profile != null)
                     {
                         profile.FirstName = "jeffrey";
                         profile.LastName = "Valeroso";
-                        profile.Address = "Taytay, Rizal";
+                        //  profile.Address = "Taytay, Rizal";
                         profile.Gender = "M";
                         profile.Language = "English";
                         profile.Position = "Senior Software Developer";
                         profile.Subscription = "None";
                         profile.Save();
-                      
                     }
 
+                    bool check = Roles.RoleExists("MVP");
 
-                   bool check= System.Web.Security.Roles.RoleExists("MVP");
-                 
-                    string[] usernames = new string[] { model.UserName};
-                    string[] roles = new string[] { "MVP" };
+                    string[] usernames = { model.UserName };
+                    string[] roles = { "MVP" };
 
-                    System.Web.Security.Roles.AddUsersToRoles(usernames, roles);
+                    Roles.AddUsersToRoles(usernames, roles);
                     //add user to role
                     //System.Web.Security.Roles.AddUserToRole(model.UserName, model.RoleName);
 
-                    Store store = new Store();
+                    var store = new Store();
                     store.Address = "Makati City";
                     store.Active = true;
                     store.Code = "MC2012";
@@ -182,11 +164,11 @@ namespace Exchange.Web.Controllers
                     store.DateCreated = DateTime.Now;
                     store.PermitNo = "1223423";
 
-                    Users employee = this.userService.GetUserByUsernameApplicationName(user.UserName, "Exchange");
+                    Users employee = userService.GetUserByUsernameApplicationName(user.UserName, "Exchange");
                     store.AddUser(employee);
 
-                  //  this.storeService.SaveOrUpdate(store);
-                    
+                    //  storeService.SaveOrUpdate(store);
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)
@@ -198,11 +180,6 @@ namespace Exchange.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-
-
-
-
 
         //
         // POST: /Account/Disassociate
@@ -218,7 +195,9 @@ namespace Exchange.Web.Controllers
             if (ownerAccount == User.Identity.Name)
             {
                 // Use a transaction to prevent the user from deleting their last login credential
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
+                using (
+                    var scope = new TransactionScope(TransactionScopeOption.Required,
+                        new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
                 {
                     bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
@@ -239,10 +218,13 @@ namespace Exchange.Web.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : "";
+                message == ManageMessageId.ChangePasswordSuccess
+                    ? "Your password has been changed."
+                    : message == ManageMessageId.SetPasswordSuccess
+                        ? "Your password has been set."
+                        : message == ManageMessageId.RemoveLoginSuccess
+                            ? "The external login was removed."
+                            : "";
             ViewBag.HasLocalPassword = false;
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
@@ -255,7 +237,6 @@ namespace Exchange.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Manage(LocalPasswordModel model)
         {
-
             ViewBag.ReturnUrl = Url.Action("Manage");
 
             if (ModelState.IsValid)
@@ -264,7 +245,6 @@ namespace Exchange.Web.Controllers
                 bool changePasswordSucceeded;
                 try
                 {
-
                     MembershipUser user = Membership.GetUser(User.Identity.Name, true);
                     changePasswordSucceeded = user.ChangePassword(model.OldPassword, model.NewPassword);
                 }
@@ -277,31 +257,14 @@ namespace Exchange.Web.Controllers
                 {
                     return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
                 }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
+                ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-
-
-
         #region Helpers
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
 
         public enum ManageMessageId
         {
@@ -310,7 +273,14 @@ namespace Exchange.Web.Controllers
             RemoveLoginSuccess,
         }
 
-
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
@@ -322,7 +292,8 @@ namespace Exchange.Web.Controllers
                     return "User name already exists. Please enter a different user name.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return
+                        "A user name for that e-mail address already exists. Please enter a different e-mail address.";
 
                 case MembershipCreateStatus.InvalidPassword:
                     return "The password provided is invalid. Please enter a valid password value.";
@@ -340,15 +311,19 @@ namespace Exchange.Web.Controllers
                     return "The user name provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return
+                        "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
                 case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return
+                        "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
                 default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return
+                        "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
-        #endregion
+
+        #endregion Helpers
     }
 }

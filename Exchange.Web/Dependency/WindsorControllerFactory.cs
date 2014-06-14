@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Castle.MicroKernel;
+using System;
 using System.Web;
 using System.Web.Mvc;
-using Castle.MicroKernel;
 using System.Web.Routing;
-
 
 namespace Exchange.Web.Dependency
 {
@@ -27,10 +24,11 @@ namespace Exchange.Web.Dependency
         {
             if (controllerType == null)
             {
-                throw new HttpException(404, string.Format("The controller for path '{0}' could not be found.", requestContext.HttpContext.Request.Path));
+                throw new HttpException(404,
+                    string.Format("The controller for path '{0}' could not be found.",
+                        requestContext.HttpContext.Request.Path));
             }
 
-           
             return (IController)_kernel.Resolve(controllerType);
         }
     }

@@ -1,38 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using Exchange.Core.Entities;
 using Exchange.Core.Services.IServices;
-using Exchange.Core.Entities;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Exchange.Web.Areas.Admin.Controllers
 {
     public class ActivityLogsController : Controller
     {
-        private readonly IActivityLogsService activityLogsService;
+        private readonly IActivityLogsService _activityLogsService;
+
         public ActivityLogsController(IActivityLogsService activityLogsService)
         {
-            this.activityLogsService = activityLogsService;
+            _activityLogsService = activityLogsService;
         }
+
         public ActionResult Index()
         {
             return View();
         }
+
         public JsonResult ActivityLogsListWithPaging(string searchString = "", int jtStartIndex = 1, int jtPageSize = 15)
         {
             try
             {
                 long total = 0;
-                var activityLogsList = !string.IsNullOrEmpty(searchString) ?
-                    this.activityLogsService.GetDataListWithPagingAndSearch(searchString, jtStartIndex, jtPageSize, out total) :
-                   this.activityLogsService.GetDataListWithPaging(jtStartIndex, jtPageSize, out total);
-                return Json(new { Result = "OK", Records = activityLogsList, TotalRecordCount = total }, JsonRequestBehavior.AllowGet);
+                List<ActivityLogs> activityLogsList = !string.IsNullOrEmpty(searchString)
+                    ? _activityLogsService.GetDataListWithPagingAndSearch(searchString, jtStartIndex, jtPageSize,
+                        out total)
+                    : _activityLogsService.GetDataListWithPaging(jtStartIndex, jtPageSize, out total);
+                return Json(new { Result = "OK", Records = activityLogsList, TotalRecordCount = total },
+                    JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return Json(new { Result = "ERROR", Message = ex.InnerException.Message });
-
+                return Json(new { Result = "ERROR", ex.InnerException.Message });
             }
         }
 
@@ -40,17 +42,14 @@ namespace Exchange.Web.Areas.Admin.Controllers
         {
             try
             {
-                ActivityLogs activityLogs = this.activityLogsService.GetDataById(new Guid(id));
+                ActivityLogs activityLogs = _activityLogsService.GetDataById(new Guid(id));
                 if (activityLogs != null)
                     return View(activityLogs);
-
             }
             catch (Exception)
             {
-
             }
             return RedirectToAction("Index");
         }
-
     }
 }

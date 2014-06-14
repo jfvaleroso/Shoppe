@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Web", "Exchange.Web\Exchange.Web.csproj", "{1E674EEE-C8A8-45BD-B219-AC3BDB0520D3}"
 EndProject
@@ -15,7 +15,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Dependency", "Exch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Helper", "Exchange.Helper\Exchange.Helper.csproj", "{062E3EBD-06E1-40BE-BAA9-73A36DEFE591}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Provider", "Exchange.Provider\Exchange.Provider.csproj", "{943242F2-D0FB-488A-B11C-792C8EB4C351}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.Providers", "Exchange.Providers\Exchange.Providers.csproj", "{1D20BD76-252D-448F-B014-146F3C2FF23F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AEB54678-9204-4D73-935B-FC64781B554A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +54,10 @@ Global
 		{062E3EBD-06E1-40BE-BAA9-73A36DEFE591}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{062E3EBD-06E1-40BE-BAA9-73A36DEFE591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{062E3EBD-06E1-40BE-BAA9-73A36DEFE591}.Release|Any CPU.Build.0 = Release|Any CPU
-		{943242F2-D0FB-488A-B11C-792C8EB4C351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{943242F2-D0FB-488A-B11C-792C8EB4C351}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{943242F2-D0FB-488A-B11C-792C8EB4C351}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{943242F2-D0FB-488A-B11C-792C8EB4C351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D20BD76-252D-448F-B014-146F3C2FF23F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D20BD76-252D-448F-B014-146F3C2FF23F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D20BD76-252D-448F-B014-146F3C2FF23F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D20BD76-252D-448F-B014-146F3C2FF23F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Castle.Windsor;
+using Castle.Windsor.Installer;
+using Exchange.Dependency.Installer;
+using Exchange.Web.ApiDependency;
+using Exchange.Web.Dependency;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Exchange.Dependency.Installer;
-using Castle.Windsor;
-using Castle.Windsor.Installer;
-using Exchange.Web.Dependency;
-using System.Web.Security;
-using Exchange.Core.Repositories;
-using Exchange.Core.Services.IServices;
-
-using Exchange.Core.Services.Implementation;
-using Exchange.Web.ApiDependency;
+using Exchange.Web.Helper;
 
 namespace Exchange.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
-
         private WindsorContainer _windsorContainer;
+
         protected void Application_Start()
         {
             InitializeWindsor();
@@ -34,10 +27,9 @@ namespace Exchange.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-          
-
-          
-            
+            //intialize first user
+            var initialize=new Initialize();
+            initialize.ActivateInitialUser();
         }
 
         protected void Application_End()
@@ -53,20 +45,19 @@ namespace Exchange.Web
             _windsorContainer = new WindsorContainer();
             _windsorContainer.Install(FromAssembly.Containing<DependencyInstaller>());
             _windsorContainer.Install(FromAssembly.This());
-            
+
             //test
             //Exchange.Web.Helper.Provider.membershipProvider = new NHMembershipProvider(_windsorContainer.Resolve<IUserService>());
             //Exchange.Web.Helper.Provider.roleProvider = new NHRoleProvider(_windsorContainer.Resolve<IUserService>(), _windsorContainer.Resolve<IRoleService>());
             //Exchange.Web.Helper.Provider.profileProvider = new NHProfileProvider(_windsorContainer.Resolve<IUserService>(), _windsorContainer.Resolve<IProfileService>());
             //Exchange.Web.Helper.Provider.userProfileBase = new UserProfileBase(_windsorContainer.Resolve<IUserService>(), _windsorContainer.Resolve<IProfileService>());
 
-             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(_windsorContainer.Kernel));
+            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(_windsorContainer.Kernel));
             //register web api dependency resolver
-             GlobalConfiguration.Configuration.DependencyResolver = new WindsorDependencyResolver(_windsorContainer.Kernel);
+            GlobalConfiguration.Configuration.DependencyResolver =
+                new WindsorDependencyResolver(_windsorContainer.Kernel);
             //filter
-             System.Web.HttpContext.Current.Application["Windsor"] = _windsorContainer;
+            HttpContext.Current.Application["Windsor"] = _windsorContainer;
         }
-
-       
     }
 }

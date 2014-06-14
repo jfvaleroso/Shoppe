@@ -135,7 +135,7 @@ namespace Exchange.Provider.Membership
         //Fn to create a Membership user from a Users class
         private MembershipUser GetMembershipUserFromUser(Users usr )
         {
-            MembershipUser u = new MembershipUser(this.Name,
+            MembershipUser u = new MembershipUser(Name,
                                                   usr.Username ,
                                                   usr.Id,
                                                   usr.Email ,
@@ -364,7 +364,7 @@ namespace Exchange.Provider.Membership
                         else
                             usr = session.CreateCriteria(typeof(Users))
                                             .Add(NHibernate.Criterion.Restrictions.Eq("Username", username))
-                                            .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                            .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                             .UniqueResult<Users>();
 
                         if (usr != null)
@@ -402,7 +402,7 @@ namespace Exchange.Provider.Membership
                     {
                         usr = session.CreateCriteria(typeof(Users))
                                         .Add(NHibernate.Criterion.Restrictions.Eq("Username", username))
-                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                         .UniqueResult < Users>(); 
                                        
 
@@ -430,7 +430,7 @@ namespace Exchange.Provider.Membership
                     try
                     {
                         usrs = session.CreateCriteria(typeof(Users))
-                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                         .List<Users>();
 
                     }
@@ -458,7 +458,7 @@ namespace Exchange.Provider.Membership
                     {
                         usrs = session.CreateCriteria(typeof(Users))
                                         .Add(NHibernate.Criterion.Restrictions.Like("Username", usernameToMatch))
-                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                         .List<Users>();
 
                     }
@@ -486,7 +486,7 @@ namespace Exchange.Provider.Membership
                     {
                         usrs = session.CreateCriteria(typeof(Users))
                                         .Add(NHibernate.Criterion.Restrictions.Like("Email", emailToMatch))
-                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                        .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                         .List<Users>();
 
                     }
@@ -735,13 +735,10 @@ namespace Exchange.Provider.Membership
 
                         try
                         {
-                            int retId = (int)session.Save(user);
+                            var retId = (Guid)session.Save(user);
                             
                             transaction.Commit();
-                            if ((retId <1))
-                                status = MembershipCreateStatus.UserRejected;
-                            else
-                                status = MembershipCreateStatus.Success;
+                            status = retId == Guid.Empty ? MembershipCreateStatus.UserRejected : MembershipCreateStatus.Success;
                         }
                         catch(Exception e)
                         {
@@ -811,7 +808,7 @@ namespace Exchange.Provider.Membership
                     try
                     {
                         totalRecords = (Int32)session.CreateCriteria(typeof(Users))
-                                    .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                    .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                     .SetProjection(NHibernate.Criterion.Projections.Count("Id")).UniqueResult();
 
                         if (totalRecords <= 0) { return users; }
@@ -854,7 +851,7 @@ namespace Exchange.Provider.Membership
                     try
                     {
                         numOnline = (Int32)session.CreateCriteria(typeof(Users))
-                                           .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", this.ApplicationName))
+                                           .Add(NHibernate.Criterion.Restrictions.Eq("ApplicationName", ApplicationName))
                                            .Add(NHibernate.Criterion.Restrictions.Gt("LastActivityDate", compareTime))
                                            .SetProjection(NHibernate.Criterion.Projections.Count("Id")).UniqueResult();
                     }
@@ -1047,7 +1044,7 @@ namespace Exchange.Provider.Membership
                         usr.Password = EncodePassword(newPassword);
                         usr.LastPasswordChangedDate = System.DateTime.Now;
                         usr.Username = username;
-                        usr.ApplicationName = this.ApplicationName;
+                        usr.ApplicationName = ApplicationName;
                         session.Update(usr);
                         transaction.Commit();
                         rowsAffected = 1;

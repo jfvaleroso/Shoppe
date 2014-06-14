@@ -21,6 +21,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -253,6 +255,7 @@
     <Compile Include="Helper\Access.cs" />
     <Compile Include="Helper\Common.cs" />
     <Compile Include="Helper\CrytoProvider.cs" />
+    <Compile Include="Helper\Initialize.cs" />
     <Compile Include="Helper\Provider.cs" />
     <Compile Include="Helper\Service.cs" />
     <Compile Include="Helper\Status.cs" />
@@ -625,6 +628,15 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Readme.txt" />
+    <Content Include="Areas\Admin\Views\Maintenance\Index.cshtml" />
+    <Content Include="Areas\Report\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\History.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Register.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\New.cshtml" />
+    <Content Include="Areas\Admin\Views\Roles\Manage.cshtml" />
+    <Content Include="Areas\Admin\Views\Employee\Manage.cshtml" />
+    <Content Include="Content\bootstrap\fonts\8-PM____.TTF" />
     <Content Include="Scripts\bootstrap.datetime\bday-picker.js" />
     <Content Include="Scripts\bootstrap.datetime\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.datetime\daterangepicker.js" />
@@ -891,8 +903,8 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\global\jquery.blockUI.js" />
     <Content Include="Scripts\global\invoice.js" />
+    <Content Include="Scripts\global\jquery.blockUI.js" />
     <Content Include="Scripts\global\shoppe.js" />
     <Content Include="Scripts\html5\html5shiv.js" />
     <Content Include="Scripts\html5\respond.min.js" />
@@ -905,17 +917,8 @@
     <Content Include="Scripts\images\phone.png" />
     <Content Include="Scripts\images\sms-text.jpg" />
     <Content Include="Scripts\images\spinner.gif" />
-    <Content Include="Areas\Admin\Views\Maintenance\Index.cshtml" />
-    <Content Include="Areas\Report\Views\Admin\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\History.cshtml" />
-    <Content Include="Areas\Admin\Views\Employee\Register.cshtml" />
-    <Content Include="Areas\Admin\Views\Roles\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Roles\New.cshtml" />
-    <Content Include="Areas\Admin\Views\Roles\Manage.cshtml" />
-    <Content Include="Areas\Admin\Views\Employee\Manage.cshtml" />
-    <Content Include="Content\bootstrap\fonts\8-PM____.TTF" />
-    <None Include="Scripts\jquery.validate\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate\jquery.numeric.js" />
+    <None Include="Scripts\jquery.validate\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate\jquery.validate.unobtrusive.js" />
@@ -958,9 +961,9 @@
     <Content Include="Scripts\jtable\themes\metro\column-sortable.png" />
     <Content Include="Scripts\jtable\themes\metro\delete.png" />
     <Content Include="Scripts\jtable\themes\metro\edit.png" />
-    <Content Include="Scripts\jtable\themes\metro\jeff\spinner.gif" />
     <Content Include="Scripts\jtable\themes\metro\jeff\jtable.css" />
     <Content Include="Scripts\jtable\themes\metro\jeff\loading.gif" />
+    <Content Include="Scripts\jtable\themes\metro\jeff\spinner.gif" />
     <Content Include="Scripts\kendo\2012.2.913\jquery.min.js" />
     <None Include="Scripts\kendo\2012.2.913\kendo.all-vsdoc.js" />
     <Content Include="Scripts\kendo\2012.2.913\kendo.all.min.js" />
@@ -1191,10 +1194,13 @@
     <Content Include="Views\Shared\DisplayTemplates\BootstrapMenuHelperModel.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Exchange\Index.cshtml" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\Thumbs.db" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\Thumbs.db" />
     <Content Include="Scripts\ckeditor\plugins\scayt\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\README.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Scripts\ckeditor\samples\assets\inlineall\Thumbs.db" />
     <Content Include="Scripts\ckeditor\samples\assets\posteddata.php" />
     <Content Include="Scripts\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="Scripts\ckeditor\samples\sample_posteddata.php" />
@@ -1220,9 +1226,9 @@
       <Project>{062E3EBD-06E1-40BE-BAA9-73A36DEFE591}</Project>
       <Name>Exchange.Helper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Exchange.Provider\Exchange.Provider.csproj">
-      <Project>{943242F2-D0FB-488A-B11C-792C8EB4C351}</Project>
-      <Name>Exchange.Provider</Name>
+    <ProjectReference Include="..\Exchange.Providers\Exchange.Providers.csproj">
+      <Project>{1d20bd76-252d-448f-b014-146f3c2ff23f}</Project>
+      <Name>Exchange.Providers</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -1254,6 +1260,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

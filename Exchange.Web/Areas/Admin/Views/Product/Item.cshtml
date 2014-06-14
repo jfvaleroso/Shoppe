@@ -4,62 +4,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    @using (Html.BeginForm())
-    {
-            
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <strong>New Product</strong>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Name)
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", disabled = "true" })
-                                @Html.ValidationMessageFor(model => model.Name)
-                            </div>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Code)
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Code, new { @class = "form-control", disabled = "true" })
-                                @Html.ValidationMessageFor(model => model.Code)
-                            </div>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Description)
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", disabled = "true" })
-                                @Html.ValidationMessageFor(model => model.Description)
-                            </div>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Cost)
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.Cost, new { @class = "form-control", disabled = "true" })
-                                @Html.ValidationMessageFor(model => model.Cost)
-                            </div>
-                            <div class="editor-label">
-                                <label>
-                                    Type</label>
-                            </div>
-                            <div class="editor-field">
-                                @Html.TextBoxFor(model => model.ProductType.Name, new { @class = "form-control", disabled = "true" })
-                                @Html.ValidationMessageFor(model => model.ProductType)
-                            </div>
-                          
-                            @Html.HiddenFor(model => model.Id)
+@using (Html.BeginForm())
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong>New Product</strong>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Name)
                         </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Name, new {@class = "form-control", disabled = "true"})
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Code)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Code, new {@class = "form-control", disabled = "true"})
+                            @Html.ValidationMessageFor(model => model.Code)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Description)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Description, new {@class = "form-control", disabled = "true"})
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Cost)
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Cost, new {@class = "form-control", disabled = "true"})
+                            @Html.ValidationMessageFor(model => model.Cost)
+                        </div>
+                        <div class="editor-label">
+                            <label>
+                                Type</label>
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.ProductType.Name, new {@class = "form-control", disabled = "true"})
+                            @Html.ValidationMessageFor(model => model.ProductType)
+                        </div>
+
+                        @Html.HiddenFor(model => model.Id)
                     </div>
                 </div>
             </div>
         </div>
-    }
-
+    </div>
+}
 
 <div class="right">
     <input type="button" value="Back to the List" class="btn btn-large btn-success" id="btnBackToList" />
