@@ -21,6 +21,7 @@ namespace Exchange.Core.Services.IServices
         void SaveOrUpdate(Profiles entity);
 
         void Delete(Profiles entity);
+        List<Profiles> GetAllData();
 
         List<Profiles> GetDataWithPaging(int pageIndex, int pageSize, out long total);
 

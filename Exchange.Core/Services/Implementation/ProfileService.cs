@@ -1,4 +1,5 @@
-﻿using Exchange.Core.Entities;
+﻿using System.Linq;
+using Exchange.Core.Entities;
 using Exchange.Core.Repositories;
 using Exchange.Core.Services.IServices;
 using System;
@@ -53,6 +54,11 @@ namespace Exchange.Core.Services.Implementation
         }
 
         #endregion Profile Implementation
+
+        public List<Profiles> GetAllData()
+        {
+            return _profileRepository.GetAll().ToList();
+        }
 
         public List<Profiles> GetDataWithPaging(int pageIndex, int pageSize, out long total)
         {

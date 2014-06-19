@@ -1,4 +1,5 @@
-﻿using NHibernate.Criterion;
+﻿using System;
+using NHibernate.Criterion;
 using System.Collections.Generic;
 
 namespace Exchange.NHibernateBase.Filters
@@ -12,6 +13,12 @@ namespace Exchange.NHibernateBase.Filters
                 Restrictions.Like("Code", searchString, MatchMode.Anywhere),
                 Restrictions.Like("Name", searchString, MatchMode.Anywhere)
                 ));
+            return criterion;
+        }
+
+        public static List<ICriterion> SearchById(string id)
+        {
+            var criterion = new List<ICriterion> {Restrictions.Eq("Id", new Guid(id))};
             return criterion;
         }
 

@@ -224,6 +224,17 @@ namespace Exchange.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult SearchAllEmployee()
+        {
+            var employeeList = _profileService.GetAllData();
+            var data = employeeList.Select(x => new
+            {
+                name = string.Format("{0}, {1}", x.LastName, x.FirstName),
+                id = x.UserId.ToString()
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult SearchCustomer(string searchString)
         {
             long total = 0;

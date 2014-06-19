@@ -109,11 +109,7 @@ namespace Exchange.Core.Services.Implementation
             parameter.Add("ProductType", entity.ProductType);
             parameter.Add("Active", entity.Active);
             List<Product> process = _productRepository.CheckIfDataExists(parameter);
-            if (process.Count() > 0)
-            {
-                return true;
-            }
-            return false;
+            return process.Any();
         }
 
         public bool CheckDataIfExists(string param)
@@ -121,11 +117,7 @@ namespace Exchange.Core.Services.Implementation
             var parameter = new Dictionary<string, object>();
             parameter.Add("Code", param);
             List<Product> process = _productRepository.CheckIfDataExists(parameter);
-            if (process.Count() > 0)
-            {
-                return true;
-            }
-            return false;
+            return process.Any();
         }
 
         #endregion Validator

@@ -103,14 +103,12 @@ C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Castle.Facilities.L
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Castle.Windsor.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Core.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.NHibernateBase.dll
-C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Provider.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\FluentNHibernate.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Iesi.Collections.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\NHibernate.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Helper.dll
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Core.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.NHibernateBase.pdb
-C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Exchange.Provider.pdb
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Castle.Core.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Castle.Facilities.Logging.xml
 C:\GITREPOSITORY\GITHUB\SHOPPE\Exchange.Dependency\bin\Debug\Castle.Windsor.xml

@@ -267,7 +267,10 @@
                 }
             });
         },
-        searchEmployee: function(query, process) {
+        searchEmployee: function (query, process) {
+            var employees = [];
+            map = {};
+
             $.ajax({
                 url: 'buy/SearchEmployee',
                 dataType: "json",
@@ -275,14 +278,35 @@
                 dataFilter: function(data) { return data; },
                 success: function(data) {
                     $.each(data, function(i, employee) {
-                        search_employee_map[employee.name] = employee;
-                        search_employee_names.push(employee.name);
+                        map[employee.name] = employee;
+                        employees.push(employee.name);
                     });
-                    process(search_employee_names);
+                    employeeNames = employees;
+                    process(employees);
                 }
             });
+
+            //var employees = [];
+            //map = {};
+
+            //// This is going to make an HTTP post request to the controller
+            //return $.post('buy/SearchAllEmployee', { query: query }, function (data) {
+
+            //    // Loop through and push to the array
+            //    $.each(data, function (i, employee) {
+            //        map[employee.name] = employee;
+            //        employees.push(employee.name);
+            //    });
+
+            //    // Process the details
+            //    process(employees);
+            //});
+
+
         },
-        searchCustomer: function(query, process) {
+        searchCustomer: function (query, process) {
+            var customers = [];
+            map = {};
             $.ajax({
                 url: 'buy/SearchCustomer',
                 dataType: "json",
@@ -290,10 +314,10 @@
                 dataFilter: function(data) { return data; },
                 success: function(data) {
                     $.each(data, function(i, customer) {
-                        search_customer_map[customer.name] = customer;
-                        search_customer_names.push(customer.name);
+                        map[customer.name] = customer;
+                        customers.push(customer.name);
                     });
-                    process(search_customer_names);
+                    process(customers);
                 }
             });
         },
@@ -341,10 +365,9 @@
     };
 }();
 
-var search_employee_names = [];
-var search_employee_map = {};
-var search_customer_names = [];
-var search_customer_map = {};
+var employeeNames = [];
+var customerName = [];
+
 
 $(function() {
     //global settings
@@ -481,7 +504,7 @@ $(function() {
             invoice.searchEmployee(query, process);
         },
         updater: function(item) {
-            selectedId = search_employee_map[item].id;
+            var selectedId = map[item].id;
             $('#AppraiserId').val(selectedId);
             return item;
         },
@@ -491,16 +514,16 @@ $(function() {
             }
         },
         sorter: function(items) {
-            return items.sort();
+           return items.sort();
         },
         highlighter: function(item) {
             var regex = new RegExp('(' + this.query + ')', 'gi');
             return item.replace(regex, "<strong>$1</strong>");
         }
-    }).blur(function() {
-        if (search_employee_names.indexOf($(this).val().trim()) == -1) {
+    }).blur(function () {
+        if (employeeNames.indexOf($(this).val().trim()) == -1) {
             $('#Appraiser').val('');
-            $('#AppraiserId').val('0');
+            $('#AppraiserId').val('');
         }
     });
     //save and approve invoice
